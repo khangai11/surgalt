@@ -1,5 +1,6 @@
 Өөрсдийн ашиглаж сурсан IDE байвал тэрийгээ ашиглах, байхгүй бол доорхи програмыг суулгаж, тохируулаарай
-#Visual studio code дээр c++ програм бичих, compile хийх орчин бэлдэх арга
+
+# Visual studio code дээр c++ програм бичих, compile хийх орчин бэлдэх арга
 
 [Энэ](https://code.visualstudio.com/docs/cpp/config-mingw#_prerequisites) зааврын дагуу хийнэ.
 
