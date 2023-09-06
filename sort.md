@@ -87,14 +87,21 @@ sort(b.begin(),b.end(),[&](vector<int> a, vector<int> b){
 ```
 
 Бодлого1( 800): https://codeforces.com/problemset/problem/1742/B
+
 Бодлого2( 900): https://codeforces.com/problemset/problem/1771/A
+
 Бодлого3(1200): https://codeforces.com/problemset/problem/1650/C
+
 Бодлого4(1900): https://codeforces.com/problemset/problem/22/D
 
 Бодлого5( 800): https://codeforces.com/problemset/problem/1626/A
+
 Бодлого6(1000): https://codeforces.com/problemset/problem/1713/B
+
 Бодлого7(1200): https://codeforces.com/contest/1294/problem/B
+
 Бодлого8( 900): https://codeforces.com/problemset/problem/1697/B
+
 Бодлого9( 900): https://codeforces.com/problemset/problem/1584/C
 
 
