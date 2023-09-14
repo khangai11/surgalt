@@ -95,13 +95,13 @@ while(r>=l){
     if(arr[m1]==x) return m1;
     if(arr[m2]==x) return m2;
     if(arr[m1]==arr[m2]) {
-        l = m1;
-        r = m2;
+        l = m1+1;
+        r = m2-1;
     }
     else if(arr[m1]>arr[m2]){
-        r = m2;
+        r = m2-1;
     } else {
-        l = m1;
+        l = m1+1;
     }
     return -1; //not found
 }
