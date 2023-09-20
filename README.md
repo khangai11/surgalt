@@ -6,3 +6,5 @@
 4. [Sort](sort.md)
 5. [Binary search](binary_search.md)
 6. [STL functions and data structures](stl_functions.md)
+7. [Graph](graph.md)
+8. 
