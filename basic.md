@@ -73,14 +73,6 @@ string s;
 getline(cin,s);
 ```
 
-# Modular arithmetic
-Бодлогууд дотор хариу нь хэтэрхий том болчихвол (10e9+7) эсвэл 998244353-д хуваасан үлдэгдлийг нь гаргах бодлого их байдаг.
-mod нь дараах шинж чанартай
-```
-(a+b)mod m= (a mod m+b mod bm)mod m
-(a−b)mod m= (a mod m−b mod m)mod m
-(a·b)mod m= (a mod m·b mod m)mod m
-
 (a/b) mod m = ((a mod m) * inverse(b) mod m) mod m
 inverse(b) = b^(phi(m)-2)
 phi(m) = Euler's totient function
