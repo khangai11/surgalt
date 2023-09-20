@@ -72,8 +72,3 @@ for(int i=0;i<100;i++){
 string s;
 getline(cin,s);
 ```
-
-(a/b) mod m = ((a mod m) * inverse(b) mod m) mod m
-inverse(b) = b^(phi(m)-2)
-phi(m) = Euler's totient function
-```
