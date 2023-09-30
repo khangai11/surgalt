@@ -48,3 +48,16 @@ for(auto v:c){
 //khan 11111
 //toi 1
 ```
+
+```cpp
+//Map, set, vector-т нийтлэг ашиглаж болох давталт
+map<int,int> mp;
+for(auto v:mp){
+    cout<<v.first<<v.second<<"\n";
+}
+
+for(auto itr = mp.begin();itr!=mp.end();itr++){
+    cout<<(*itr).first<<(*itr).second<<"\n";
+}
+
+```
