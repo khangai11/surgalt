@@ -53,6 +53,9 @@ for(auto v:c){
 //Map, set, vector-т нийтлэг ашиглаж болох давталт
 map<int,int> mp;
 for(auto v:mp){
+    //v.first дотор map-Т ашиглаж байгаа хаяг нь
+    //v.second дотор map-т утга нь орсон байна.
+    // өөрөөр хэлбэл mp[v.first]=v.second гэсэн дата mp дотор байгаа гэсэн үг.
     cout<<v.first<<v.second<<"\n";
 }
 
