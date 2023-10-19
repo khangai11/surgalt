@@ -26,7 +26,6 @@ DFS нь очоогүй байгаа элемент олдох л юм бол х
    while(!s.empty()){
     int u = s.top();
     s.pop();
-    if(visited[u]) continue;
     for(auto v:e[u]){
         if(!visited[v]){
             s.push(v);
@@ -43,6 +42,7 @@ DFS нь очоогүй байгаа элемент олдох л юм бол х
    ```cpp
    void dfs(int u){
         if(visited[u]) return;
+        visited[u] = true;
         for(auto v:e[u]){
             dfs(v);
         }

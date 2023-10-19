@@ -1,5 +1,5 @@
-# surgalt
-сургалтын материал
+# Nand сургалтын төв(Дархан-Уул аймаг)
+Сургалтын материал
 1. [VSCode дээр орчин бэлдэх](vscode_environment.md)
 2. [Байнга ашиглах код, оролт гаралт](basic.md)()
 3. [Time Complexity](time_complexity.md)
