@@ -23,6 +23,9 @@ Queue ашиглах
    vector<vector<int>> e(n);
    queue<int> q;
    vector<bool> visited(n,false);
+   int start = 0;
+   q.push(start);
+   visited[start] = true;
    while(!q.empty()){
     int u = q.front();
     q.pop();
