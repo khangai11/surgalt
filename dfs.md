@@ -23,9 +23,18 @@ DFS нь очоогүй байгаа элемент олдох л юм бол х
    vector<vector<int>> e(n);
    stack<int> s;
    vector<bool> visited(n,false);
+   //ehleh oroi
+   int start = 0;
+   s.push(start);
    while(!s.empty()){
+    //daraagiin songoh oroi
     int u = s.top();
     s.pop();
+    //hervee ali hediin ochson bol algasna.
+    if(visited[u]) continue;
+    //ochoogui baival ochson gej temdegleed
+    visited[u] = true;
+    //holbootoi oroinuudiig stack ruugaa nemne.
     for(auto v:e[u]){
         if(!visited[v]){
             s.push(v);
