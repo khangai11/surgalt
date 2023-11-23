@@ -22,15 +22,21 @@ Queue ашиглах
    // хөршүүдийн жагсаалт хэлбэрээр e  дотор хадгалсан гэж үзье.
    vector<vector<int>> e(n);
    queue<int> q;
+   //queue-d nemsen esehiig temdegleh vector
    vector<bool> visited(n,false);
+   //ehleh oroi
    int start = 0;
+   //ehleh oroig queue-d nemne.
    q.push(start);
    visited[start] = true;
    while(!q.empty()){
+    //daraagiin ochih oroig avna.
     int u = q.front();
+    //ug oroi deer irsen tul queue-ees ustgana.
     q.pop();
+    //u-tei holbootoi oroi bolgonii huvid queue-d nemne.
     for(auto v:e[u]){
-        if(!visited[v]){
+        if(!visited[v]){//omno ni ali hediin nemsen oroi bol algasna.
             q.push(v);
             visited[v] = true;
             cout<<v<<" ";
