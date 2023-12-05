@@ -98,7 +98,7 @@ input1:
 0 6
 8 0
 output1:
-3
+4
 
 input2:
 7 7
