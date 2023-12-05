@@ -19,3 +19,4 @@
 17. [Graph basic](graph_basic.md)
 18. [BFS](bfs.md)
 19. [DFS](dfs.md)
+20. [Union Find](unionFindTree.md)
