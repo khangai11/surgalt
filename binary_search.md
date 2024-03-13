@@ -71,3 +71,4 @@ stl дотор lower_bound(), upper_bound() гэсэн 2 binary search хйид�
 Бодлого4(1600): https://codeforces.com/problemset/problem/1730/B
 
 
+https://kenkoooo.com/atcoder/#/contest/show/9542f709-9054-4204-954e-f5ab20720b35
