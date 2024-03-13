@@ -14,13 +14,16 @@ int l = -1;
 int r = n;
 while(r-l>1){
     int mid = (r+l)/2;
-    if(arr[mid]==x){
-        //x too oldson
-    }
-    if(arr[mid]<x)  l = mid+1;
-    else r = mid-1;
+    if(arr[mid]<x)
+        l = mid;
+    else
+        r = mid;
 }
-
+if(arr[r]==x){
+    //x too oldson
+} else {
+    //x too oldoogui
+}
 ```
 
 Үл буурах(үл өсөх) шинж чанартай f(x)-ийн хувьд binary search ашиглаж болно.
