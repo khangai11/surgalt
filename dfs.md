@@ -30,10 +30,6 @@ DFS нь очоогүй байгаа элемент олдох л юм бол х
     //daraagiin songoh oroi
     int u = s.top();
     s.pop();
-    //hervee ali hediin ochson bol algasna.
-    if(visited[u]) continue;
-    //ochoogui baival ochson gej temdegleed
-    visited[u] = true;
     //holbootoi oroinuudiig stack ruugaa nemne.
     for(auto v:e[u]){
         if(!visited[v]){
