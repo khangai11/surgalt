@@ -49,6 +49,7 @@ DFS нь очоогүй байгаа элемент олдох л юм бол х
         if(visited[u]) return;
         visited[u] = true;
         for(auto v:e[u]){
+            if(visited[v]) continue;
             dfs(v);
         }
    }
