@@ -40,7 +40,7 @@
 18. [BFS](bfs.md)
 19. [DFS](dfs.md)
 20. [Union Find](unionFindTree.md)
-21. Two pointer
+21. [Two pointer](two_pointer.md)
 22. bitset
 23. 
 
