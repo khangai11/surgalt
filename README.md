@@ -1,4 +1,4 @@
-# Nand сургалтын төв(Дархан-Уул аймаг)
+﻿# Nand сургалтын төв(Дархан-Уул аймаг)
 
 Сургалтын материал
 
@@ -17,7 +17,6 @@
 12. string
 
 ШАЛГАЛТ
-
 ## Дунд шат
 1. [VSCode дээр орчин бэлдэх](vscode_environment.md)
 2. [Байнга ашиглах код, оролт гаралт](basic.md)
@@ -68,6 +67,3 @@ doubling
 Euler tour
 lowest common ancestor
 maximum flow, minimum cut
-
-
-
