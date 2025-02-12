@@ -1,10 +1,10 @@
-# C++ Debug „‡„y„z„‡
+ï»¿# C++ Debug Ñ…Ð¸Ð¹Ñ…
 
-Debug „‡„y„z„‡„„t „t„€„€„‚„‡„y 2-„y„z„s „p„Š„y„s„|„p„‡„p„t „y„|?? „p„}„p„‚.
+Debug Ñ…Ð¸Ð¹Ñ…ÑÐ´ Ð´Ð¾Ð¾Ñ€Ñ…Ð¸ 2-Ð¸Ð¹Ð³ Ð°ÑˆÐ¸Ð³Ð»Ð°Ñ…Ð°Ð´ Ð¸Ð»Ò¯Ò¯ Ð°Ð¼Ð°Ñ€.
 1. Visual studio community
-    „S„p„„„p„w „p„r„p„p„t „ƒ„…„…„|„s„p„‡„p„t „| „‡„p„~„s„p„|„„„„„p„z.(„N„y„|„„„~ „„„€„} „‡„„}„w„„„„„„z)
+    Ð¢Ð°Ñ‚Ð°Ð¶ Ð°Ð²Ð°Ð°Ð´ ÑÑƒÑƒÐ»Ð³Ð°Ñ…Ð°Ð´ Ð» Ñ…Ð°Ð½Ð³Ð°Ð»Ñ‚Ñ‚Ð°Ð¹.(ÐÐ¸Ð»ÑÑÐ½ Ñ‚Ð¾Ð¼ Ñ…ÑÐ¼Ð¶ÑÑÑ‚ÑÐ¹)
 2. Visual studio code
-    [„O„‚„‰„y„~ „q„„|„t„„‡ „x„p„p„r„p„‚](vscode_environment.md)
-3. „@„~„‡„p„~ „Š„p„„„~„ „q„€„t„|„€„s„…„…„t„„s „q„€„| [Visualizer](https://www.codechef.com/cpp-online-compiler) „p„Š„y„s„|„p„‡„p„t „y„|?? „p„}„p„‚.
+    [ÐžÑ€Ñ‡Ð¸Ð½ Ð±ÑÐ»Ð´ÑÑ… Ð·Ð°Ð°Ð²Ð°Ñ€](vscode_environment.md)
+3. ÐÐ½Ñ…Ð°Ð½ ÑˆÐ°Ñ‚Ð½Ñ‹ Ð±Ð¾Ð´Ð»Ð¾Ð³ÑƒÑƒÐ´Ñ‹Ð³ Ð±Ð¾Ð» [Visualizer](https://www.codechef.com/cpp-online-compiler) Ð°ÑˆÐ¸Ð³Ð»Ð°Ñ…Ð°Ð´ Ð¸Ð»Ò¯Ò¯ Ð°Ð¼Ð°Ñ€.
 
-Dev-C++ „t„„„‚ debug „‡„y„z„‡„„t „„?„r?„s„„„„z. 
+Dev-C++ Ð´ÑÑÑ€ debug Ñ…Ð¸Ð¹Ñ…ÑÐ´ Ñ‚Ó©Ð²Ó©Ð³Ñ‚ÑÐ¹. 

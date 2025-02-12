@@ -51,18 +51,18 @@
 сэдэв үзэж дууссан байх & CF pupil up☝️
 
 ## Ахисан шат
-sliding window,
-segment tree,
 multi source BFS,
 cycle detection,
 minimum spanning tree,
 djikstra,
+sliding window,
 divide and conquer,
-sqrt decomposition, mo's algorithm,
-nim, Grundy,
+sqrt decomposition & mo's algorithm,
+Nim, Grundy number,
 combinatorics,
 Fenwick tree,
 sparse table,
+segment tree,
 trie,
 heavy light decomposition,
 centroid decomposition,
