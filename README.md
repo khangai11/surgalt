@@ -47,23 +47,23 @@
 сэдэв үзэж дууссан байх & CF pupil up☝️
 
 ## Ахисан шат
-sliding window
-segment tree
-multi source BFS
-cycle detection
-minimum spanning tree
-djikstra
-divider and conquer
-sqrt decomposition, mo's algorithm
-nim, Grundy
-combinatorics
-Fenwick tree
-sparse table
-trie
-heavy light decomposition 
-centroid decomposition 
-treap
-doubling
-Euler tour
-lowest common ancestor
-maximum flow, minimum cut
+sliding window,
+segment tree,
+multi source BFS,
+cycle detection,
+minimum spanning tree,
+djikstra,
+divider and conquer,
+sqrt decomposition, mo's algorithm,
+nim, Grundy,
+combinatorics,
+Fenwick tree,
+sparse table,
+trie,
+heavy light decomposition,
+centroid decomposition,
+treap,
+doubling,
+Euler tour,
+lowest common ancestor,
+maximum flow, minimum cut,
