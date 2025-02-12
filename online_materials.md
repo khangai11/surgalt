@@ -54,5 +54,5 @@
     * Улсын олимпиадууд
     * accepted.mn (Асури сургууль, Accepted academy сургалтын төв)
     * sqrt.mn (Sqrt сургалтын төв)
-   
    * бусад(codechef.com,meta hackercup,Yandex...)
+   * [Ойрын үед болох тэмцээнүүдийн мэдээлэл](https://clist.by/)
