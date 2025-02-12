@@ -12,7 +12,7 @@
   * энэ(нэмээд бичээд явахыг бодно)
   * Шоргоолжтой ном 1,2
   * Алгоримтын зохиомж ба шинжилгээ
-  * spoj.com/HOME (Мөнхбат багшийн бэлтгэсэн бодлогууд)
+  * spoj.com/HOME (Мөнхбат багшийн бэлтгэсэн бодлогууд, улс аймгын олимпиадын бодлогууд)
   * spoj.com/RGB7 (Ц.Баттогтох агсны бэлтгэсэн бодлогууд)
   * https://www.hackerrank.com/mongolia-online-1 (Монголын онлайн сорилын бодлогууд)
   <br>
@@ -28,7 +28,7 @@
   Бодлогын сан ихтэй.
   * [USACO](https://usaco.org/)
     USA-ийн багыг шалгаруулахад ашигладаг сайт.
-    Мөн сэдэвчилсэн хичээлүүд болон харгалзах бодлогуудыг эмхэтгэсэн байдаг.
+    Мөн сэдэвчилсэн хичээлүүд болон харгалзах бодлогуудыг эмхэтгэсэн байдаг.([Usaco.guide](https://usaco.guide/))
  
   * [CSES](https://cses.fi/problemset/)
     Сэдвүүдэд хуваасан бодлогын сан нь алдартай
@@ -37,16 +37,15 @@
   Технологын компаниудад ороход авдаг програмчлалын шалгалтанд бэлдэхэд туслах зорилготой сайт.
   7 хоног болгон 4 бодлоготой тэмцээн болдог.
   алгоритм талын бодлогууд түлхүү байдаг.
+   * JOI (Japanese/English)
+    Японы багыг шалгаруулахад ашигласан бодлогууд, тайлбар, testcase
 
    * codechef.com (English/ Indian site)
-   [visualizer](https://www.codechef.com/cpp-online-compiler) нь их зүгээр юм байна.
-   <iframe
-  src="https://www.codechef.com/code-visualizer/ae1d77523e2f55186b4bb85ddda2fed3"
-  style="width:100%; height:300px;"
-></iframe>
- 
+   [visualizer](https://www.codechef.com/cpp-online-compiler) нь их зүгээр юм байна. [Жишээ](https://www.codechef.com/code-visualizer/bcf56824dd8c6c604ee34f54d6031030)
+  <br>
+
  * Онлайн тэмцээнүүд
    * Codeforces.com
    * atcoder.jp
    * leetcode.com
-   * бусад(codechef.com,meta hackercup(Annual),)
+   * бусад(codechef.com,meta hackercup,...)
