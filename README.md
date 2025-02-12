@@ -2,7 +2,7 @@
 
 Сургалтын материал
 
-## Анхан шат
+## [Анхан шат](https://github.com/Sumya99/Clang)
 1. компьютер гэж юу вэ? яаж ажилладаг вэ? 
 2. алгоритм гэж юу вэ?
 3. програм яаж бичих вэ? 
@@ -26,23 +26,23 @@
 6. [Binary search](binary_search.md)
 7. [Ternary search](ternary_search.md)
 8. [STL functions](stl_functions.md)
-9. struct
+9. struct, class
 10. bitwise operator, bitmask
-9. [vector, iterator](vector.md)
-10. [string](string.md)
-11. [queue,deque](queue.md)
-12. [stack](stack.md)
-13. [pair,tuple](pair_tuple.md)
-14. [set,multiset](set.md)
-15. [map](map.md)
-16. [priority_queue](priority_queue.md)
-17. [Graph basic](graph_basic.md)
-18. [BFS](bfs.md)
-19. [DFS](dfs.md)
-20. [Union Find](unionFindTree.md)
-21. [Two pointer](two_pointer.md)
-22. bitset
-23. 
+11. [vector, iterator](vector.md)
+12. [string](string.md)
+13. [queue,deque](queue.md)
+14. [stack](stack.md)
+15. [pair,tuple](pair_tuple.md)
+16. [set,multiset](set.md)
+17. [map](map.md)
+18. [priority_queue](priority_queue.md)
+19. [Graph basic](graph_basic.md)
+20. [BFS](bfs.md)
+21. [DFS](dfs.md)
+22. [Union Find](unionFindTree.md)
+23. [Two pointer](two_pointer.md)
+24. bitset
+
 
 сэдэв үзэж дууссан байх & CF pupil up☝️
 
@@ -53,7 +53,7 @@ multi source BFS,
 cycle detection,
 minimum spanning tree,
 djikstra,
-divider and conquer,
+divide and conquer,
 sqrt decomposition, mo's algorithm,
 nim, Grundy,
 combinatorics,
