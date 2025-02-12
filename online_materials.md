@@ -16,13 +16,14 @@
   * spoj.com/RGB7 (Ц.Баттогтох агсны бэлтгэсэн бодлогууд)
   * https://www.hackerrank.com/mongolia-online-1 (Монголын онлайн сорилын бодлогууд)
   <br>
+  <br>
 
 * Гадаад хэл дээрхи бодлогууд
-  * atcoder.jp(English/Japanese)
+  * [atcoder.jp](https://atcoder.jp/)(English/Japanese)
   7 хоногын хагассайн өдөр болгон тэмцээн болдог. 
   Илүү алгоритм талын бодлогууд түлхүү байдаг.
   Бодлогын сан ихтэй.
-  * codeforces.com (English/Russian)
+  * [codeforces.com](https://codeforces.com/) (English/Russian)
   Хамгийн олон идэвхитэй гишүүн, тэмцээнүүдтэй
   Математик+алгоритм талын бодлогууд түлхүү байдаг.
   Бодлогын сан ихтэй.
@@ -37,7 +38,7 @@
   Технологын компаниудад ороход авдаг програмчлалын шалгалтанд бэлдэхэд туслах зорилготой сайт.
   7 хоног болгон 4 бодлоготой тэмцээн болдог.
   алгоритм талын бодлогууд түлхүү байдаг.
-   * JOI (Japanese/English)
+   * [JOI](https://www.ioi-jp.org/problem_archive) (Japanese)
     Японы багыг шалгаруулахад ашигласан бодлогууд, тайлбар, testcase
 
    * codechef.com (English/ Indian site)
