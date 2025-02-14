@@ -32,4 +32,32 @@ Debug хийхэд доорхи 2-ийг ашиглахад илүү амар.
 
 # Visual studio community ашиглаж debug хийх
   VSCode-той ер нь бол төстэй. Илүү exception барьж авахдаа сайн, илүү UX сайтай.
+  Compiler нь GCC биш учраас ```bits/stdc++.h``` ашиглаж чадахгүй. Тус бүрийн header-ийг include хийж өгөх хэрэгтэй.
+  ```cpp
+    #include <iostream>
+    #include<string>
+    #include<algorithm>
+    #include<functional>
+    #include<cmath>
+    #include<queue>
+    #include<vector>
+    #include<map>
+    #include<stack>
+    #include<list>
+    #include<deque>
+    #include<set>
+    #include<unordered_set>
+    #include<unordered_map>
+    #include<numeric>
+    #include<bitset>
+    #include<iomanip>
+    #include<cstdlib>
+    #include<time.h>
+    #include <functional>
+    #include <chrono>
+    #include <thread>
+    #include <fstream>
+    #include <random>   
+  ```
+  
   Demo
