@@ -84,9 +84,10 @@
     
 ### Techniques
 1.  [sliding window](sliding_window.md)
-2.  [Coordinate compression.md](coordinate_compress.md)
-3.  [Dynamic programming](dp.md)
-4.  [divide and conquer](divide_conquer.md)
-5.  [sqrt decomposition & mo's algorithm](sqrt_decomposion.md)
-6.  [doubling](doubling.md)
+1.  [Coordinate compression.md](coordinate_compress.md)
+1.  [Dynamic programming](dp.md)
+1.  [divide and conquer](divide_conquer.md)
+1.  [sqrt decomposition & mo's algorithm](sqrt_decomposion.md)
+1.  [doubling](doubling.md)
+1.  [Parallel Binary Search](parallelBinarySearch.md)
 
