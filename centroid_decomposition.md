@@ -12,6 +12,8 @@
 Модны centroid нь түүний root байна. 
 Түүний child нь centroid-ыг устгахад үүсэх дэд моднуудын centroid нь байна. Гэх мэтчилэн бүх оройг centroid болтол дээрхи үйлдлийг гүйцэтгэхэд үүсэх модыг Centroid decomposition гэнэ.
 
+<img src="images/centroid_decomposition.png" width="958" height="411" />
+
 [Centroid decomposition](images/centroid_decomposition.png)
 
 
