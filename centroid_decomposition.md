@@ -2,10 +2,7 @@
 
 жишээ бодлого: https://codeforces.com/problemset/problem/342/E
 
-
-[CentroidDecomposition](images/centroid_decomposition.gif)
-
-<img src="images/centroid_decomposition.gif" width="400" height="400" />
+<img src="images/centroid_decomposition.gif" width="394" height="223" />
 
 
 
