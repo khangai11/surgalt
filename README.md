@@ -54,6 +54,7 @@
 ## Ахисан шат
 ### Graph
 1. [cycle detection](cycle_detection.md)
+1. [Strongly connected component] (strongly_connected_component.md)
 2. [minimum spanning tree](mst.md)
 3. [djikstra](djikstra.md)
 4. [Floyd Warhsall](floyd_warshall.md)
