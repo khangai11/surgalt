@@ -2,7 +2,7 @@
 
 2x3 хэмжээтэй хоёр хэмжээст array зарлаж элементүүдийг гараас уншъя.
 <br><img src="pic/read2D.png" width="250" height="190" />
-```c
+```cpp
 int main(){
   int A[2][3];
   //Garaas utga unshih
@@ -26,7 +26,7 @@ int main(){
 <br><img src="pic/2darr.png" width="250" height="190" />
 
 2 хэмжээст array-д анхны утга оноохдоо мөр мөрөөр нь багцлан оноодог.
-```c
+```cpp
 int main(){
   int A[3][3] = {{0,1,2},{3,4,5},{6,7,8}}; //Ahnii utga
   for(int i=0;i<3;i++){ //Mur
