@@ -30,7 +30,7 @@ int main(){
 
 ```cpp
 int main(){
-  int A[3][3] = {{0,1,2},{3,4,5},{6,7,8}}; //Ahnii utga
+  int A[3][3] = { {0,1,2},{3,4,5},{6,7,8} }; //Ahnii utga
   for(int i=0;i<3;i++){ //Mur
     for(int j=0;j<3;j++){ //Bagana
       cout<<A[i][j]<<" ";
