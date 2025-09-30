@@ -30,7 +30,7 @@
 
 
 ### Жишээ
-```c
+```cpp
 int main() {
     int a,b;
     a=18;
@@ -41,99 +41,97 @@ int main() {
     int urjih = a*b;
     int huvaah_buhel = a/b;
     int huvaah_uldeg = a%b; 
-
-    printf("a+b = %d\n",nemeh); //28 гарна
-    printf("a-b = %d\n",hasah); //8 гарна
-    printf("a*b = %d\n",urjih); //180 гарна
-    printf("a/b = %d\n",huvaah_buhel); //1 гарна
-    printf("a%b = %d\n",huvaah_uldeg); //8 гарна
-
+    cout<<"a+b = "<<nemeh<<"\n";   //28 гарна
+    cout<<"a-b = "<<hasah<<"\n";   //8 гарна
+    cout<<"a*b = "<<urjih<<"\n";   //180 гарна
+    cout<<"a/b = "<<huvaah_buhel<<"\n";//1 гарна
+    cout<<"a%b = "<<huvaah_uldeg<<"\n";//8 гарна
     return 0;
 }
 ``` 
 
 ### Жишээ - Илэрхийлэл1
-```c
+```cpp
 int main() {
     int a=10, b=20, c=30;
     int y = a*a + b + c + c/10 + c%10;
-    printf("%d\n",y);
+    cout<<y<<"\n";
     return 0;
 }
 ```
 
 ### Жишээ - Илэрхийлэл2 хаалт
-```c
+```cpp
 int main() {
     int a=10, b=20, c=30;
     int y = a * (b + c);
-    printf("%d\n",y);
+    cout<<y<<"\n";
     return 0;
 }
 ```
 
 ### Жишээ - Илэрхийлэл3
-```c
+```cpp
 int main() {
     int a=10, b=20, c=30;
     int y = (b + c/5)%10;
-    printf("%d\n",y);
+    cout<<y<<"\n";
     return 0;
 }
 ```
 
 ### Жишээ - a тооны куб зэргийг олох
-```c
+```cpp
 int main() {
     int a;
-    scanf("%d", &a);
-    printf("%d\n",a*a*a);
+    cin>>a;
+    cout<<a*a*a<<"\n";
     return 0;
 }
 ```
 
 ### Жишээ - Ард нь нэмэх
-```c
+```cpp
 int main() {
     int a=10;
     int y=a++; // y=10 болоод дараа нь a-г 1-ээр нэмж 11 болно
     int z=a;
-    printf("%d\n",y);
-    printf("%d\n",z);
+    cout<<y<<"\n";
+    cout<<z<<"\n";
     return 0;
 }
 ```
 ### Жишээ - Урд нь нэмэх
-```c
+```cpp
 int main() {
     int a=10;
     int y=++a; // Эхлээд a-г 1-ээр нэмж 11 болно, тиймд y=11
     int z=a;
-    printf("%d\n",y);
-    printf("%d\n",z);
+    cout<<y<<"\n";
+    cout<<z<<"\n";
     return 0;
 }
 ```
 ### Жишээ - Ард нь хасах
-```c
+```cpp
 int main() {
     int a=10;
     int y=a--; // y=10 болоод дараа нь a-г 1-ээр хасаж 9 болно
     int z=a;
-    printf("%d\n",y);
-    printf("%d\n",z);
+    cout<<y<<"\n";
+    cout<<z<<"\n";
     return 0;
 }
 ```
 
 ### Жишээ - Урд нь хасах ()
-```c
+```cpp
 int main() {
     int a=10;
     int y=--a; // Эхлээд a-г 1-ээр хасаж 9 болно, тиймд y=9
     int z=a;
-    printf("%d\n",y);
-    printf("%d\n",z);
+    cout<<y<<"\n";
+    cout<<z<<"\n";
     return 0;
 }
 ```
@@ -149,3 +147,6 @@ int main() {
 <br>5. Гараас өгсөн тоо сондгой бол 1, тэгш бол 0 гэж хэвлэ.
 <br>6. Гараас x хувьсагчид утга уншиж, x^2+x+1 илэрхийллийг бодож хэвлэ.  
 <br>7. [SPOJ.com/HOME/](https://www.spoj.com/HOME/problems/main/) 
+Арифметик 1 ~ Шугаман 15 болтол бодоорой.
+Бутархай 1 ~ Сантиметр, Тойрог, Дугуй, Хугацаа, Нийлбэрийн хагас, Нийлбэр, Арифметик дундаж, Арифметик 1
+
