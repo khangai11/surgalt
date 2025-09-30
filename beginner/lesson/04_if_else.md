@@ -32,9 +32,9 @@ int main() {
     int a,b; 
     cin>>a>>b;
     if (a == b) // a == b bol if (1) ,  a != b bol if (0)
-        printf (" tentsuu ") ;
+        cout<<" tentsuu ";
     else
-        printf (" yalgaatai ") ;
+        cout<<" yalgaatai ";
     return 0;
 }
 ```
@@ -46,9 +46,9 @@ int main() {
 ```c
 if (a > b) {
     if (a > c) {
-        printf ("a hamgiin ih") ;
+        cout<<"a hamgiin ih";
     } else{
-        printf ("c hamgiin ih") ;
+        cout<<"c hamgiin ih";
     }
 }
 ```
@@ -62,18 +62,18 @@ if (a > b) {
 
 ### Жишээ3 - Логик оператор хэрэглэх
 
-```c
+```cpp
 int main(){
     int a,b,c;
     cin>>a>>b>>c;
     if (a < b && b < c){
-        printf ("a hamgiin baga \n");
+        cout<<"a hamgiin baga \n";
     }
     if (a > 0 || b > 0){
-        printf ("a , b- iin ydaj 1 ni eyreg too \n");
+        cout<<"a , b- iin ydaj 1 ni eyreg too \n";
     } 
     if (!(a > 0)){
-        printf ("a bol surug too\n");
+        cout<<"a bol surug too\n";
     }  
 }
 ```
@@ -82,18 +82,18 @@ int main(){
 
 ### Жишээ3 - Шаталсан if
 
-```c
+```cpp
 int main(){
     int a; 
     cin>>a;
     if (a == 0)
-        printf ("teg\n");
+        cout<<"teg\n";
     else if (a == 1)
-        printf ("neg\n");
+        cout<<"neg\n";
     else if (a == 2)
-        printf ("2\n");
+        cout<<"2\n";
     else
-        printf ("2 -oos ih\n"); 
+        cout<<"2 -oos ih\n"; 
 
     return 0;
 }
