@@ -26,6 +26,7 @@
 int main(){
     double PI = 3.14159265359;
     cout<<fixed<<setprecision(3);
+    cout<<PI;
     return 0;
 }
 ```
