@@ -38,21 +38,18 @@ int main(){
 
 ## Стандарт функцууд ##
 
-### Бидний судалсан функцууд ###
-1. `printf("Hello World");` &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Hello World гэж хэвлэнэ
-2. `scanf("%d",&a);`&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // a хувьсагчид гараас утга уншина
-3. `max(a,b);`  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // a,b -н ихийг буцаана
-4. `min(a,b);`     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // a,b -н багыг буцаана
+1. `max(a,b);`  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // a,b -н ихийг буцаана
+2. `min(a,b);`     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // a,b -н багыг буцаана
 
-
-### Шинэ функцууд ###
-1. `swap(a,b);` &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //a, b тоонуудын утгыг солино
-2. `sqrt(a);`  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  //a тооны язгуурыг бодож буцаана
-3. `pow(a,b);` &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  //a -гийн b зэргийг бодож буцаана 
-4. `sin(a);` &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //a тооны синус (Радианаар)
-5. `cos(a);` &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//a тооны косинус (Радианаар)
-6. `abs(a);` &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//a тооны абсолют утга
-7. `sizeof(int);` &nbsp;&nbsp;&nbsp;//Хувьсагчийн хэмжээг буцаана. Жишээ нь int гэвэл 4 буюу 4 Byte
+3. `printf("Hello World");` &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Hello World гэж хэвлэнэ
+4. `scanf("%d",&a);`&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // a хувьсагчид гараас утга уншина
+5. `swap(a,b);` &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //a, b тоонуудын утгыг солино
+6. `sqrt(a);`  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  //a тооны язгуурыг бодож буцаана
+7. `pow(a,b);` &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  //a -гийн b зэргийг бодож буцаана 
+8. `sin(a);` &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //a тооны синус (Радианаар)
+9. `cos(a);` &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//a тооны косинус (Радианаар)
+10. `abs(a);` &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//a тооны абсолют утга
+11. `sizeof(int);` &nbsp;&nbsp;&nbsp;//Хувьсагчийн хэмжээг буцаана. Жишээ нь int гэвэл 4 буюу 4 Byte
 
 
 ### Жишээ - Функцууд
