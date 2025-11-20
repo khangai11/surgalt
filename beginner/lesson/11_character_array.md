@@ -28,7 +28,7 @@ ASCII хүснэгт:
 int main(){
   char c = 'A';
   cout << "'A'-н ASCII утга: ";
-  cout << int(c);
+  cout << (int)c;
   return 0;
 }
 ```
@@ -37,7 +37,7 @@ int main(){
 int main(){
   int x = 65;
   cout << "ASCII утга 65-н тэмдэгт: ";
-  cout << char(x);
+  cout << (char)x;
   return 0;
 }
 ```
