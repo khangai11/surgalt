@@ -38,7 +38,7 @@ ASCII хүснэгт:
 ```cpp
 int main(){
   char c = 'A';
-  cout << "A usengii utga ni : ";
+  cout << "A usegnii utga ni : ";
   cout << (int)c;
   return 0;
 }
