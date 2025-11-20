@@ -38,7 +38,7 @@ ASCII хүснэгт:
 ```cpp
 int main(){
   char c = 'A';
-  cout << "'A'-н ASCII утга: ";
+  cout << "A usengii utga ni : ";
   cout << (int)c;
   return 0;
 }
@@ -48,7 +48,7 @@ int main(){
 ```cpp
 int main(){
   int x = 65;
-  cout << "ASCII утга 65-н тэмдэгт: ";
+  cout << "ASCII utga 65-iin temdegt: ";
   cout << (char)x;
   return 0;
 }
