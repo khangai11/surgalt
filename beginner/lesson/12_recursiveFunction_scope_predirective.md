@@ -6,8 +6,8 @@ Mакро нь компайлор ажиллаж эхлэхээс өмнө ту�
 ```c
 //10 удаа 1 гэж хэвлэнэ.
 #define ll long long
-#define rep(i,a,n) for(int i=a,i<n;i++)
-#define print(a) pritnf("%d\n",a)
+#define rep(i,a,n) for(int i=a;i<n;i++)
+#define print(a) cout<<a
 int main(){
   ll A = 1;
   rep(i,0,10){
@@ -22,7 +22,7 @@ int main(){
 ```C
 //Дараах жишээ алдаатай. a хувьсагчийг зарлахаас өмнө дуудсан байна.
 int main(){
-  printf("%d\n",a);
+  cout<<a;
   int a=1; 
   return 0;
 }
@@ -32,9 +32,9 @@ int main(){
 int main(){
   {
     int a=1;
-    printf("%d\n",a); 
+    cout<<a;
   }
-  printf("%d\n",a);
+  cout<<a;
   return 0;
 }
 ```
@@ -45,9 +45,9 @@ int main(){
   if(1)
   {
     int a=1;
-    printf("%d\n",a); 
+    cout<<a;
   }
-  printf("%d\n",a);
+  cout<<a;
   return 0;
 }
 ```
@@ -59,7 +59,7 @@ int main(){
   {
      //Do something here
   }
-  printf("%d\n",i);
+  cout<<i<<"\n";
   return 0;
 }
 ```
@@ -72,7 +72,7 @@ int main(){
   {
      //Do something here
   }
-  printf("%d\n",i);
+  cout<<i<<"\n";
   return 0;
 }
 ```
@@ -110,7 +110,7 @@ int sum(int k) {
 }
 int main() {
   int result = sum(10);
-  printf("%d", result); //55
+  cout<<result; //55
   return 0;
 }
 ```
