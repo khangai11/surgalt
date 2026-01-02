@@ -73,11 +73,11 @@ void build_centroid_decomp(ll ind) {
 	//ded modnii hemjeenuudiig tootsoh
 	get_sz(ind);
 	ll centr = get_centroid(ind,-1,sz[ind]);
+	removed[centr] = true;
 	for (auto v : e[centr]) {
 		if (removed[v]) continue;
-		get_dists();
+		get_dists(v,centr,centr,1);
 	}
-	removed[centr] = true;
 	for (auto v : e[centr]) {
 		if (removed[v]) continue;
 		build_centroid_decomp(v);
