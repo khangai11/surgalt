@@ -26,7 +26,7 @@
 жишээ бодлого: https://codeforces.com/problemset/problem/342/E
 
 
-souce code template
+# Source code template
 ```cpp
 
 vvll e;	//horshuudiin jagsaalt
