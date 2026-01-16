@@ -27,7 +27,7 @@
 3. [Time Complexity](time_complexity.md)
 4. [Функц, рекурсив функц](function.md)
 5. [Bubble sort, merge sort, stl::sort](sort.md)
-6. [Анхны тоо, хуваагч, ХИЕХ](sieve.md)
+6. [Анхны тоо, хуваагч, ХИЕХ](prime_numbers.md)
 7. [Binary search](binary_search.md)
 8. [Ternary search](ternary_search.md)
 9. [STL functions](stl_functions.md)
