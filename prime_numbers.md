@@ -133,6 +133,14 @@ int main(){
 <summary> өөрөө бичих гээд үз л дээ </summary>
 <details>
 <summary> код байхгүй ээ. Өөрсдөө бич </summary>
+<details>
+<summary></summary>
+<details>
+<summary></summary>
+<details>
+<summary></summary>
+<details>
+<summary></summary>
 
 ```cpp
 #define ll long long
@@ -154,6 +162,9 @@ int main(){
     }
 }
 ```
+</details>
+</details>
+</details>
 </details>
 </details>
 </details>
