@@ -170,6 +170,7 @@ int main(){
 </details>
 </details>
 </details>
+</details>
 
 # Бодлогууд
 * https://atcoder.jp/contests/arc110/tasks/arc110_a
