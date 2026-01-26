@@ -116,3 +116,5 @@ stl дотор lower_bound(), upper_bound() гэсэн 2 binary search хйид�
 
 
 https://kenkoooo.com/atcoder/#/contest/show/9542f709-9054-4204-954e-f5ab20720b35
+
+https://kenkoooo.com/atcoder/#/contest/show/1a30d2ce-7cdf-463e-b76c-2ffa09a4c8d3
