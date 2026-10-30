@@ -149,3 +149,11 @@ N ширхэг олс байна, `i`-р олсны урт `a[i]`. Хоёр ол
 </details>
 
 **Дасгал 3.** `priority_queue` ашиглан N тоог **өсөх** эрэмбээр хэвлэ (heap sort).
+
+---
+
+## AtCoder бодлогууд
+
+5 бодлогын монгол орчуулга: [priority_queue_atcoder.md](priority_queue_atcoder.md)
+
+Санаа ба бодолт (анимэйшнтэй): [priority_queue_atcoder.html](https://raw.githack.com/khangai11/surgalt/main/html/priority_queue_atcoder.html)

@@ -1,0 +1,948 @@
+<!doctype html>
+<html lang="mn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Priority Queue Бодлогууд</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Nunito:wght@400;600;700;800&family=Rubik:wght@500;700&display=swap">
+<style>
+/* Layout: workbook page — problem header, idea, then a lab bench (animation stage | synced C++ solution) per problem */
+:root{
+  --bg:#F3F5FA; --paper:#FFFFFF; --ink:#151C2E; --muted:#586179; --line:#D9DFEB; --grid:#EEF2F9;
+  --accent:#2D4FD8; --accent-ink:#FFFFFF; --accent-soft:#E7ECFE;
+  --n-f:#E6EEFF; --n-s:#2D4FD8; --w-f:#FFF2BF; --w-s:#B97F00; --t-f:#FFE1DA; --t-s:#CC3B25;
+  --o-f:#ECEFF4; --o-s:#79839A; --r-f:#F0E7FF; --r-s:#7445D6; --k-f:#DBF5E3; --k-s:#1F8549;
+  --i-f:#FFFFFF; --i-s:#C9D1E0; --d-f:#F5F7FA; --d-s:#D3D9E4; --tile-ink:#151C2E;
+  --code-bg:#F7F8FC; --code-on:#FFF2BF; --k-kw:#B5179E; --k-ty:#2D4FD8; --k-num:#B45309; --k-com:#6B7488; --k-pp:#1F8549;
+  --f-disp:"Rubik","Nunito",system-ui,sans-serif;
+  --f-body:"Nunito",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0E1320; --paper:#151C2D; --ink:#E6EBF6; --muted:#9AA3B9; --line:#283149; --grid:#1A2236;
+  --accent:#8199FF; --accent-ink:#0E1320; --accent-soft:#1E2850;
+  --n-f:#1C2A52; --n-s:#8199FF; --w-f:#3A2F0E; --w-s:#F0B93A; --t-f:#44201B; --t-s:#FF7B64;
+  --o-f:#20283A; --o-s:#6E7891; --r-f:#2D2049; --r-s:#B08CFF; --k-f:#133426; --k-s:#4FCB8B;
+  --i-f:#151C2D; --i-s:#36405A; --d-f:#182033; --d-s:#2A3349; --tile-ink:#E6EBF6;
+  --code-bg:#111827; --code-on:#3A2F0E; --k-kw:#F28FE0; --k-ty:#8DA4FF; --k-num:#F2B266; --k-com:#7F89A0; --k-pp:#5FD49A;
+  color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#0E1320; --paper:#151C2D; --ink:#E6EBF6; --muted:#9AA3B9; --line:#283149; --grid:#1A2236;
+  --accent:#8199FF; --accent-ink:#0E1320; --accent-soft:#1E2850;
+  --n-f:#1C2A52; --n-s:#8199FF; --w-f:#3A2F0E; --w-s:#F0B93A; --t-f:#44201B; --t-s:#FF7B64;
+  --o-f:#20283A; --o-s:#6E7891; --r-f:#2D2049; --r-s:#B08CFF; --k-f:#133426; --k-s:#4FCB8B;
+  --i-f:#151C2D; --i-s:#36405A; --d-f:#182033; --d-s:#2A3349; --tile-ink:#E6EBF6;
+  --code-bg:#111827; --code-on:#3A2F0E; --k-kw:#F28FE0; --k-ty:#8DA4FF; --k-num:#F2B266; --k-com:#7F89A0; --k-pp:#5FD49A;
+  color-scheme:dark }
+
+*{box-sizing:border-box}
+body{margin:0; background:var(--bg); color:var(--ink); font:16px/1.6 var(--f-body);
+  padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px)); padding-block:0 48px}
+.wrap{max-width:1240px; margin:0 auto}
+a{color:var(--accent); text-underline-offset:3px}
+code{font-family:var(--f-mono); font-size:.88em; background:var(--accent-soft); padding:.08em .35em; border-radius:6px; white-space:nowrap}
+h1,h2,h3{font-family:var(--f-disp); text-wrap:balance; margin:0; line-height:1.2}
+button{font:inherit; color:inherit}
+:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+
+/* hero */
+.hero{padding-block:40px 28px; display:grid; gap:18px}
+.eyebrow{font:700 13px/1 var(--f-body); letter-spacing:.06em; color:var(--muted)}
+.hero h1{font-size:clamp(30px, 4.6vw, 46px); font-weight:700; letter-spacing:-.01em}
+.hero h1 span{color:var(--accent)}
+.lede{max-width:68ch; color:var(--muted); font-size:17px; margin:0}
+.legend{display:flex; flex-wrap:wrap; gap:8px 16px; font-size:14px; color:var(--muted)}
+.legend span{display:inline-flex; align-items:center; gap:7px}
+.sw{width:18px; height:18px; border-radius:6px; border:2.5px solid; display:inline-block}
+.sw.new{background:var(--w-f); border-color:var(--w-s)} .sw.top{background:var(--t-f); border-color:var(--t-s)}
+.sw.ok{background:var(--k-f); border-color:var(--k-s)} .sw.out{background:var(--o-f); border-color:var(--o-s)}
+.sw.res{background:var(--r-f); border-color:var(--r-s)} .sw.norm{background:var(--n-f); border-color:var(--n-s)}
+.toc{display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:10px; margin-top:6px}
+.toc a{display:grid; grid-template-columns:auto 1fr; gap:2px 12px; align-items:center; padding:12px 14px; border:1px solid var(--line);
+  border-radius:12px; background:var(--paper); text-decoration:none; color:var(--ink)}
+.toc a:hover{border-color:var(--accent)}
+.toc .n{grid-row:span 2; font:700 22px/1 var(--f-disp); color:var(--accent); width:40px; height:40px; border-radius:50%;
+  background:var(--accent-soft); display:grid; place-items:center}
+.toc .t{font-weight:800; line-height:1.25}
+.toc .m{font:500 12px var(--f-mono); color:var(--muted)}
+
+/* problem */
+.prob{padding-block:36px; border-top:2px solid var(--line); display:grid; gap:22px; scroll-margin-top:12px}
+.phead{display:flex; gap:16px; align-items:flex-start}
+.pnum{flex:none; font:700 26px/1 var(--f-disp); width:52px; height:52px; border-radius:16px; background:var(--accent); color:var(--accent-ink);
+  display:grid; place-items:center}
+.phead h2{font-size:clamp(22px, 3vw, 30px); font-weight:700}
+.phead .sub{color:var(--muted); font-size:15px; margin-top:4px; display:flex; flex-wrap:wrap; gap:4px 14px}
+.chip{font:700 12px/1 var(--f-mono); padding:5px 8px; border-radius:999px; background:var(--accent-soft); color:var(--accent)}
+.two{display:grid; grid-template-columns:minmax(0, 1fr) minmax(0, 1.15fr); gap:22px}
+.blk{min-width:0}
+.blk h3{font:800 13px/1 var(--f-body); letter-spacing:.08em; color:var(--muted); margin-bottom:10px}
+.blk p{margin:0 0 10px; max-width:68ch}
+.stmt{background:var(--paper); border:1px solid var(--line); border-radius:14px; padding:16px 18px}
+.io{font:500 13.5px/1.5 var(--f-mono); background:var(--code-bg); border-radius:10px; padding:10px 12px; margin:10px 0 0; white-space:pre; overflow-x:auto}
+.idea ol{margin:0; padding-left:1.3em; display:grid; gap:8px; max-width:68ch}
+.idea li::marker{font-weight:800; color:var(--accent)}
+.key{margin-top:14px; padding:12px 16px; border-radius:12px; background:var(--k-f); border:2px solid var(--k-s); font-weight:700; max-width:68ch}
+.key b{font-family:var(--f-disp); font-weight:700; color:var(--k-s); margin-right:6px}
+
+/* lab bench */
+.lab{display:grid; grid-template-columns:minmax(0, 1.25fr) minmax(0, 1fr); gap:18px; align-items:start}
+.player{background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:14px; display:grid; gap:12px; min-width:0}
+.player:focus-visible{outline:3px solid var(--accent)}
+.stage{overflow-x:auto; border-radius:12px; border:1px solid var(--line);
+  background-color:var(--paper);
+  background-image:linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size:24px 24px}
+.stage svg{display:block; width:100%; min-width:560px; height:auto}
+.cap{min-height:5.2em; font-size:16.5px; line-height:1.55; padding:2px 4px}
+.cap b{color:var(--accent)}
+.vars{display:flex; flex-wrap:wrap; gap:8px}
+.var{display:inline-flex; border:1px solid var(--line); border-radius:8px; overflow:hidden; font:500 13px/1 var(--f-mono)}
+.var .k{padding:6px 8px; background:var(--grid); color:var(--muted)}
+.var .v{padding:6px 9px; font-weight:700}
+.ctl{display:flex; flex-wrap:wrap; align-items:center; gap:8px}
+.ib{width:40px; height:40px; border-radius:10px; border:1px solid var(--line); background:var(--paper); display:grid; place-items:center; cursor:pointer}
+.ib:hover:not(:disabled){border-color:var(--accent); color:var(--accent)}
+.ib:disabled{opacity:.4; cursor:default}
+.ib svg{width:18px; height:18px; fill:currentColor}
+.play{height:40px; padding:0 16px 0 12px; border-radius:10px; border:none; background:var(--accent); color:var(--accent-ink);
+  font-weight:800; display:inline-flex; align-items:center; gap:8px; cursor:pointer; min-width:132px}
+.play svg{width:18px; height:18px; fill:currentColor}
+.scrub{flex:1 1 140px; min-width:120px; accent-color:var(--accent)}
+.count{font:700 13px var(--f-mono); color:var(--muted); min-width:58px; text-align:center; font-variant-numeric:tabular-nums}
+.speed{display:inline-flex; border:1px solid var(--line); border-radius:10px; overflow:hidden}
+.speed button{border:none; background:transparent; padding:0 10px; height:38px; font:700 13px var(--f-mono); color:var(--muted); cursor:pointer}
+.speed button[aria-pressed="true"]{background:var(--accent-soft); color:var(--accent)}
+.hint{font-size:13px; color:var(--muted); margin:0}
+
+.codep{background:var(--code-bg); border:1px solid var(--line); border-radius:16px; min-width:0; overflow:hidden}
+.codeh{display:flex; justify-content:space-between; align-items:center; padding:10px 12px 10px 16px; border-bottom:1px solid var(--line)}
+.codeh h3{font:800 13px/1 var(--f-body); letter-spacing:.08em; color:var(--muted)}
+.copy{border:1px solid var(--line); background:var(--paper); border-radius:8px; padding:5px 10px; font-weight:700; font-size:13px; cursor:pointer}
+.copy:hover{border-color:var(--accent); color:var(--accent)}
+.code{margin:0; padding:10px 0; overflow-x:auto; font:500 13px/1.6 var(--f-mono)}
+.cl{display:block; padding:0 14px 0 0; white-space:pre; border-left:4px solid transparent; transition:background .25s}
+.cl .no{display:inline-block; width:2.6em; text-align:right; padding-right:1em; color:var(--muted); opacity:.55; user-select:none}
+.cl.on{background:var(--code-on); border-left-color:var(--w-s)}
+.cl.on .no{opacity:1; color:var(--w-s); font-weight:700}
+.k-kw{color:var(--k-kw)} .k-ty{color:var(--k-ty)} .k-num{color:var(--k-num)} .k-com{color:var(--k-com); font-style:italic} .k-pp{color:var(--k-pp)} .k-str{color:var(--k-num)}
+.cx{padding:10px 16px 14px; border-top:1px solid var(--line); font-size:14px; color:var(--muted)}
+.cx strong{color:var(--ink)}
+
+/* svg stage */
+.tile{transition:transform var(--dur, .45s) cubic-bezier(.45,.05,.25,1), opacity var(--dur, .45s)}
+.tile .sh{stroke-width:2.5; transition:fill var(--dur, .45s), stroke var(--dur, .45s)}
+.tile.enter, .tile.gone{opacity:0}
+.tv{font:700 18px var(--f-mono); fill:var(--tile-ink); text-anchor:middle; dominant-baseline:central}
+.f-sm .tv{font-size:14px}
+.ts{font:700 12px var(--f-body); fill:var(--muted); text-anchor:middle}
+.ts.save{fill:var(--k-s); font-weight:800}
+.t-norm .sh{fill:var(--n-f); stroke:var(--n-s)} .t-new .sh{fill:var(--w-f); stroke:var(--w-s)}
+.t-top .sh{fill:var(--t-f); stroke:var(--t-s)} .t-out .sh{fill:var(--o-f); stroke:var(--o-s)}
+.t-res .sh{fill:var(--r-f); stroke:var(--r-s)} .t-ok .sh{fill:var(--k-f); stroke:var(--k-s)}
+.t-idle .sh{fill:var(--i-f); stroke:var(--i-s)} .t-dim .sh{fill:var(--d-f); stroke:var(--d-s)}
+.t-dim .tv, .t-out .tv{fill:var(--muted)}
+.t-dup .sh{fill:none; stroke:var(--o-s); stroke-dasharray:5 4} .t-dup .tv{fill:var(--muted); text-decoration:line-through} .t-dup .ts{fill:var(--t-s)}
+.lb{font:700 13.5px var(--f-body); fill:var(--muted)}
+.lb-idx{font:500 12px var(--f-mono); fill:var(--muted)}
+.lb-ptr{font:700 12px var(--f-mono); fill:var(--accent)}
+.lb-top{font:800 12px var(--f-mono); fill:var(--t-s)}
+.lb-warn{font:700 12px var(--f-body); fill:var(--t-s)}
+.lb-note{font:600 12.5px var(--f-body); fill:var(--muted)}
+.lb-big{font:700 21px var(--f-disp); fill:var(--ink)}
+.lb-lblm{font:700 14px var(--f-mono); fill:var(--ink)}
+.slot{fill:none; stroke:var(--line); stroke-width:2; stroke-dasharray:6 5}
+.slot-x{fill:none; stroke:var(--t-s); stroke-width:2; stroke-dasharray:6 5; opacity:.55}
+.slot-c{fill:none; stroke:var(--line); stroke-width:2; stroke-dasharray:6 5}
+.slot-on{fill:var(--accent-soft); stroke:var(--accent); stroke-width:2.5}
+.ln-rule{stroke:var(--line); stroke-width:2}
+.ln-deadline{stroke:var(--t-s); stroke-width:3; stroke-dasharray:6 4}
+
+footer{border-top:2px solid var(--line); padding-top:22px; color:var(--muted); font-size:14px; display:flex; flex-wrap:wrap; gap:8px 22px}
+
+@media (max-width: 980px){ .lab, .two{grid-template-columns:minmax(0, 1fr)} }
+@media (max-width: 520px){ .phead{gap:12px} .pnum{width:42px; height:42px; font-size:21px; border-radius:12px} .play{min-width:0} .count{min-width:0} }
+@media (prefers-reduced-motion: reduce){ .tile, .tile .sh, .cl{transition:none !important} }
+</style>
+
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow">NAND СУРГАЛТЫН ТӨВ · PRIORITY_QUEUE · ATCODER ДАСГАЛ</div>
+    <h1>Priority queue-ийн <span>5 бодлого</span></h1>
+    <p class="lede">Бодлого бүр гурван хэсэгтэй: эхлээд <b>санаа</b>, дараа нь алхам алхмаар <b>хөдөлгөөнт тайлбар</b>, хажууд нь <b>бодолт</b>. Анимэйшн дэлгэцэнд гарч ирэхэд өөрөө тоглоно, тухайн алхамд ажиллаж буй кодын мөр шараар тодорно. Эхлээд өөрөө бодож үзээд дараа нь хараарай.</p>
+    <div class="legend" aria-label="Өнгөний тайлбар">
+      <span><i class="sw norm"></i>queue доторх</span>
+      <span><i class="sw new"></i>шинээр орсон</span>
+      <span><i class="sw top"></i>top / сонгогдсон</span>
+      <span><i class="sw out"></i>гарсан, хаягдсан</span>
+      <span><i class="sw res"></i>үр дүн, өгөгдөл</span>
+      <span><i class="sw ok"></i>хариу</span>
+    </div>
+    <nav class="toc" aria-label="Бодлогууд">
+      <a href="#abc234d"><span class="n">1</span><span class="t">Prefix K-th Max</span><span class="m">ABC234 D · min-heap · 400</span></a>
+      <a href="#abc212d"><span class="n">2</span><span class="t">Querying Multiset</span><span class="m">ABC212 D · min-heap · 400</span></a>
+      <a href="#abc141d"><span class="n">3</span><span class="t">Discount Tickets</span><span class="m">ABC141 D · max-heap · 400</span></a>
+      <a href="#abc297e"><span class="n">4</span><span class="t">Kth Takoyaki Set</span><span class="m">ABC297 E · min-heap · 500</span></a>
+      <a href="#abc137d"><span class="n">5</span><span class="t">Summer Vacation</span><span class="m">ABC137 D · max-heap · 400</span></a>
+    </nav>
+  </header>
+
+  <!-- 1 -->
+  <section class="prob" id="abc234d">
+    <div class="phead"><div class="pnum">1</div><div>
+      <h2>Prefix K-th Max · Эхний i тооны K дахь хамгийн их</h2>
+      <div class="sub"><span class="chip">min-heap</span><a href="https://atcoder.jp/contests/abc234/tasks/abc234_d" target="_blank" rel="noopener">ABC234 D</a><span>400 оноо</span></div>
+    </div></div>
+    <div class="two">
+      <div class="blk"><h3>БОДЛОГО</h3><div class="stmt">
+        <p>1…N тоонуудын сэлгэмэл <code>P</code> ба <code>K</code> өгөгдөнө. <code>i = K, K+1, …, N</code> бүрт <code>P</code>-ийн <b>эхний i</b> тооны <b>K дахь хамгийн их</b> утгыг хэвлэ.</p>
+        <p>Хязгаарлалт: <code>1 ≤ K ≤ N ≤ 5·10⁵</code></p>
+        <div class="io">Анимэйшнд: 2-р жишээ
+11 5
+3 7 2 5 11 6 1 9 8 10 4   →   2 3 3 5 6 7 7</div>
+      </div></div>
+      <div class="blk idea"><h3>САНАА</h3>
+        <ol>
+          <li>Энгийн арга: i бүрт эхний i тоог эрэмбэлэх. Энэ нь <code>O(N² log N)</code>, N = 5·10⁵ үед хэтэрхий удаан.</li>
+          <li><b>K дахь хамгийн том = хамгийн том K тооны хамгийн жижиг нь.</b> Жишээ: 9, 7, 5, 3-ын 3 дахь хамгийн том нь 5 = {9, 7, 5}-ын хамгийн жижиг.</li>
+          <li>Тэгэхээр зөвхөн хамгийн том K тоог хадгалахад хангалттай. Тэдгээрийн хамгийн жижгийг хурдан мэдэхийн тулд <b>min-heap</b>.</li>
+          <li>Шинэ тоо ирэхэд push. K+1 тоо болвол хамгийн жижгийг pop: цаашид тоо зөвхөн нэмэгдэх тул тэр дахин хэрэг болохгүй.</li>
+        </ol>
+        <div class="key"><b>Гол санаа</b>heap-д үргэлж K тоо байлгавал <code>top()</code> нь шууд хариу.</div>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="player" data-key="p1" data-h="450" tabindex="0" aria-label="1-р бодлогын анимэйшн"></div>
+      <div class="codep" data-key="p1" data-cx="&lt;strong&gt;O(N log K)&lt;/strong&gt; — тоо бүрийг нэг удаа push, хамгийн ихдээ нэг удаа pop."></div>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section class="prob" id="abc212d">
+    <div class="phead"><div class="pnum">2</div><div>
+      <h2>Querying Multiset · Уутан дахь бөмбөгнүүд</h2>
+      <div class="sub"><span class="chip">min-heap</span><span class="chip">add хувьсагч</span><a href="https://atcoder.jp/contests/abc212/tasks/abc212_d" target="_blank" rel="noopener">ABC212 D</a><span>400 оноо</span></div>
+    </div></div>
+    <div class="two">
+      <div class="blk"><h3>БОДЛОГО</h3><div class="stmt">
+        <p>Хоосон уутанд Q үйлдэл хийнэ:</p>
+        <p><code>1 X</code> — X бичсэн бөмбөг хийнэ.<br><code>2 X</code> — <b>бүх</b> бөмбөгний тоог X-ээр нэмнэ.<br><code>3</code> — хамгийн бага тоотой бөмбөгийг гаргаж, тоог нь хэвлэнэ.</p>
+        <p>Хязгаарлалт: <code>Q ≤ 2·10⁵</code>, <code>X ≤ 10⁹</code></p>
+        <div class="io">Анимэйшнд: өөрийн жишээ (11 үйлдэл)
+1 5 · 1 2 · 1 8 · 3 · 2 3 · 1 4 · 3
+2 10 · 1 15 · 3 · 3   →   2 4 15 18</div>
+      </div></div>
+      <div class="blk idea"><h3>САНАА</h3>
+        <ol>
+          <li>Хамгийн багыг дахин дахин гаргах тул <b>min-heap</b>.</li>
+          <li>Асуудал нь <code>2 X</code>: бөмбөг бүрийг өөрчилбөл нэг үйлдэл <code>O(n)</code>, нийт <code>O(Q²)</code> ≈ 4·10¹⁰. Heap доторх утгыг өөрчлөх ч боломжгүй.</li>
+          <li>Ажиглалт: бүгдэд <b>ижил</b> тоо нэмэхэд бөмбөгнүүдийн эрэмбэ өөрчлөгдөхгүй. Тиймээс нийт нэмэгдсэн тоог ганц хувьсагч <code>add</code>-д хадгалъя.</li>
+          <li>Бөмбөг хийхдээ <code>x − add</code> гэж хадгална. Дараа нь add хэчнээн өссөн ч <code>хадгалсан + add</code> = жинхэнэ утга.</li>
+        </ol>
+        <div class="key"><b>Гол санаа</b>бүгдийг өөрчлөхийн оронд нэг <code>add</code>-ийг өөрчил.</div>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="player" data-key="p2" data-h="420" tabindex="0" aria-label="2-р бодлогын анимэйшн"></div>
+      <div class="codep" data-key="p2" data-cx="&lt;strong&gt;O(Q log Q)&lt;/strong&gt;. Утга 10⁹·Q хүрч болох тул &lt;code&gt;long long&lt;/code&gt; заавал."></div>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section class="prob" id="abc141d">
+    <div class="phead"><div class="pnum">3</div><div>
+      <h2>Powerful Discount Tickets · Хөнгөлөлтийн тасалбар</h2>
+      <div class="sub"><span class="chip">max-heap</span><span class="chip">greedy</span><a href="https://atcoder.jp/contests/abc141/tasks/abc141_d" target="_blank" rel="noopener">ABC141 D</a><span>400 оноо</span></div>
+    </div></div>
+    <div class="two">
+      <div class="blk"><h3>БОДЛОГО</h3><div class="stmt">
+        <p>N бараа, үнэ нь <code>A_i</code>. M тасалбар бий. X үнэтэй бараанд Y тасалбар хэрэглэвэл <code>⌊X / 2^Y⌋</code> болно. Бүх барааг авах <b>хамгийн бага</b> нийт мөнгийг ол.</p>
+        <p>Хязгаарлалт: <code>N, M ≤ 10⁵</code>, <code>A_i ≤ 10⁹</code></p>
+        <div class="io">Анимэйшнд: 1-р жишээ
+3 3
+2 13 8   →   9</div>
+      </div></div>
+      <div class="blk idea"><h3>САНАА</h3>
+        <ol>
+          <li><code>⌊⌊X/2⌋/2⌋ = ⌊X/4⌋</code> тул тасалбарыг нэг нэгээр нь хэрэглэж болно: <b>тасалбар бүр = нэг барааг хагаслах</b>.</li>
+          <li>X-ийг хагаслахад <code>X − ⌊X/2⌋</code> төгрөг хэмнэнэ. Үнэ их байх тусам хэмнэлт их: 13 → −7, 8 → −4, 2 → −1.</li>
+          <li>Тиймээс тасалбар бүрийг тухайн үеийн <b>хамгийн үнэтэй</b> бараанд хэрэглэнэ (greedy).</li>
+          <li>Хагасалсны дараа өөр бараа хамгийн үнэтэй болж магадгүй → <b>max-heap</b>: top-ийг аваад, хагаслаад, буцааж push.</li>
+        </ol>
+        <div class="key"><b>Гол санаа</b>тасалбар бүр тухайн үеийн хамгийн үнэтэй бараанд.</div>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="player" data-key="p3" data-h="380" tabindex="0" aria-label="3-р бодлогын анимэйшн"></div>
+      <div class="codep" data-key="p3" data-cx="&lt;strong&gt;O((N + M) log N)&lt;/strong&gt;. Нийлбэр 10⁹·N хүрч болох тул &lt;code&gt;long long&lt;/code&gt;."></div>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section class="prob" id="abc297e">
+    <div class="phead"><div class="pnum">4</div><div>
+      <h2>Kth Takoyaki Set · K дахь хамгийн бага үнэ</h2>
+      <div class="sub"><span class="chip">min-heap</span><span class="chip">set</span><a href="https://atcoder.jp/contests/abc297/tasks/abc297_e" target="_blank" rel="noopener">ABC297 E</a><span>500 оноо</span></div>
+    </div></div>
+    <div class="two">
+      <div class="blk"><h3>БОДЛОГО</h3><div class="stmt">
+        <p>N төрлийн такояки, нэг ширхэг нь <code>A_i</code> төгрөг. Нэг ба түүнээс олон ширхэг авна, нэг төрлийнхийг давтаж авч болно. Төлж болох <b>ялгаатай</b> дүнгүүдийн <b>K дахь хамгийн бага</b>-г ол.</p>
+        <p>Хязгаарлалт: <code>N ≤ 10</code>, <code>K ≤ 2·10⁵</code>, <code>A_i ≤ 10⁹</code></p>
+        <div class="io">Анимэйшнд: 1-р жишээ
+4 6
+20 25 30 100   →   50</div>
+      </div></div>
+      <div class="blk idea"><h3>САНАА</h3>
+        <ol>
+          <li>Боломжит дүн хязгааргүй олон, гэхдээ бидэнд зөвхөн хамгийн бага K дүн хэрэгтэй.</li>
+          <li>Аливаа дүн <code>s = (s − A_i) + A_i</code>: арай бага дүн дээр нэг такояки нэмсэн.</li>
+          <li>Тиймээс <code>0</code>-ээс эхэлнэ. Min-heap-ээс хамгийн бага дүнг гаргах бүрт түүнд A₁…A_N-ийг нэмж push. Дүнгүүд <b>өсөх эрэмбээр</b> гарч ирнэ.</li>
+          <li><code>20 + 25 = 25 + 20</code> гэх мэт ижил дүн олон удаа үүснэ → <code>set</code>-ээр давхардлыг шалгана.</li>
+          <li><code>0</code> нь "юу ч аваагүй" тул тоологдохгүй: K удаа pop хийсний дараах top нь хариу.</li>
+        </ol>
+        <div class="key"><b>Гол санаа</b>хамгийн бага дүнгээс "нэг такояки нэмэх" замаар өргөжүүлнэ.</div>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="player" data-key="p4" data-h="420" tabindex="0" aria-label="4-р бодлогын анимэйшн"></div>
+      <div class="codep" data-key="p4" data-cx="&lt;strong&gt;O(K · N · log(K·N))&lt;/strong&gt;. Pop K удаа, pop бүрт N push. Хариу 10⁹-ээс их болох тул &lt;code&gt;long long&lt;/code&gt;."></div>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section class="prob" id="abc137d">
+    <div class="phead"><div class="pnum">5</div><div>
+      <h2>Summer Vacation · Зуны амралт</h2>
+      <div class="sub"><span class="chip">max-heap</span><span class="chip">greedy</span><a href="https://atcoder.jp/contests/abc137/tasks/abc137_d" target="_blank" rel="noopener">ABC137 D</a><span>400 оноо</span></div>
+    </div></div>
+    <div class="two">
+      <div class="blk"><h3>БОДЛОГО</h3><div class="stmt">
+        <p>N ажил байна. i-р ажлыг аль нэг өдөр хийвэл <code>A_i</code> хоногийн дараа <code>B_i</code> цалин ирнэ. Өдөрт хамгийн ихдээ нэг ажил. <b>M хоногийн дотор</b> ирэх цалингийн хамгийн их нийлбэрийг ол.</p>
+        <p>Хязгаарлалт: <code>N, M, A_i ≤ 10⁵</code>, <code>B_i ≤ 10⁴</code></p>
+        <div class="io">Анимэйшнд: 2-р жишээ (A B)
+5 3
+1 2 · 1 3 · 1 4 · 2 1 · 2 3   →   10</div>
+      </div></div>
+      <div class="blk idea"><h3>САНАА</h3>
+        <ol>
+          <li>t өдөр (0-ээс) эхэлсэн ажлын цалин t + A өдөр ирнэ, <code>t + A ≤ M</code> байх ёстой. Өөрөөр хэлбэл <b>үлдсэн хоног ≥ A</b>.</li>
+          <li>Урдаас нь бодох хэцүү: эхний өдөр аль ажлыг авах нь дараагийн өдрүүдээс хамаарна.</li>
+          <li><b>Сүүлээс нь бодъё.</b> Сүүлийн өдөр (үлдсэн 1) зөвхөн A ≤ 1, түүний өмнөх өдөр A ≤ 2, … Ухрах тусам сонголт зөвхөн <b>нэмэгдэнэ</b>: өмнө авч болох байсан ажил хэвээр авч болно.</li>
+          <li>Тиймээс <code>d = 1, 2, …, M</code> дарааллаар: A = d ажлуудыг <b>max-heap</b>-д нэмээд хамгийн их цалинтайг авна.</li>
+        </ol>
+        <div class="key"><b>Гол санаа</b>сонголт хамгийн цөөн өдрөөс (сүүлийн өдрөөс) эхэлж шийд.</div>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="player" data-key="p5" data-h="470" tabindex="0" aria-label="5-р бодлогын анимэйшн"></div>
+      <div class="codep" data-key="p5" data-cx="&lt;strong&gt;O((N + M) log N)&lt;/strong&gt;. A &gt; M ажлыг хэзээ ч авч амжихгүй тул орхино."></div>
+    </div>
+  </section>
+
+  <footer>
+    <span>Бодлогын бүтэн монгол орчуулга: <a href="https://github.com/khangai11/surgalt/blob/main/priority_queue_atcoder.md" target="_blank" rel="noopener">priority_queue_atcoder.md</a></span>
+    <span><a href="https://github.com/khangai11/surgalt/blob/main/priority_queue.md" target="_blank" rel="noopener">priority_queue хичээл</a></span>
+  </footer>
+</div>
+
+<script>
+/* ---------- frame generators (pure, no DOM) ---------- */
+const CODE = {
+p1: `#include <bits/stdc++.h>
+using namespace std;
+int main(){
+    int n, k;
+    cin >> n >> k;
+    // min-heap: хамгийн том K тоог хадгална
+    priority_queue<int, vector<int>, greater<int>> q;
+    for(int i = 1; i <= n; i++){
+        int p;
+        cin >> p;
+        q.push(p);
+        if((int)q.size() > k) q.pop();   // K+1 бол жижгийг хая
+        if(i >= k) cout << q.top() << "\\n"; // top = хариу
+    }
+}`,
+p2: `#include <bits/stdc++.h>
+using namespace std;
+#define ll long long
+int main(){
+    int Q;
+    cin >> Q;
+    priority_queue<ll, vector<ll>, greater<ll>> q;  // min-heap
+    ll add = 0;                   // нийт нэмэгдсэн тоо
+    while(Q--){
+        int t;
+        cin >> t;
+        if(t == 1){
+            ll x;
+            cin >> x;
+            q.push(x - add);      // "x - add" гэж хадгална
+        } else if(t == 2){
+            ll x;
+            cin >> x;
+            add += x;             // O(1)!
+        } else {
+            cout << q.top() + add << "\\n";  // жинхэнэ утга
+            q.pop();
+        }
+    }
+}`,
+p3: `#include <bits/stdc++.h>
+using namespace std;
+#define ll long long
+int main(){
+    int n, m;
+    cin >> n >> m;
+    priority_queue<ll> q;         // max-heap
+    for(int i = 0; i < n; i++){
+        ll a;
+        cin >> a;
+        q.push(a);
+    }
+    while(m--){
+        ll x = q.top(); q.pop();  // хамгийн үнэтэй бараа
+        q.push(x / 2);            // 1 тасалбар -> хагас үнэ
+    }
+    ll sum = 0;
+    while(!q.empty()){
+        sum += q.top();
+        q.pop();
+    }
+    cout << sum << "\\n";
+}`,
+p4: `#include <bits/stdc++.h>
+using namespace std;
+#define ll long long
+int main(){
+    int n, k;
+    cin >> n >> k;
+    vector<ll> a(n);
+    for(auto &x : a) cin >> x;
+    priority_queue<ll, vector<ll>, greater<ll>> q;  // min-heap
+    set<ll> seen;                 // queue-д орсон үнэ
+    q.push(0);                    // юу ч аваагүй = 0
+    seen.insert(0);
+    for(int i = 0; i < k; i++){   // k удаа гаргана
+        ll x = q.top(); q.pop();
+        for(ll v : a){
+            if(!seen.count(x + v)){   // давхардлыг алгасна
+                seen.insert(x + v);
+                q.push(x + v);
+            }
+        }
+    }
+    cout << q.top() << "\\n";      // хариу
+}`,
+p5: `#include <bits/stdc++.h>
+using namespace std;
+int main(){
+    int n, m;
+    cin >> n >> m;
+    vector<vector<int>> jobs(m + 1);  // jobs[a]: A = a ажлууд
+    for(int i = 0; i < n; i++){
+        int a, b;
+        cin >> a >> b;
+        if(a <= m) jobs[a].push_back(b);
+    }
+    priority_queue<int> q;            // max-heap
+    long long ans = 0;
+    for(int d = 1; d <= m; d++){      // d = үлдсэн хоног
+        for(int b : jobs[d]) q.push(b);   // шинэ ажлууд
+        if(!q.empty()){
+            ans += q.top();           // хамгийн их цалин
+            q.pop();
+        }
+    }
+    cout << ans << "\\n";
+}`
+};
+
+function lineOf(key, s) {
+  const lines = CODE[key].split("\n");
+  for (let i = 0; i < lines.length; i++) if (lines[i].includes(s)) return i;
+  throw new Error("line not found: " + key + " / " + s);
+}
+
+const T = (id, v, x, y, s = "norm", o = {}) => Object.assign({ id, v: String(v), x, y, s }, o);
+const Lb = (x, y, t, c = "lbl", a = "start") => ({ x, y, t, c, a });
+const Sl = (x, y, w, h, c = "slot") => ({ x, y, w, h, c });
+const code = (s) => `<code>${s}</code>`;
+
+/* ===== 1. ABC234 D — Prefix K-th Max ===== */
+function genP1() {
+  const P = [3, 7, 2, 5, 11, 6, 1, 9, 8, 10, 4], K = 5, N = P.length;
+  const ix = (j) => 45 + j * 60;
+  const YI = 66, YH = 196, YD = 304, YO = 404;
+  let heap = [], disc = [], outs = [], cur = -1, hl = {};
+  const F = [];
+  const L = (s) => lineOf("p1", s);
+  function snap(cap, line, hold) {
+    const tiles = [], labels = [], slots = [];
+    labels.push(Lb(20, YI - 36, "P — оролт"));
+    P.forEach((v, j) => {
+      tiles.push(T("in" + j, v, ix(j), YI, j === cur ? "new" : j < cur ? "dim" : "idle"));
+      labels.push(Lb(ix(j), YI + 37, "i=" + (j + 1), j === cur ? "ptr" : "idx", "middle"));
+    });
+    labels.push(Lb(20, YH - 44, "min-heap — хамгийн том K = 5 тоо (жижиг нь зүүн талд)"));
+    for (let j = 0; j < K; j++) slots.push(Sl(ix(j), YH, 54, 48));
+    slots.push(Sl(ix(K), YH, 54, 48, "slot-x"));
+    labels.push(Lb(ix(K), YH + 40, "илүүдэл", "warn", "middle"));
+    labels.push(Lb(ix(0), YH + 40, "top", "top", "middle"));
+    heap.forEach((h, j) => tiles.push(T(h.id, h.v, ix(j), YH, hl[h.id] || "norm", h.from ? { from: h.from } : {})));
+    labels.push(Lb(20, YD - 36, "Хаягдсан — эдгээр хэзээ ч K дахь хамгийн том болохгүй"));
+    disc.forEach((h, j) => tiles.push(T(h.id, h.v, ix(j), YD, "out")));
+    labels.push(Lb(20, YO - 36, "Гаралт"));
+    outs.forEach((o, j) => {
+      tiles.push(T(o.id, o.v, ix(j), YO, "res", o.from ? { from: o.from } : {}));
+      labels.push(Lb(ix(j), YO + 37, "i=" + (K + j), "idx", "middle"));
+    });
+    F.push({ cap, line, hold, tiles, labels, slots, vars: { i: cur >= 0 ? cur + 1 : "–", "q.size()": heap.length } });
+    heap.forEach((h) => delete h.from); outs.forEach((o) => delete o.from);
+    hl = {};
+  }
+  snap(`K = 5. Санаа: <b>5 дахь хамгийн том = хамгийн том 5 тооны хамгийн жижиг нь.</b> Тиймээс хамгийн том 5 тоог min-heap-д хадгалъя. Тэгвэл ${code("top()")} шууд хариу болно.`, L("priority_queue"), 2600);
+  for (let j = 0; j < N; j++) {
+    cur = j;
+    const it = { id: "h" + j, v: P[j], from: { x: ix(j), y: YI } };
+    heap.push(it); heap.sort((a, b) => a.v - b.v);
+    hl[it.id] = "new";
+    const extra = heap.length <= K ? ` Хэмжээ ${heap.length} ≤ K тул юу ч хаяхгүй.` : "";
+    snap(`i = ${j + 1}: ${code("P = " + P[j])} ирлээ → ${code("q.push(" + P[j] + ")")}. Heap өөрөө эрэмбэлнэ.${extra}`, L("q.push(p)"), 1500);
+    if (heap.length > K) {
+      hl[heap[0].id] = "top";
+      snap(`Одоо ${K + 1} тоо байна. Хамгийн жижиг нь ${code(heap[0].v)} — түүнээс том ${K} тоо байгаа тул тэр хэзээ ч ${K} дахь хамгийн том болж чадахгүй.`, L("q.size() > k"), 1900);
+      const out = heap.shift();
+      disc.push(out);
+      snap(`${code("q.pop()")} → ${code(out.v)}-г хаялаа. Heap-д дахин хамгийн том ${K} тоо үлдлээ.`, L("q.size() > k"), 1300);
+    }
+    if (j + 1 >= K) {
+      hl[heap[0].id] = "ok";
+      outs.push({ id: "o" + j, v: heap[0].v, from: { x: ix(0), y: YH } });
+      snap(`i ≥ K тул ${code("top() = " + heap[0].v)}-г хэвлэнэ: эхний ${j + 1} тооны ${K} дахь хамгийн том нь ${heap[0].v}.`, L("cout << q.top()"), 1600);
+    }
+  }
+  cur = N;
+  snap(`Дууслаа! Гаралт: ${code(outs.map((o) => o.v).join(" "))}. Тоо бүрийг нэг удаа push, хамгийн ихдээ нэг удаа pop хийсэн → ${code("O(N log K)")}.`, L("cout << q.top()"), 3500);
+  return F;
+}
+
+/* ===== 2. ABC212 D — Querying Multiset ===== */
+function genP2() {
+  const OPS = [[1, 5], [1, 2], [1, 8], [3], [2, 3], [1, 4], [3], [2, 10], [1, 15], [3], [3]];
+  const L = (s) => lineOf("p2", s);
+  const YQ0 = 62, GQ = 33, XQ = 70;
+  const YA = 70, YB = 210, YO = 352;
+  const bx = (j) => 250 + j * 112;
+  const ox = (j) => 250 + j * 76;
+  const IN = { x: 640, y: YA };
+  let add = 0, bag = [], outs = [], cur = -1, incoming = null, hl = {}, addHl = false, nid = 0;
+  const F = [];
+  function snap(cap, line, hold) {
+    const tiles = [], labels = [], slots = [], lines = [];
+    labels.push(Lb(20, 28, "Үйлдлүүд"));
+    OPS.forEach((op, k) => {
+      tiles.push(T("op" + k, op.join(" "), XQ, YQ0 + k * GQ, k === cur ? "new" : k < cur ? "dim" : "idle", { w: 96, h: 26, f: "sm" }));
+    });
+    lines.push({ x1: 150, y1: 20, x2: 150, y2: 410, c: "rule" });
+    labels.push(Lb(190, YA + 6, "add ="));
+    tiles.push(T("add", add, 282, YA, addHl ? "new" : "res", { w: 70 }));
+    labels.push(Lb(330, YA - 6, "бүх бөмбөгөнд нэмэгдсэн", "note"));
+    labels.push(Lb(330, YA + 14, "нийт тоо", "note"));
+    labels.push(Lb(IN.x, YA - 42, "шинэ бөмбөг", "note", "middle"));
+    slots.push(Sl(IN.x, IN.y, 62, 62, "slot-c"));
+    if (incoming) tiles.push(T(incoming.id, incoming.x, IN.x, IN.y, "new", { shape: "c", w: 58, sub: "хадг. " + incoming.s }));
+    labels.push(Lb(190, YB - 72, "Уут = min-heap (хадгалсан утгаар эрэмбэлэгдэнэ)"));
+    labels.push(Lb(190, YB - 52, "бөмбөг дээр: жинхэнэ утга = хадгалсан + add", "note"));
+    bag.forEach((b, j) => tiles.push(T(b.id, b.s + add, bx(j), YB, hl[b.id] || (addHl ? "new" : "norm"), { shape: "c", w: 58, sub: "хадг. " + b.s })));
+    if (bag.length) labels.push(Lb(bx(0), YB + 62, "top", "top", "middle"));
+    labels.push(Lb(190, YO - 40, "Гаралт"));
+    outs.forEach((o, j) => tiles.push(T(o.id, o.v, ox(j), YO, "res", { shape: "c", w: 58 })));
+    F.push({ cap, line, hold, tiles, labels, slots, lines, vars: { add, "q.size()": bag.length } });
+    hl = {}; addHl = false;
+  }
+  snap(`Гол санаа: бүх бөмбөгийг нэг бүрчлэн өөрчлөхгүй. ${code("add")} = бүгдэд нэмэгдсэн нийт тоо. Бөмбөгийг ${code("x − add")} гэж хадгалаад, гаргахдаа ${code("хадгалсан + add")} болгоно.`, L("ll add = 0"), 2800);
+  OPS.forEach((op, k) => {
+    cur = k;
+    if (op[0] === 1) {
+      const x = op[1], s = x - add, id = "b" + nid++;
+      incoming = { id, x, s };
+      snap(`${code("1 " + x)}: шинэ бөмбөг ${x}. Одоо add = ${add} тул ${code(x + " − " + add + " = " + s)} гэж хадгална. (Дараа нь add-ийг нэмэхэд яг ${x} болно.)`, L("cin >> x;"), 2000);
+      incoming = null;
+      bag.push({ id, s, k: nid }); bag.sort((a, b) => a.s - b.s || a.k - b.k);
+      hl[id] = "new";
+      snap(`${code("q.push(" + s + ")")} — heap хадгалсан утгаар эрэмбэлнэ.`, L("q.push(x - add)"), 1300);
+    } else if (op[0] === 2) {
+      add += op[1]; addHl = true;
+      snap(`${code("2 " + op[1])}: бүх бөмбөгөнд ${op[1]} нэмэхийн оронд ${code("add += " + op[1])} → add = ${add}. Хадгалсан утгууд өөрчлөгдөөгүй, зөвхөн жинхэнэ утга өссөн. Энэ нь ${code("O(1)")}!`, L("add += x"), 2400);
+    } else {
+      const b = bag[0];
+      hl[b.id] = "top";
+      snap(`${code("3")}: хамгийн бага хадгалсан утга ${b.s} → жинхэнэ утга ${code(b.s + " + " + add + " = " + (b.s + add))}. Эрэмбэ ижил тул хамгийн бага нь хэвээр хамгийн бага.`, L("q.top() + add"), 2000);
+      bag.shift();
+      outs.push({ id: b.id, v: b.s + add });
+      snap(`${code(b.s + add)}-г хэвлээд ${code("q.pop()")}.`, L("q.pop();"), 1200);
+    }
+  });
+  cur = OPS.length;
+  snap(`Гаралт: ${code(outs.map((o) => o.v).join(" "))}. Анзаар: 15 сүүлд орсон тул өмнөх +10-ыг аваагүй — хадгалсан утга 2 нь үүнийг зөв илэрхийлж байна. Утга 10<sup>9</sup>·Q хүрч болох тул ${code("long long")}.`, L("q.pop();"), 4000);
+  return F;
+}
+
+/* ===== 3. ABC141 D — Powerful Discount Tickets ===== */
+function genP3() {
+  const A = [2, 13, 8], M = 3;
+  const L = (s) => lineOf("p3", s);
+  const tx = (j) => 60 + j * 72, hx = (j) => 60 + j * 92;
+  const YT = 74, YH = 196, YW = 320;
+  let heap = A.map((v, j) => ({ id: "a" + j, v })).sort((a, b) => b.v - a.v);
+  let used = 0, work = null, hl = {}, subs = {}, tHl = -1, workTxt = "", sumTxt = "";
+  const F = [];
+  function snap(cap, line, hold) {
+    const tiles = [], labels = [], slots = [];
+    labels.push(Lb(20, YT - 38, "Хөнгөлөлтийн тасалбар (M = 3)"));
+    for (let j = 0; j < M; j++) tiles.push(T("t" + j, "½", tx(j), YT, j < used ? "out" : j === tHl ? "new" : "res", { w: 56, h: 40 }));
+    labels.push(Lb(20, YH - 48, "max-heap — үнэ (хамгийн үнэтэй нь зүүн талд)"));
+    labels.push(Lb(hx(0), YH + (Object.keys(subs).length ? 58 : 40), "top", "top", "middle"));
+    heap.forEach((h, j) => tiles.push(T(h.id, h.v, hx(j), YH, hl[h.id] || "norm", Object.assign({ w: 60 }, subs[h.id] ? { sub: subs[h.id], subc: "save" } : {}))));
+    labels.push(Lb(20, YW - 48, "Хагаслах"));
+    slots.push(Sl(330, YW, 70, 52));
+    if (work) tiles.push(T(work.id, work.v, 330, YW, work.s, { w: 60 }));
+    if (workTxt) labels.push(Lb(380, YW + 6, workTxt, "big"));
+    if (sumTxt) labels.push(Lb(20, YW + 6, sumTxt, "big"));
+    F.push({ cap, line, hold, tiles, labels, slots, vars: { "үлдсэн тасалбар": M - used } });
+    hl = {}; subs = {}; tHl = -1;
+  }
+  snap(`Бүх үнийг max-heap-д хийлээ. Нэг тасалбар = нэг барааны үнийг хоёр дахин бууруулна. Аль бараанд хэрэглэвэл хамгийн их хэмнэх вэ?`, L("q.push(a)"), 2400);
+  for (let t = 0; t < M; t++) {
+    heap.forEach((h) => (subs[h.id] = "−" + (h.v - Math.floor(h.v / 2))));
+    hl[heap[0].id] = "top"; tHl = used;
+    const x = heap[0].v;
+    snap(`Хагаславал хэмнэх мөнгө: ${heap.map((h) => h.v + " → −" + (h.v - Math.floor(h.v / 2))).join(", ")}. Хамгийн үнэтэй ${code(x)} хамгийн их хэмнэнэ.`, L("ll x = q.top()"), 2400);
+    work = Object.assign(heap.shift(), { s: "top" }); tHl = used;
+    snap(`${code("x = q.top(); q.pop();")} → x = ${x}. Тасалбар ${used + 1}-ийг ашиглана.`, L("ll x = q.top()"), 1300);
+    work.v = Math.floor(x / 2); work.s = "res"; used++;
+    workTxt = `${x} / 2 = ${work.v}`;
+    snap(`${code(x + " / 2 = " + work.v)} (бутархайг хаяна). ${t === 0 ? "Энэ бараанд дахин тасалбар хэрэглэж ч болно — ⌊⌊x/2⌋/2⌋ = ⌊x/4⌋." : ""}`, L("q.push(x / 2)"), 1800);
+    const pv = work.v;
+    heap.push({ id: work.id, v: pv }); heap.sort((a, b) => b.v - a.v);
+    hl[work.id] = "new"; work = null; workTxt = "";
+    snap(`${code("q.push(" + pv + ")")} — heap дахин эрэмбэлэгдэж, одоо хамгийн үнэтэй нь ${code(heap[0].v)}.`, L("q.push(x / 2)"), 1500);
+  }
+  heap.forEach((h) => (hl[h.id] = "ok"));
+  const total = heap.reduce((s, h) => s + h.v, 0);
+  sumTxt = `Нийт = ${heap.map((h) => h.v).join(" + ")} = ${total}`;
+  snap(`Тасалбар дууслаа. Үлдсэн үнүүдийг нэмнэ: ${code(heap.map((h) => h.v).join(" + ") + " = " + total)}. Нийт ${code("O((N + M) log N)")}.`, L("sum += q.top()"), 4000);
+  return F;
+}
+
+/* ===== 4. ABC297 E — Kth Takoyaki Set ===== */
+function genP4() {
+  const A = [20, 25, 30, 100], K = 6;
+  const L = (s) => lineOf("p4", s);
+  const px = (j) => 60 + j * 80;
+  const YP = 70, YDUP = 128, YH = 228, YO = 372;
+  const hpos = (j) => ({ x: 45 + (j % 10) * 62, y: YH + Math.floor(j / 10) * 56 });
+  const ox = (j) => 45 + j * 62;
+  let heap = [{ id: "s0", v: 0 }], seen = new Set([0]), outs = [], dups = [], hl = {}, pHl = -1, ndup = 0;
+  const F = [];
+  function snap(cap, line, hold) {
+    const tiles = [], labels = [], slots = [];
+    labels.push(Lb(20, YP - 36, "Такояки үнэ A"));
+    A.forEach((v, j) => tiles.push(T("p" + j, v, px(j), YP, j === pHl ? "new" : "res", { w: 56 })));
+    dups.forEach((d) => tiles.push(T(d.id, d.v, px(d.j), YDUP, "dup", { w: 56, from: d.from, sub: "давхар" })));
+    labels.push(Lb(20, YH - 46, "min-heap (хамгийн бага нь зүүн дээд буланд)"));
+    labels.push(Lb(hpos(0).x, YH - 30, "top", "top", "middle"));
+    heap.forEach((h, j) => {
+      const p = hpos(j);
+      tiles.push(T(h.id, h.v, p.x, p.y, hl[h.id] || "norm", Object.assign({ w: 56 }, h.from ? { from: h.from } : {})));
+    });
+    labels.push(Lb(20, YO - 38, "Гарсан дараалал (давхардалгүй, өсөх эрэмбээр)"));
+    outs.forEach((o, j) => {
+      tiles.push(T(o.id, o.v, ox(j), YO, o.s || "out", { w: 56 }));
+      labels.push(Lb(ox(j), YO + 38, j === 0 ? "эхлэл" : "#" + j, j === K ? "ptr" : "idx", "middle"));
+    });
+    F.push({ cap, line, hold, tiles, labels, slots, vars: { "гаргасан": Math.max(0, outs.length - 1), "q.size()": heap.length } });
+    heap.forEach((h) => delete h.from);
+    dups = []; hl = {}; pHl = -1;
+  }
+  snap(`Санаа: аливаа үнэ = арай бага үнэ + нэг такояки. Тиймээс ${code("0")}-ээс эхэлж, хамгийн бага үнийг гаргах бүрт түүнд A-ийн үнэ бүрийг нэмж push хийнэ. Ингэхэд үнэ өсөх эрэмбээр гарч ирнэ.`, L("q.push(0)"), 2800);
+  for (let i = 0; i < K; i++) {
+    const x = heap.shift();
+    outs.push({ id: x.id, v: x.v });
+    snap(i === 0 ? `${code("q.top() = 0")} гаргана — энэ бол "юу ч аваагүй" эхлэл, тоолохгүй.` :
+      `${code("q.top() = " + x.v)} гаргана → <b>${i} дэх</b> хамгийн бага үнэ.`, L("ll x = q.top()"), 1500);
+    A.forEach((a, j) => {
+      const s = x.v + a;
+      pHl = j;
+      if (seen.has(s)) {
+        dups.push({ id: "d" + ndup++, v: s, j, from: { x: ox(outs.length - 1), y: YO } });
+        snap(`${code(x.v + " + " + a + " = " + s)} — аль хэдийн queue-д орсон (${code("seen")}-д байна) → алгасна.`, L("if(!seen.count"), 1300);
+      } else {
+        seen.add(s);
+        const it = { id: "s" + s, v: s, from: { x: px(j), y: YP } };
+        heap.push(it); heap.sort((p, q) => p.v - q.v);
+        hl[it.id] = "new";
+        snap(`${code(x.v + " + " + a + " = " + s)} — шинэ үнэ → ${code("seen.insert(" + s + "); q.push(" + s + ")")}.`, L("q.push(x + v)"), 1200);
+      }
+    });
+  }
+  hl[heap[0].id] = "ok";
+  snap(`${K} удаа гаргалаа (0 + эхний ${K - 1} үнэ). Одоо ${code("q.top() = " + heap[0].v)} нь ${K} дахь хамгийн бага үнэ.`, L("cout << q.top()"), 2000);
+  const ans = heap.shift();
+  outs.push({ id: ans.id, v: ans.v, s: "ok" });
+  snap(`Хариу: ${code(ans.v)}. Гарсан дараалал 20, 25, 30, 40, 45, 50 — бодлогын жишээтэй таарч байна. Нийт ${code("O(K · N · log(K·N))")}.`, L("cout << q.top()"), 4000);
+  return F;
+}
+
+/* ===== 5. ABC137 D — Summer Vacation ===== */
+function genP5() {
+  const M = 3, JOBS = [[1, 2], [1, 3], [1, 4], [2, 1], [2, 3]];
+  const L = (s) => lineOf("p5", s);
+  const dx = (day) => 175 + day * 150;          // day = 0..M-1
+  const YC = 82, YJ0 = 196, GJ = 52, YH = 410;
+  const jx = (j) => 140 + j * 66, hx = (j) => 60 + j * 74;
+  let groups = {}; JOBS.forEach(([a, b], i) => (groups[a] = groups[a] || []).push({ id: "j" + i, v: b, a }));
+  let pool = JOBS.map(([a, b], i) => ({ id: "j" + i, v: b, a }));
+  let heap = [], placed = {}, curDay = -1, hl = {}, ans = 0, ansTxt = "";
+  const F = [];
+  function snap(cap, line, hold) {
+    const tiles = [], labels = [], slots = [], lines = [];
+    labels.push(Lb(20, YC - 50, "Хуанли (M = 3) — ажлыг аль өдөр эхлүүлэх вэ?"));
+    for (let day = 0; day < M; day++) {
+      slots.push(Sl(dx(day), YC, 120, 54, day === curDay ? "slot-on" : "slot"));
+      labels.push(Lb(dx(day), YC + 46, `Өдөр ${day + 1} · үлдсэн ${M - day}`, day === curDay ? "ptr" : "idx", "middle"));
+    }
+    lines.push({ x1: 640, y1: YC - 34, x2: 640, y2: YC + 34, c: "deadline" });
+    labels.push(Lb(650, YC - 8, "M хоног", "warn"));
+    labels.push(Lb(650, YC + 12, "дуусна", "warn"));
+    labels.push(Lb(20, YJ0 - 44, "Ажлууд (дугуй дээр B = цалин)"));
+    for (let a = 1; a <= M; a++) {
+      const y = YJ0 + (a - 1) * GJ;
+      labels.push(Lb(20, y + 6, `A = ${a}`, "lblm"));
+      if (!groups[a]) labels.push(Lb(jx(0) - 26, y + 6, "(ажил алга)", "note"));
+    }
+    pool.forEach((p) => {
+      const k = groups[p.a].indexOf(groups[p.a].find((g) => g.id === p.id));
+      tiles.push(T(p.id, p.v, jx(k), YJ0 + (p.a - 1) * GJ, "idle", { shape: "c", w: 44 }));
+    });
+    labels.push(Lb(20, YH - 50, "max-heap — одоо авч болох ажлууд (цалин их нь зүүн талд)"));
+    heap.forEach((h, j) => tiles.push(T(h.id, h.v, hx(j), YH, hl[h.id] || "norm", { shape: "c", w: 48 })));
+    if (heap.length) labels.push(Lb(hx(0), YH + 44, "top", "top", "middle"));
+    Object.entries(placed).forEach(([day, h]) => tiles.push(T(h.id, h.v, dx(+day), YC, "ok", { shape: "c", w: 46 })));
+    if (ansTxt) labels.push(Lb(470, YH + 6, ansTxt, "big"));
+    F.push({ cap, line, hold, tiles, labels, slots, lines, vars: { d: curDay >= 0 ? M - curDay : "–", ans } });
+    hl = {};
+  }
+  snap(`Өдөр t-д эхэлсэн ажлын цалин t + A өдөр ирнэ, энэ нь M-ээс хэтрэхгүй байх ёстой. <b>Сүүлийн өдрөөс эхэлж</b> бодъё: үлдсэн хоног d бол зөвхөн A ≤ d ажил амжина.`, L("jobs[a].push_back"), 3000);
+  for (let d = 1; d <= M; d++) {
+    curDay = M - d;
+    const nw = pool.filter((p) => p.a === d);
+    pool = pool.filter((p) => p.a !== d);
+    nw.forEach((p) => { heap.push({ id: p.id, v: p.v, a: p.a }); hl[p.id] = "new"; });
+    heap.sort((a, b) => b.v - a.v);
+    snap(nw.length ? `d = ${d} (Өдөр ${curDay + 1}): A = ${d} ажлууд одоо амжих боломжтой болов → ${code("push " + nw.map((p) => p.v).join(", "))}. Өмнө нь орсон ажлууд ч хэвээр авч болно.`
+      : `d = ${d} (Өдөр ${curDay + 1}): A = ${d} ажил алга. Гэхдээ heap-д үлдсэн ажлуудыг одоо ч хийж амжина!`, L("for(int b : jobs[d])"), 2200);
+    const top = heap[0];
+    hl[top.id] = "top";
+    snap(`Хамгийн их цалинтай нь ${code(top.v)} (A = ${top.a}). Үүнийг Өдөр ${curDay + 1}-д хийе.`, L("ans += q.top()"), 1800);
+    heap.shift();
+    placed[curDay] = top; ans += top.v;
+    snap(`${code("ans += " + top.v)} → ans = ${ans}. ${code("q.pop()")}.`, L("q.pop();"), 1400);
+  }
+  curDay = -1;
+  ansTxt = `ans = ${Object.keys(placed).sort().map((k) => placed[k].v).join(" + ")} = ${ans}`;
+  snap(`Хариу ${code(ans)}. Өдөр бүрт тухайн үед амжих ажлуудаас хамгийн үнэтэйг нь авсан. Нийт ${code("O((N + M) log N)")}.`, L("cout << ans"), 4000);
+  return F;
+}
+
+const GENS = { p1: genP1, p2: genP2, p3: genP3, p4: genP4, p5: genP5 };
+if (typeof module !== "undefined") module.exports = { GENS, CODE, lineOf };
+
+
+(function () {
+  const NS = "http://www.w3.org/2000/svg";
+  const reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const el = (tag, attrs = {}, cls) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (cls) e.setAttribute("class", cls); return e; };
+  const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  const ICON = {
+    restart: '<svg viewBox="0 0 24 24"><path d="M12 5V2L7 6l5 4V7a5 5 0 1 1-5 5H5a7 7 0 1 0 7-7z"/></svg>',
+    prev: '<svg viewBox="0 0 24 24"><path d="M15.4 5.4 14 4l-8 8 8 8 1.4-1.4L8.8 12z"/></svg>',
+    next: '<svg viewBox="0 0 24 24"><path d="M8.6 5.4 10 4l8 8-8 8-1.4-1.4 6.6-6.6z"/></svg>',
+    play: '<svg viewBox="0 0 24 24"><path d="M7 4.5v15l12.5-7.5z"/></svg>',
+    pause: '<svg viewBox="0 0 24 24"><path d="M6 4.5h4.2v15H6zm7.8 0H18v15h-4.2z"/></svg>',
+  };
+
+  function highlight(line) {
+    let src = line, com = "";
+    const ci = line.indexOf("//");
+    if (ci >= 0) { src = line.slice(0, ci); com = line.slice(ci); }
+    let h = esc(src).replace(/(#include|#define)|("(?:[^"\\]|\\.)*")|\b(int|long|return|for|while|if|else|auto|using|namespace)\b|\b(priority_queue|vector|greater|set|cin|cout|ll|main)\b|\b(\d+)\b/g,
+      (m, pp, str, kw, ty, num) => pp ? `<span class="k-pp">${m}</span>` : str ? `<span class="k-str">${m}</span>` : kw ? `<span class="k-kw">${m}</span>` : ty ? `<span class="k-ty">${m}</span>` : `<span class="k-num">${m}</span>`);
+    if (com) h += `<span class="k-com">${esc(com)}</span>`;
+    return h;
+  }
+
+  function buildCode(box) {
+    const key = box.dataset.key;
+    const lines = CODE[key].split("\n");
+    box.innerHTML = `<div class="codeh"><h3>БОДОЛТ · C++</h3><button class="copy" type="button" id="copy-${key}">Хуулах</button></div>
+      <pre class="code" id="code-${key}">${lines.map((l, i) => `<span class="cl" data-n="${i}"><span class="no">${i + 1}</span>${highlight(l)}</span>`).join("")}</pre>
+      <div class="cx">${box.dataset.cx}</div>`;
+    const btn = box.querySelector(".copy");
+    btn.addEventListener("click", () => {
+      const done = () => { btn.textContent = "Хуулсан ✓"; setTimeout(() => (btn.textContent = "Хуулах"), 1600); };
+      const fallback = () => { const r = document.createRange(); r.selectNodeContents(box.querySelector("pre")); const s = getSelection(); s.removeAllRanges(); s.addRange(r); btn.textContent = "Сонгогдлоо — Ctrl+C"; };
+      try { navigator.clipboard.writeText(CODE[key]).then(done, fallback); } catch (e) { fallback(); }
+    });
+    return [...box.querySelectorAll(".cl")];
+  }
+
+  class Player {
+    constructor(root) {
+      this.root = root; this.key = root.dataset.key; this.H = +root.dataset.h;
+      this.F = GENS[this.key](); this.i = -1; this.playing = false; this.speed = 1; this.els = new Map(); this.tm = 0; this.auto = false;
+      const k = this.key;
+      root.innerHTML = `<div class="stage"><svg viewBox="0 0 720 ${this.H}" role="img" aria-label="Алхам алхмын зураг"></svg></div>
+        <div class="cap" aria-live="polite"></div>
+        <div class="vars"></div>
+        <div class="ctl">
+          <button class="ib" type="button" data-a="restart" aria-label="Эхнээс нь" title="Эхнээс нь (Home)">${ICON.restart}</button>
+          <button class="ib" type="button" data-a="prev" aria-label="Өмнөх алхам" title="Өмнөх алхам (←)">${ICON.prev}</button>
+          <button class="play" type="button" data-a="play"></button>
+          <button class="ib" type="button" data-a="next" aria-label="Дараах алхам" title="Дараах алхам (→)">${ICON.next}</button>
+          <input class="scrub" type="range" min="0" max="${this.F.length - 1}" value="0" id="scrub-${k}" aria-label="Алхам сонгох">
+          <span class="count"></span>
+          <div class="speed" role="group" aria-label="Хурд">
+            <button type="button" data-s="0.5" aria-pressed="false">0.5×</button><button type="button" data-s="1" aria-pressed="true">1×</button><button type="button" data-s="2" aria-pressed="false">2×</button>
+          </div>
+        </div>`;
+      this.svg = root.querySelector("svg");
+      this.L = { slots: el("g"), lines: el("g"), labels: el("g"), tiles: el("g") };
+      Object.values(this.L).forEach((g) => this.svg.appendChild(g));
+      this.cap = root.querySelector(".cap"); this.vars = root.querySelector(".vars");
+      this.count = root.querySelector(".count"); this.scrub = root.querySelector(".scrub");
+      this.btn = {}; root.querySelectorAll("[data-a]").forEach((b) => (this.btn[b.dataset.a] = b));
+      this.codeLines = buildCode(document.querySelector(`.codep[data-key="${k}"]`));
+      this.btn.restart.onclick = () => { this.pause(); this.show(0); };
+      this.btn.prev.onclick = () => { this.pause(); this.show(this.i - 1); };
+      this.btn.next.onclick = () => { this.pause(); this.show(this.i + 1); };
+      this.btn.play.onclick = () => (this.playing ? this.pause() : this.play());
+      this.scrub.oninput = () => { this.pause(); this.show(+this.scrub.value); };
+      root.querySelectorAll(".speed button").forEach((b) => (b.onclick = () => {
+        this.speed = +b.dataset.s;
+        root.querySelectorAll(".speed button").forEach((x) => x.setAttribute("aria-pressed", x === b));
+        if (this.playing) this.tick();
+      }));
+      root.addEventListener("keydown", (e) => {
+        if (e.target.closest("button, input")) { if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return; if (e.target.matches("input")) return; }
+        if (e.key === "ArrowRight") { e.preventDefault(); this.btn.next.click(); }
+        else if (e.key === "ArrowLeft") { e.preventDefault(); this.btn.prev.click(); }
+        else if (e.key === " ") { e.preventDefault(); this.btn.play.click(); }
+        else if (e.key === "Home") { e.preventDefault(); this.btn.restart.click(); }
+      });
+      this.show(0);
+      this.updPlay();
+    }
+    dur() { return reduce ? 0 : Math.round(Math.min(650, Math.max(360, (this.F[this.i].hold || 1500) * 0.32)) / this.speed); }
+    tr(x, y) { return `translate(${x}px, ${y}px)`; }
+    show(i) {
+      if (i < 0 || i >= this.F.length || i === this.i) return;
+      const step = i === this.i + 1;
+      this.i = i;
+      const f = this.F[i], d = this.dur();
+      this.svg.style.setProperty("--dur", d + "ms");
+      // slots, lines, labels: redraw
+      this.L.slots.replaceChildren(...(f.slots || []).map((s) => el("rect", { x: s.x - s.w / 2, y: s.y - s.h / 2, width: s.w, height: s.h, rx: s.c === "slot-c" ? s.h / 2 : 12 }, s.c)));
+      this.L.lines.replaceChildren(...(f.lines || []).map((l) => el("line", { x1: l.x1, y1: l.y1, x2: l.x2, y2: l.y2 }, "ln-" + l.c)));
+      this.L.labels.replaceChildren(...f.labels.map((l) => { const t = el("text", { x: l.x, y: l.y, "text-anchor": l.a }, l.c === "lbl" ? "lb" : "lb-" + l.c); t.textContent = l.t; return t; }));
+      // tiles: keyed diff
+      const seen = new Set();
+      for (const t of f.tiles) {
+        seen.add(t.id);
+        let g = this.els.get(t.id);
+        const fresh = !g;
+        if (fresh) { g = this.mkTile(); this.L.tiles.appendChild(g); this.els.set(t.id, g); }
+        if (g._gone) { clearTimeout(g._gone); g._gone = 0; g.classList.remove("gone"); }
+        this.paint(g, t);
+        if (fresh) {
+          if (step && t.from && d) {
+            g.style.transition = "none"; g.style.transform = this.tr(t.from.x, t.from.y); g.getBoundingClientRect(); g.style.transition = "";
+          } else if (step && d) {
+            g.style.transition = "none"; g.style.transform = this.tr(t.x, t.y); g.classList.add("enter"); g.getBoundingClientRect(); g.style.transition = ""; g.classList.remove("enter");
+          }
+        }
+        g.style.transform = this.tr(t.x, t.y);
+      }
+      for (const [id, g] of this.els) {
+        if (seen.has(id) || g._gone) continue;
+        if (d && step) { g.classList.add("gone"); g._gone = setTimeout(() => { g.remove(); this.els.delete(id); }, d + 60); }
+        else { g.remove(); this.els.delete(id); }
+      }
+      if (!step) for (const [id, g] of this.els) if (g._gone) { clearTimeout(g._gone); g.remove(); this.els.delete(id); }
+      // text
+      this.cap.innerHTML = f.cap;
+      this.vars.innerHTML = Object.entries(f.vars || {}).map(([k, v]) => `<span class="var"><span class="k">${esc(k)}</span><span class="v">${esc(String(v))}</span></span>`).join("");
+      this.codeLines.forEach((c, n) => c.classList.toggle("on", n === f.line));
+      this.count.textContent = `${i + 1} / ${this.F.length}`;
+      this.scrub.value = i;
+      this.btn.prev.disabled = i === 0; this.btn.restart.disabled = i === 0; this.btn.next.disabled = i === this.F.length - 1;
+      if (!this.playing) this.updPlay();
+    }
+    mkTile() {
+      const g = el("g", {}, "tile");
+      g.appendChild(el("rect", {}, "sh"));
+      g.appendChild(el("text", {}, "tv"));
+      g.appendChild(el("text", {}, "ts"));
+      return g;
+    }
+    paint(g, t) {
+      const w = t.w || 50, h = t.h || 44;
+      g.setAttribute("class", `tile t-${t.s}${t.f ? " f-" + t.f : ""}${g.classList.contains("gone") ? " gone" : ""}`);
+      let sh = g.firstChild;
+      const want = t.shape === "c" ? "circle" : "rect";
+      if (sh.tagName !== want) { const n = el(want, {}, "sh"); g.replaceChild(n, sh); sh = n; }
+      if (want === "circle") { sh.setAttribute("r", w / 2); }
+      else { sh.setAttribute("x", -w / 2); sh.setAttribute("y", -h / 2); sh.setAttribute("width", w); sh.setAttribute("height", h); sh.setAttribute("rx", Math.min(10, h / 3)); }
+      const tv = g.children[1], ts = g.children[2];
+      if (tv.textContent !== t.v) tv.textContent = t.v;
+      ts.textContent = t.sub || "";
+      ts.setAttribute("y", (want === "circle" ? w / 2 : h / 2) + 17);
+      ts.setAttribute("class", "ts" + (t.subc ? " " + t.subc : ""));
+    }
+    updPlay() {
+      const end = this.i >= this.F.length - 1;
+      this.btn.play.innerHTML = this.playing ? `${ICON.pause}<span>Зогсоох</span>` : end ? `${ICON.restart}<span>Дахин</span>` : `${ICON.play}<span>Тоглуулах</span>`;
+      this.btn.play.setAttribute("aria-label", this.playing ? "Зогсоох" : "Тоглуулах");
+    }
+    play() { if (this.i >= this.F.length - 1) this.show(0); this.playing = true; this.updPlay(); this.tick(true); }
+    pause() { this.playing = false; clearTimeout(this.tm); this.updPlay(); }
+    tick(first) {
+      clearTimeout(this.tm);
+      if (!this.playing) return;
+      const hold = first ? 700 : (this.F[this.i].hold || 1500) / this.speed;
+      this.tm = setTimeout(() => {
+        if (!this.playing) return;
+        if (this.i < this.F.length - 1) { this.show(this.i + 1); this.tick(); }
+        else this.pause();
+      }, hold);
+    }
+  }
+
+  const players = [...document.querySelectorAll(".player")].map((r) => new Player(r));
+  if (!reduce && "IntersectionObserver" in window) {
+    const io = new IntersectionObserver((ents) => ents.forEach((e) => {
+      const p = players.find((x) => x.root === e.target);
+      if (!p) return;
+      if (e.isIntersecting && e.intersectionRatio >= 0.55 && !p.auto) { p.auto = true; p.play(); }
+      else if (!e.isIntersecting && p.playing) p.pause();
+    }), { threshold: [0, 0.55] });
+    players.forEach((p) => io.observe(p.root));
+  }
+})();
+</script>
+
+</html>
