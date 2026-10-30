@@ -8,11 +8,11 @@
 
 | # | Бодлого | Оноо | Ашиглах зүйл |
 |---|---|---|---|
-| 1 | [ABC234 D — Prefix K-th Max](#1-abc234-d--prefix-k-th-max) | 400 | min-heap |
-| 2 | [ABC212 D — Querying Multiset](#2-abc212-d--querying-multiset) | 400 | min-heap |
-| 3 | [ABC141 D — Powerful Discount Tickets](#3-abc141-d--powerful-discount-tickets) | 400 | max-heap |
-| 4 | [ABC297 E — Kth Takoyaki Set](#4-abc297-e--kth-takoyaki-set) | 500 | min-heap + set |
-| 5 | [ABC137 D — Summer Vacation](#5-abc137-d--summer-vacation) | 400 | max-heap |
+| 1 | [ABC234 D — Prefix K-th Max](#1-abc234-d--prefix-k-th-max) | 400 | priority_queue (greater) |
+| 2 | [ABC212 D — Querying Multiset](#2-abc212-d--querying-multiset) | 400 | priority_queue (greater) |
+| 3 | [ABC141 D — Powerful Discount Tickets](#3-abc141-d--powerful-discount-tickets) | 400 | priority_queue |
+| 4 | [ABC297 E — Kth Takoyaki Set](#4-abc297-e--kth-takoyaki-set) | 500 | priority_queue (greater) + set |
+| 5 | [ABC137 D — Summer Vacation](#5-abc137-d--summer-vacation) | 400 | priority_queue |
 
 ---
 

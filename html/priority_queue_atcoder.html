@@ -182,11 +182,11 @@ footer{border-top:2px solid var(--line); padding-top:22px; color:var(--muted); f
       <span><i class="sw ok"></i>хариу</span>
     </div>
     <nav class="toc" aria-label="Бодлогууд">
-      <a href="#abc234d"><span class="n">1</span><span class="t">Prefix K-th Max</span><span class="m">ABC234 D · min-heap · 400</span></a>
-      <a href="#abc212d"><span class="n">2</span><span class="t">Querying Multiset</span><span class="m">ABC212 D · min-heap · 400</span></a>
-      <a href="#abc141d"><span class="n">3</span><span class="t">Discount Tickets</span><span class="m">ABC141 D · max-heap · 400</span></a>
-      <a href="#abc297e"><span class="n">4</span><span class="t">Kth Takoyaki Set</span><span class="m">ABC297 E · min-heap · 500</span></a>
-      <a href="#abc137d"><span class="n">5</span><span class="t">Summer Vacation</span><span class="m">ABC137 D · max-heap · 400</span></a>
+      <a href="#abc234d"><span class="n">1</span><span class="t">Prefix K-th Max</span><span class="m">ABC234 D · бага нь эхэлж · 400</span></a>
+      <a href="#abc212d"><span class="n">2</span><span class="t">Querying Multiset</span><span class="m">ABC212 D · бага нь эхэлж · 400</span></a>
+      <a href="#abc141d"><span class="n">3</span><span class="t">Discount Tickets</span><span class="m">ABC141 D · их нь эхэлж · 400</span></a>
+      <a href="#abc297e"><span class="n">4</span><span class="t">Kth Takoyaki Set</span><span class="m">ABC297 E · бага нь эхэлж · 500</span></a>
+      <a href="#abc137d"><span class="n">5</span><span class="t">Summer Vacation</span><span class="m">ABC137 D · их нь эхэлж · 400</span></a>
     </nav>
   </header>
 
@@ -194,7 +194,7 @@ footer{border-top:2px solid var(--line); padding-top:22px; color:var(--muted); f
   <section class="prob" id="abc234d">
     <div class="phead"><div class="pnum">1</div><div>
       <h2>Prefix K-th Max · Эхний i тооны K дахь хамгийн их</h2>
-      <div class="sub"><span class="chip">min-heap</span><a href="https://atcoder.jp/contests/abc234/tasks/abc234_d" target="_blank" rel="noopener">ABC234 D</a><span>400 оноо</span></div>
+      <div class="sub"><span class="chip">priority_queue + greater</span><a href="https://atcoder.jp/contests/abc234/tasks/abc234_d" target="_blank" rel="noopener">ABC234 D</a><span>400 оноо</span></div>
     </div></div>
     <div class="two">
       <div class="blk"><h3>БОДЛОГО</h3><div class="stmt">
@@ -208,10 +208,10 @@ footer{border-top:2px solid var(--line); padding-top:22px; color:var(--muted); f
         <ol>
           <li>Энгийн арга: i бүрт эхний i тоог эрэмбэлэх. Энэ нь <code>O(N² log N)</code>, N = 5·10⁵ үед хэтэрхий удаан.</li>
           <li><b>K дахь хамгийн том = хамгийн том K тооны хамгийн жижиг нь.</b> Жишээ: 9, 7, 5, 3-ын 3 дахь хамгийн том нь 5 = {9, 7, 5}-ын хамгийн жижиг.</li>
-          <li>Тэгэхээр зөвхөн хамгийн том K тоог хадгалахад хангалттай. Тэдгээрийн хамгийн жижгийг хурдан мэдэхийн тулд <b>min-heap</b>.</li>
+          <li>Тэгэхээр зөвхөн хамгийн том K тоог хадгалахад хангалттай. Тэдгээрийн хамгийн жижгийг хурдан мэдэхийн тулд жижиг нь эхэлж гардаг <b>priority_queue</b> (<code>greater</code>).</li>
           <li>Шинэ тоо ирэхэд push. K+1 тоо болвол хамгийн жижгийг pop: цаашид тоо зөвхөн нэмэгдэх тул тэр дахин хэрэг болохгүй.</li>
         </ol>
-        <div class="key"><b>Гол санаа</b>heap-д үргэлж K тоо байлгавал <code>top()</code> нь шууд хариу.</div>
+        <div class="key"><b>Гол санаа</b>priority_queue-д үргэлж K тоо байлгавал <code>top()</code> нь шууд хариу.</div>
       </div>
     </div>
     <div class="lab">
@@ -224,7 +224,7 @@ footer{border-top:2px solid var(--line); padding-top:22px; color:var(--muted); f
   <section class="prob" id="abc212d">
     <div class="phead"><div class="pnum">2</div><div>
       <h2>Querying Multiset · Уутан дахь бөмбөгнүүд</h2>
-      <div class="sub"><span class="chip">min-heap</span><span class="chip">add хувьсагч</span><a href="https://atcoder.jp/contests/abc212/tasks/abc212_d" target="_blank" rel="noopener">ABC212 D</a><span>400 оноо</span></div>
+      <div class="sub"><span class="chip">priority_queue + greater</span><span class="chip">add хувьсагч</span><a href="https://atcoder.jp/contests/abc212/tasks/abc212_d" target="_blank" rel="noopener">ABC212 D</a><span>400 оноо</span></div>
     </div></div>
     <div class="two">
       <div class="blk"><h3>БОДЛОГО</h3><div class="stmt">
@@ -237,8 +237,8 @@ footer{border-top:2px solid var(--line); padding-top:22px; color:var(--muted); f
       </div></div>
       <div class="blk idea"><h3>САНАА</h3>
         <ol>
-          <li>Хамгийн багыг дахин дахин гаргах тул <b>min-heap</b>.</li>
-          <li>Асуудал нь <code>2 X</code>: бөмбөг бүрийг өөрчилбөл нэг үйлдэл <code>O(n)</code>, нийт <code>O(Q²)</code> ≈ 4·10¹⁰. Heap доторх утгыг өөрчлөх ч боломжгүй.</li>
+          <li>Хамгийн багыг дахин дахин гаргах тул <b>priority_queue</b> (<code>greater</code>).</li>
+          <li>Асуудал нь <code>2 X</code>: бөмбөг бүрийг өөрчилбөл нэг үйлдэл <code>O(n)</code>, нийт <code>O(Q²)</code> ≈ 4·10¹⁰. priority_queue доторх утгыг өөрчлөх ч боломжгүй.</li>
           <li>Ажиглалт: бүгдэд <b>ижил</b> тоо нэмэхэд бөмбөгнүүдийн эрэмбэ өөрчлөгдөхгүй. Тиймээс нийт нэмэгдсэн тоог ганц хувьсагч <code>add</code>-д хадгалъя.</li>
           <li>Бөмбөг хийхдээ <code>x − add</code> гэж хадгална. Дараа нь add хэчнээн өссөн ч <code>хадгалсан + add</code> = жинхэнэ утга.</li>
         </ol>
@@ -255,7 +255,7 @@ footer{border-top:2px solid var(--line); padding-top:22px; color:var(--muted); f
   <section class="prob" id="abc141d">
     <div class="phead"><div class="pnum">3</div><div>
       <h2>Powerful Discount Tickets · Хөнгөлөлтийн тасалбар</h2>
-      <div class="sub"><span class="chip">max-heap</span><span class="chip">greedy</span><a href="https://atcoder.jp/contests/abc141/tasks/abc141_d" target="_blank" rel="noopener">ABC141 D</a><span>400 оноо</span></div>
+      <div class="sub"><span class="chip">priority_queue</span><span class="chip">greedy</span><a href="https://atcoder.jp/contests/abc141/tasks/abc141_d" target="_blank" rel="noopener">ABC141 D</a><span>400 оноо</span></div>
     </div></div>
     <div class="two">
       <div class="blk"><h3>БОДЛОГО</h3><div class="stmt">
@@ -270,7 +270,7 @@ footer{border-top:2px solid var(--line); padding-top:22px; color:var(--muted); f
           <li><code>⌊⌊X/2⌋/2⌋ = ⌊X/4⌋</code> тул тасалбарыг нэг нэгээр нь хэрэглэж болно: <b>тасалбар бүр = нэг барааг хагаслах</b>.</li>
           <li>X-ийг хагаслахад <code>X − ⌊X/2⌋</code> төгрөг хэмнэнэ. Үнэ их байх тусам хэмнэлт их: 13 → −7, 8 → −4, 2 → −1.</li>
           <li>Тиймээс тасалбар бүрийг тухайн үеийн <b>хамгийн үнэтэй</b> бараанд хэрэглэнэ (greedy).</li>
-          <li>Хагасалсны дараа өөр бараа хамгийн үнэтэй болж магадгүй → <b>max-heap</b>: top-ийг аваад, хагаслаад, буцааж push.</li>
+          <li>Хагасалсны дараа өөр бараа хамгийн үнэтэй болж магадгүй → <b>priority_queue</b>: top-ийг аваад, хагаслаад, буцааж push.</li>
         </ol>
         <div class="key"><b>Гол санаа</b>тасалбар бүр тухайн үеийн хамгийн үнэтэй бараанд.</div>
       </div>
@@ -285,7 +285,7 @@ footer{border-top:2px solid var(--line); padding-top:22px; color:var(--muted); f
   <section class="prob" id="abc297e">
     <div class="phead"><div class="pnum">4</div><div>
       <h2>Kth Takoyaki Set · K дахь хамгийн бага үнэ</h2>
-      <div class="sub"><span class="chip">min-heap</span><span class="chip">set</span><a href="https://atcoder.jp/contests/abc297/tasks/abc297_e" target="_blank" rel="noopener">ABC297 E</a><span>500 оноо</span></div>
+      <div class="sub"><span class="chip">priority_queue + greater</span><span class="chip">set</span><a href="https://atcoder.jp/contests/abc297/tasks/abc297_e" target="_blank" rel="noopener">ABC297 E</a><span>500 оноо</span></div>
     </div></div>
     <div class="two">
       <div class="blk"><h3>БОДЛОГО</h3><div class="stmt">
@@ -299,7 +299,7 @@ footer{border-top:2px solid var(--line); padding-top:22px; color:var(--muted); f
         <ol>
           <li>Боломжит дүн хязгааргүй олон, гэхдээ бидэнд зөвхөн хамгийн бага K дүн хэрэгтэй.</li>
           <li>Аливаа дүн <code>s = (s − A_i) + A_i</code>: арай бага дүн дээр нэг такояки нэмсэн.</li>
-          <li>Тиймээс <code>0</code>-ээс эхэлнэ. Min-heap-ээс хамгийн бага дүнг гаргах бүрт түүнд A₁…A_N-ийг нэмж push. Дүнгүүд <b>өсөх эрэмбээр</b> гарч ирнэ.</li>
+          <li>Тиймээс <code>0</code>-ээс эхэлнэ. <code>greater</code>-тэй priority_queue-ээс хамгийн бага дүнг гаргах бүрт түүнд A₁…A_N-ийг нэмж push. Дүнгүүд <b>өсөх эрэмбээр</b> гарч ирнэ.</li>
           <li><code>20 + 25 = 25 + 20</code> гэх мэт ижил дүн олон удаа үүснэ → <code>set</code>-ээр давхардлыг шалгана.</li>
           <li><code>0</code> нь "юу ч аваагүй" тул тоологдохгүй: K удаа pop хийсний дараах top нь хариу.</li>
         </ol>
@@ -316,7 +316,7 @@ footer{border-top:2px solid var(--line); padding-top:22px; color:var(--muted); f
   <section class="prob" id="abc137d">
     <div class="phead"><div class="pnum">5</div><div>
       <h2>Summer Vacation · Зуны амралт</h2>
-      <div class="sub"><span class="chip">max-heap</span><span class="chip">greedy</span><a href="https://atcoder.jp/contests/abc137/tasks/abc137_d" target="_blank" rel="noopener">ABC137 D</a><span>400 оноо</span></div>
+      <div class="sub"><span class="chip">priority_queue</span><span class="chip">greedy</span><a href="https://atcoder.jp/contests/abc137/tasks/abc137_d" target="_blank" rel="noopener">ABC137 D</a><span>400 оноо</span></div>
     </div></div>
     <div class="two">
       <div class="blk"><h3>БОДЛОГО</h3><div class="stmt">
@@ -331,7 +331,7 @@ footer{border-top:2px solid var(--line); padding-top:22px; color:var(--muted); f
           <li>t өдөр (0-ээс) эхэлсэн ажлын цалин t + A өдөр ирнэ, <code>t + A ≤ M</code> байх ёстой. Өөрөөр хэлбэл <b>үлдсэн хоног ≥ A</b>.</li>
           <li>Урдаас нь бодох хэцүү: эхний өдөр аль ажлыг авах нь дараагийн өдрүүдээс хамаарна.</li>
           <li><b>Сүүлээс нь бодъё.</b> Сүүлийн өдөр (үлдсэн 1) зөвхөн A ≤ 1, түүний өмнөх өдөр A ≤ 2, … Ухрах тусам сонголт зөвхөн <b>нэмэгдэнэ</b>: өмнө авч болох байсан ажил хэвээр авч болно.</li>
-          <li>Тиймээс <code>d = 1, 2, …, M</code> дарааллаар: A = d ажлуудыг <b>max-heap</b>-д нэмээд хамгийн их цалинтайг авна.</li>
+          <li>Тиймээс <code>d = 1, 2, …, M</code> дарааллаар: A = d ажлуудыг <b>priority_queue</b>-д нэмээд хамгийн их цалинтайг авна.</li>
         </ol>
         <div class="key"><b>Гол санаа</b>сонголт хамгийн цөөн өдрөөс (сүүлийн өдрөөс) эхэлж шийд.</div>
       </div>
@@ -356,7 +356,7 @@ using namespace std;
 int main(){
     int n, k;
     cin >> n >> k;
-    // min-heap: хамгийн том K тоог хадгална
+    // greater: бага нь эхэлж гарна. Хамгийн том K тоог хадгална
     priority_queue<int, vector<int>, greater<int>> q;
     for(int i = 1; i <= n; i++){
         int p;
@@ -372,7 +372,8 @@ using namespace std;
 int main(){
     int Q;
     cin >> Q;
-    priority_queue<ll, vector<ll>, greater<ll>> q;  // min-heap
+    // greater: бага нь эхэлж гарна
+    priority_queue<ll, vector<ll>, greater<ll>> q;
     ll add = 0;                   // нийт нэмэгдсэн тоо
     while(Q--){
         int t;
@@ -397,7 +398,7 @@ using namespace std;
 int main(){
     int n, m;
     cin >> n >> m;
-    priority_queue<ll> q;         // max-heap
+    priority_queue<ll> q;         // их нь эхэлж
     for(int i = 0; i < n; i++){
         ll a;
         cin >> a;
@@ -422,7 +423,8 @@ int main(){
     cin >> n >> k;
     vector<ll> a(n);
     for(auto &x : a) cin >> x;
-    priority_queue<ll, vector<ll>, greater<ll>> q;  // min-heap
+    // greater: бага нь эхэлж гарна
+    priority_queue<ll, vector<ll>, greater<ll>> q;
     set<ll> seen;                 // queue-д орсон үнэ
     q.push(0);                    // юу ч аваагүй = 0
     seen.insert(0);
@@ -448,7 +450,7 @@ int main(){
         cin >> a >> b;
         if(a <= m) jobs[a].push_back(b);
     }
-    priority_queue<int> q;            // max-heap
+    priority_queue<int> q;            // их нь эхэлж
     long long ans = 0;
     for(int d = 1; d <= m; d++){      // d = үлдсэн хоног
         for(int b : jobs[d]) q.push(b);   // шинэ ажлууд
@@ -477,7 +479,7 @@ function genP1() {
   const P = [3, 7, 2, 5, 11, 6, 1, 9, 8, 10, 4], K = 5, N = P.length;
   const ix = (j) => 45 + j * 60;
   const YI = 66, YH = 196, YD = 304, YO = 404;
-  let heap = [], disc = [], outs = [], cur = -1, hl = {};
+  let pq = [], disc = [], outs = [], cur = -1, hl = {};
   const F = [];
   const L = (s) => lineOf("p1", s);
   function snap(cap, line, hold) {
@@ -487,12 +489,12 @@ function genP1() {
       tiles.push(T("in" + j, v, ix(j), YI, j === cur ? "new" : j < cur ? "dim" : "idle"));
       labels.push(Lb(ix(j), YI + 37, "i=" + (j + 1), j === cur ? "ptr" : "idx", "middle"));
     });
-    labels.push(Lb(20, YH - 44, "min-heap — хамгийн том K = 5 тоо (жижиг нь зүүн талд)"));
+    labels.push(Lb(20, YH - 44, "priority_queue (greater) — хамгийн том K = 5 тоо, хамгийн жижиг нь top"));
     for (let j = 0; j < K; j++) slots.push(Sl(ix(j), YH, 54, 48));
     slots.push(Sl(ix(K), YH, 54, 48, "slot-x"));
     labels.push(Lb(ix(K), YH + 40, "илүүдэл", "warn", "middle"));
     labels.push(Lb(ix(0), YH + 40, "top", "top", "middle"));
-    heap.forEach((h, j) => tiles.push(T(h.id, h.v, ix(j), YH, hl[h.id] || "norm", h.from ? { from: h.from } : {})));
+    pq.forEach((h, j) => tiles.push(T(h.id, h.v, ix(j), YH, hl[h.id] || "norm", h.from ? { from: h.from } : {})));
     labels.push(Lb(20, YD - 36, "Хаягдсан — эдгээр хэзээ ч K дахь хамгийн том болохгүй"));
     disc.forEach((h, j) => tiles.push(T(h.id, h.v, ix(j), YD, "out")));
     labels.push(Lb(20, YO - 36, "Гаралт"));
@@ -500,29 +502,29 @@ function genP1() {
       tiles.push(T(o.id, o.v, ix(j), YO, "res", o.from ? { from: o.from } : {}));
       labels.push(Lb(ix(j), YO + 37, "i=" + (K + j), "idx", "middle"));
     });
-    F.push({ cap, line, hold, tiles, labels, slots, vars: { i: cur >= 0 ? cur + 1 : "–", "q.size()": heap.length } });
-    heap.forEach((h) => delete h.from); outs.forEach((o) => delete o.from);
+    F.push({ cap, line, hold, tiles, labels, slots, vars: { i: cur >= 0 ? cur + 1 : "–", "q.size()": pq.length } });
+    pq.forEach((h) => delete h.from); outs.forEach((o) => delete o.from);
     hl = {};
   }
-  snap(`K = 5. Санаа: <b>5 дахь хамгийн том = хамгийн том 5 тооны хамгийн жижиг нь.</b> Тиймээс хамгийн том 5 тоог min-heap-д хадгалъя. Тэгвэл ${code("top()")} шууд хариу болно.`, L("priority_queue"), 2600);
+  snap(`K = 5. Санаа: <b>5 дахь хамгийн том = хамгийн том 5 тооны хамгийн жижиг нь.</b> Тиймээс хамгийн том 5 тоог priority_queue (greater)-д хадгалъя. Тэгвэл ${code("top()")} шууд хариу болно.`, L("priority_queue"), 2600);
   for (let j = 0; j < N; j++) {
     cur = j;
     const it = { id: "h" + j, v: P[j], from: { x: ix(j), y: YI } };
-    heap.push(it); heap.sort((a, b) => a.v - b.v);
+    pq.push(it); pq.sort((a, b) => a.v - b.v);
     hl[it.id] = "new";
-    const extra = heap.length <= K ? ` Хэмжээ ${heap.length} ≤ K тул юу ч хаяхгүй.` : "";
-    snap(`i = ${j + 1}: ${code("P = " + P[j])} ирлээ → ${code("q.push(" + P[j] + ")")}. Heap өөрөө эрэмбэлнэ.${extra}`, L("q.push(p)"), 1500);
-    if (heap.length > K) {
-      hl[heap[0].id] = "top";
-      snap(`Одоо ${K + 1} тоо байна. Хамгийн жижиг нь ${code(heap[0].v)} — түүнээс том ${K} тоо байгаа тул тэр хэзээ ч ${K} дахь хамгийн том болж чадахгүй.`, L("q.size() > k"), 1900);
-      const out = heap.shift();
+    const extra = pq.length <= K ? ` Хэмжээ ${pq.length} ≤ K тул юу ч хаяхгүй.` : "";
+    snap(`i = ${j + 1}: ${code("P = " + P[j])} ирлээ → ${code("q.push(" + P[j] + ")")}. priority_queue өөрөө эрэмбэлнэ.${extra}`, L("q.push(p)"), 1500);
+    if (pq.length > K) {
+      hl[pq[0].id] = "top";
+      snap(`Одоо ${K + 1} тоо байна. Хамгийн жижиг нь ${code(pq[0].v)} — түүнээс том ${K} тоо байгаа тул тэр хэзээ ч ${K} дахь хамгийн том болж чадахгүй.`, L("q.size() > k"), 1900);
+      const out = pq.shift();
       disc.push(out);
-      snap(`${code("q.pop()")} → ${code(out.v)}-г хаялаа. Heap-д дахин хамгийн том ${K} тоо үлдлээ.`, L("q.size() > k"), 1300);
+      snap(`${code("q.pop()")} → ${code(out.v)}-г хаялаа. priority_queue-д дахин хамгийн том ${K} тоо үлдлээ.`, L("q.size() > k"), 1300);
     }
     if (j + 1 >= K) {
-      hl[heap[0].id] = "ok";
-      outs.push({ id: "o" + j, v: heap[0].v, from: { x: ix(0), y: YH } });
-      snap(`i ≥ K тул ${code("top() = " + heap[0].v)}-г хэвлэнэ: эхний ${j + 1} тооны ${K} дахь хамгийн том нь ${heap[0].v}.`, L("cout << q.top()"), 1600);
+      hl[pq[0].id] = "ok";
+      outs.push({ id: "o" + j, v: pq[0].v, from: { x: ix(0), y: YH } });
+      snap(`i ≥ K тул ${code("top() = " + pq[0].v)}-г хэвлэнэ: эхний ${j + 1} тооны ${K} дахь хамгийн том нь ${pq[0].v}.`, L("cout << q.top()"), 1600);
     }
   }
   cur = N;
@@ -555,7 +557,7 @@ function genP2() {
     labels.push(Lb(IN.x, YA - 42, "шинэ бөмбөг", "note", "middle"));
     slots.push(Sl(IN.x, IN.y, 62, 62, "slot-c"));
     if (incoming) tiles.push(T(incoming.id, incoming.x, IN.x, IN.y, "new", { shape: "c", w: 58, sub: "хадг. " + incoming.s }));
-    labels.push(Lb(190, YB - 72, "Уут = min-heap (хадгалсан утгаар эрэмбэлэгдэнэ)"));
+    labels.push(Lb(190, YB - 72, "Уут = priority_queue (greater), хадгалсан утгаар эрэмбэлнэ"));
     labels.push(Lb(190, YB - 52, "бөмбөг дээр: жинхэнэ утга = хадгалсан + add", "note"));
     bag.forEach((b, j) => tiles.push(T(b.id, b.s + add, bx(j), YB, hl[b.id] || (addHl ? "new" : "norm"), { shape: "c", w: 58, sub: "хадг. " + b.s })));
     if (bag.length) labels.push(Lb(bx(0), YB + 62, "top", "top", "middle"));
@@ -574,7 +576,7 @@ function genP2() {
       incoming = null;
       bag.push({ id, s, k: nid }); bag.sort((a, b) => a.s - b.s || a.k - b.k);
       hl[id] = "new";
-      snap(`${code("q.push(" + s + ")")} — heap хадгалсан утгаар эрэмбэлнэ.`, L("q.push(x - add)"), 1300);
+      snap(`${code("q.push(" + s + ")")} — priority_queue хадгалсан утгаар эрэмбэлнэ.`, L("q.push(x - add)"), 1300);
     } else if (op[0] === 2) {
       add += op[1]; addHl = true;
       snap(`${code("2 " + op[1])}: бүх бөмбөгөнд ${op[1]} нэмэхийн оронд ${code("add += " + op[1])} → add = ${add}. Хадгалсан утгууд өөрчлөгдөөгүй, зөвхөн жинхэнэ утга өссөн. Энэ нь ${code("O(1)")}!`, L("add += x"), 2400);
@@ -598,16 +600,16 @@ function genP3() {
   const L = (s) => lineOf("p3", s);
   const tx = (j) => 60 + j * 72, hx = (j) => 60 + j * 92;
   const YT = 74, YH = 196, YW = 320;
-  let heap = A.map((v, j) => ({ id: "a" + j, v })).sort((a, b) => b.v - a.v);
+  let pq = A.map((v, j) => ({ id: "a" + j, v })).sort((a, b) => b.v - a.v);
   let used = 0, work = null, hl = {}, subs = {}, tHl = -1, workTxt = "", sumTxt = "";
   const F = [];
   function snap(cap, line, hold) {
     const tiles = [], labels = [], slots = [];
     labels.push(Lb(20, YT - 38, "Хөнгөлөлтийн тасалбар (M = 3)"));
     for (let j = 0; j < M; j++) tiles.push(T("t" + j, "½", tx(j), YT, j < used ? "out" : j === tHl ? "new" : "res", { w: 56, h: 40 }));
-    labels.push(Lb(20, YH - 48, "max-heap — үнэ (хамгийн үнэтэй нь зүүн талд)"));
+    labels.push(Lb(20, YH - 48, "priority_queue — үнэ (хамгийн үнэтэй нь top)"));
     labels.push(Lb(hx(0), YH + (Object.keys(subs).length ? 58 : 40), "top", "top", "middle"));
-    heap.forEach((h, j) => tiles.push(T(h.id, h.v, hx(j), YH, hl[h.id] || "norm", Object.assign({ w: 60 }, subs[h.id] ? { sub: subs[h.id], subc: "save" } : {}))));
+    pq.forEach((h, j) => tiles.push(T(h.id, h.v, hx(j), YH, hl[h.id] || "norm", Object.assign({ w: 60 }, subs[h.id] ? { sub: subs[h.id], subc: "save" } : {}))));
     labels.push(Lb(20, YW - 48, "Хагаслах"));
     slots.push(Sl(330, YW, 70, 52));
     if (work) tiles.push(T(work.id, work.v, 330, YW, work.s, { w: 60 }));
@@ -616,26 +618,26 @@ function genP3() {
     F.push({ cap, line, hold, tiles, labels, slots, vars: { "үлдсэн тасалбар": M - used } });
     hl = {}; subs = {}; tHl = -1;
   }
-  snap(`Бүх үнийг max-heap-д хийлээ. Нэг тасалбар = нэг барааны үнийг хоёр дахин бууруулна. Аль бараанд хэрэглэвэл хамгийн их хэмнэх вэ?`, L("q.push(a)"), 2400);
+  snap(`Бүх үнийг priority_queue-д хийлээ. Нэг тасалбар = нэг барааны үнийг хоёр дахин бууруулна. Аль бараанд хэрэглэвэл хамгийн их хэмнэх вэ?`, L("q.push(a)"), 2400);
   for (let t = 0; t < M; t++) {
-    heap.forEach((h) => (subs[h.id] = "−" + (h.v - Math.floor(h.v / 2))));
-    hl[heap[0].id] = "top"; tHl = used;
-    const x = heap[0].v;
-    snap(`Хагаславал хэмнэх мөнгө: ${heap.map((h) => h.v + " → −" + (h.v - Math.floor(h.v / 2))).join(", ")}. Хамгийн үнэтэй ${code(x)} хамгийн их хэмнэнэ.`, L("ll x = q.top()"), 2400);
-    work = Object.assign(heap.shift(), { s: "top" }); tHl = used;
+    pq.forEach((h) => (subs[h.id] = "−" + (h.v - Math.floor(h.v / 2))));
+    hl[pq[0].id] = "top"; tHl = used;
+    const x = pq[0].v;
+    snap(`Хагаславал хэмнэх мөнгө: ${pq.map((h) => h.v + " → −" + (h.v - Math.floor(h.v / 2))).join(", ")}. Хамгийн үнэтэй ${code(x)} хамгийн их хэмнэнэ.`, L("ll x = q.top()"), 2400);
+    work = Object.assign(pq.shift(), { s: "top" }); tHl = used;
     snap(`${code("x = q.top(); q.pop();")} → x = ${x}. Тасалбар ${used + 1}-ийг ашиглана.`, L("ll x = q.top()"), 1300);
     work.v = Math.floor(x / 2); work.s = "res"; used++;
     workTxt = `${x} / 2 = ${work.v}`;
     snap(`${code(x + " / 2 = " + work.v)} (бутархайг хаяна). ${t === 0 ? "Энэ бараанд дахин тасалбар хэрэглэж ч болно — ⌊⌊x/2⌋/2⌋ = ⌊x/4⌋." : ""}`, L("q.push(x / 2)"), 1800);
     const pv = work.v;
-    heap.push({ id: work.id, v: pv }); heap.sort((a, b) => b.v - a.v);
+    pq.push({ id: work.id, v: pv }); pq.sort((a, b) => b.v - a.v);
     hl[work.id] = "new"; work = null; workTxt = "";
-    snap(`${code("q.push(" + pv + ")")} — heap дахин эрэмбэлэгдэж, одоо хамгийн үнэтэй нь ${code(heap[0].v)}.`, L("q.push(x / 2)"), 1500);
+    snap(`${code("q.push(" + pv + ")")} — priority_queue дахин эрэмбэлэгдэж, одоо хамгийн үнэтэй нь ${code(pq[0].v)}.`, L("q.push(x / 2)"), 1500);
   }
-  heap.forEach((h) => (hl[h.id] = "ok"));
-  const total = heap.reduce((s, h) => s + h.v, 0);
-  sumTxt = `Нийт = ${heap.map((h) => h.v).join(" + ")} = ${total}`;
-  snap(`Тасалбар дууслаа. Үлдсэн үнүүдийг нэмнэ: ${code(heap.map((h) => h.v).join(" + ") + " = " + total)}. Нийт ${code("O((N + M) log N)")}.`, L("sum += q.top()"), 4000);
+  pq.forEach((h) => (hl[h.id] = "ok"));
+  const total = pq.reduce((s, h) => s + h.v, 0);
+  sumTxt = `Нийт = ${pq.map((h) => h.v).join(" + ")} = ${total}`;
+  snap(`Тасалбар дууслаа. Үлдсэн үнүүдийг нэмнэ: ${code(pq.map((h) => h.v).join(" + ") + " = " + total)}. Нийт ${code("O((N + M) log N)")}.`, L("sum += q.top()"), 4000);
   return F;
 }
 
@@ -647,16 +649,16 @@ function genP4() {
   const YP = 70, YDUP = 128, YH = 228, YO = 372;
   const hpos = (j) => ({ x: 45 + (j % 10) * 62, y: YH + Math.floor(j / 10) * 56 });
   const ox = (j) => 45 + j * 62;
-  let heap = [{ id: "s0", v: 0 }], seen = new Set([0]), outs = [], dups = [], hl = {}, pHl = -1, ndup = 0;
+  let pq = [{ id: "s0", v: 0 }], seen = new Set([0]), outs = [], dups = [], hl = {}, pHl = -1, ndup = 0;
   const F = [];
   function snap(cap, line, hold) {
     const tiles = [], labels = [], slots = [];
     labels.push(Lb(20, YP - 36, "Такояки үнэ A"));
     A.forEach((v, j) => tiles.push(T("p" + j, v, px(j), YP, j === pHl ? "new" : "res", { w: 56 })));
     dups.forEach((d) => tiles.push(T(d.id, d.v, px(d.j), YDUP, "dup", { w: 56, from: d.from, sub: "давхар" })));
-    labels.push(Lb(20, YH - 46, "min-heap (хамгийн бага нь зүүн дээд буланд)"));
+    labels.push(Lb(20, YH - 46, "priority_queue (greater) — хамгийн бага нь top"));
     labels.push(Lb(hpos(0).x, YH - 30, "top", "top", "middle"));
-    heap.forEach((h, j) => {
+    pq.forEach((h, j) => {
       const p = hpos(j);
       tiles.push(T(h.id, h.v, p.x, p.y, hl[h.id] || "norm", Object.assign({ w: 56 }, h.from ? { from: h.from } : {})));
     });
@@ -665,13 +667,13 @@ function genP4() {
       tiles.push(T(o.id, o.v, ox(j), YO, o.s || "out", { w: 56 }));
       labels.push(Lb(ox(j), YO + 38, j === 0 ? "эхлэл" : "#" + j, j === K ? "ptr" : "idx", "middle"));
     });
-    F.push({ cap, line, hold, tiles, labels, slots, vars: { "гаргасан": Math.max(0, outs.length - 1), "q.size()": heap.length } });
-    heap.forEach((h) => delete h.from);
+    F.push({ cap, line, hold, tiles, labels, slots, vars: { "гаргасан": Math.max(0, outs.length - 1), "q.size()": pq.length } });
+    pq.forEach((h) => delete h.from);
     dups = []; hl = {}; pHl = -1;
   }
   snap(`Санаа: аливаа үнэ = арай бага үнэ + нэг такояки. Тиймээс ${code("0")}-ээс эхэлж, хамгийн бага үнийг гаргах бүрт түүнд A-ийн үнэ бүрийг нэмж push хийнэ. Ингэхэд үнэ өсөх эрэмбээр гарч ирнэ.`, L("q.push(0)"), 2800);
   for (let i = 0; i < K; i++) {
-    const x = heap.shift();
+    const x = pq.shift();
     outs.push({ id: x.id, v: x.v });
     snap(i === 0 ? `${code("q.top() = 0")} гаргана — энэ бол "юу ч аваагүй" эхлэл, тоолохгүй.` :
       `${code("q.top() = " + x.v)} гаргана → <b>${i} дэх</b> хамгийн бага үнэ.`, L("ll x = q.top()"), 1500);
@@ -684,15 +686,15 @@ function genP4() {
       } else {
         seen.add(s);
         const it = { id: "s" + s, v: s, from: { x: px(j), y: YP } };
-        heap.push(it); heap.sort((p, q) => p.v - q.v);
+        pq.push(it); pq.sort((p, q) => p.v - q.v);
         hl[it.id] = "new";
         snap(`${code(x.v + " + " + a + " = " + s)} — шинэ үнэ → ${code("seen.insert(" + s + "); q.push(" + s + ")")}.`, L("q.push(x + v)"), 1200);
       }
     });
   }
-  hl[heap[0].id] = "ok";
-  snap(`${K} удаа гаргалаа (0 + эхний ${K - 1} үнэ). Одоо ${code("q.top() = " + heap[0].v)} нь ${K} дахь хамгийн бага үнэ.`, L("cout << q.top()"), 2000);
-  const ans = heap.shift();
+  hl[pq[0].id] = "ok";
+  snap(`${K} удаа гаргалаа (0 + эхний ${K - 1} үнэ). Одоо ${code("q.top() = " + pq[0].v)} нь ${K} дахь хамгийн бага үнэ.`, L("cout << q.top()"), 2000);
+  const ans = pq.shift();
   outs.push({ id: ans.id, v: ans.v, s: "ok" });
   snap(`Хариу: ${code(ans.v)}. Гарсан дараалал 20, 25, 30, 40, 45, 50 — бодлогын жишээтэй таарч байна. Нийт ${code("O(K · N · log(K·N))")}.`, L("cout << q.top()"), 4000);
   return F;
@@ -707,7 +709,7 @@ function genP5() {
   const jx = (j) => 140 + j * 66, hx = (j) => 60 + j * 74;
   let groups = {}; JOBS.forEach(([a, b], i) => (groups[a] = groups[a] || []).push({ id: "j" + i, v: b, a }));
   let pool = JOBS.map(([a, b], i) => ({ id: "j" + i, v: b, a }));
-  let heap = [], placed = {}, curDay = -1, hl = {}, ans = 0, ansTxt = "";
+  let pq = [], placed = {}, curDay = -1, hl = {}, ans = 0, ansTxt = "";
   const F = [];
   function snap(cap, line, hold) {
     const tiles = [], labels = [], slots = [], lines = [];
@@ -729,9 +731,9 @@ function genP5() {
       const k = groups[p.a].indexOf(groups[p.a].find((g) => g.id === p.id));
       tiles.push(T(p.id, p.v, jx(k), YJ0 + (p.a - 1) * GJ, "idle", { shape: "c", w: 44 }));
     });
-    labels.push(Lb(20, YH - 50, "max-heap — одоо авч болох ажлууд (цалин их нь зүүн талд)"));
-    heap.forEach((h, j) => tiles.push(T(h.id, h.v, hx(j), YH, hl[h.id] || "norm", { shape: "c", w: 48 })));
-    if (heap.length) labels.push(Lb(hx(0), YH + 44, "top", "top", "middle"));
+    labels.push(Lb(20, YH - 50, "priority_queue — одоо авч болох ажлууд (цалин их нь top)"));
+    pq.forEach((h, j) => tiles.push(T(h.id, h.v, hx(j), YH, hl[h.id] || "norm", { shape: "c", w: 48 })));
+    if (pq.length) labels.push(Lb(hx(0), YH + 44, "top", "top", "middle"));
     Object.entries(placed).forEach(([day, h]) => tiles.push(T(h.id, h.v, dx(+day), YC, "ok", { shape: "c", w: 46 })));
     if (ansTxt) labels.push(Lb(470, YH + 6, ansTxt, "big"));
     F.push({ cap, line, hold, tiles, labels, slots, lines, vars: { d: curDay >= 0 ? M - curDay : "–", ans } });
@@ -742,14 +744,14 @@ function genP5() {
     curDay = M - d;
     const nw = pool.filter((p) => p.a === d);
     pool = pool.filter((p) => p.a !== d);
-    nw.forEach((p) => { heap.push({ id: p.id, v: p.v, a: p.a }); hl[p.id] = "new"; });
-    heap.sort((a, b) => b.v - a.v);
+    nw.forEach((p) => { pq.push({ id: p.id, v: p.v, a: p.a }); hl[p.id] = "new"; });
+    pq.sort((a, b) => b.v - a.v);
     snap(nw.length ? `d = ${d} (Өдөр ${curDay + 1}): A = ${d} ажлууд одоо амжих боломжтой болов → ${code("push " + nw.map((p) => p.v).join(", "))}. Өмнө нь орсон ажлууд ч хэвээр авч болно.`
-      : `d = ${d} (Өдөр ${curDay + 1}): A = ${d} ажил алга. Гэхдээ heap-д үлдсэн ажлуудыг одоо ч хийж амжина!`, L("for(int b : jobs[d])"), 2200);
-    const top = heap[0];
+      : `d = ${d} (Өдөр ${curDay + 1}): A = ${d} ажил алга. Гэхдээ priority_queue-д үлдсэн ажлуудыг одоо ч хийж амжина!`, L("for(int b : jobs[d])"), 2200);
+    const top = pq[0];
     hl[top.id] = "top";
     snap(`Хамгийн их цалинтай нь ${code(top.v)} (A = ${top.a}). Үүнийг Өдөр ${curDay + 1}-д хийе.`, L("ans += q.top()"), 1800);
-    heap.shift();
+    pq.shift();
     placed[curDay] = top; ans += top.v;
     snap(`${code("ans += " + top.v)} → ans = ${ans}. ${code("q.pop()")}.`, L("q.pop();"), 1400);
   }
