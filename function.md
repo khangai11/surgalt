@@ -27,8 +27,9 @@ return_type function_name(parameter){
 //file: main.cpp
 //хэрэгтэй header файлуудаа include хийнэ.
 #include "bits/stdc++.h"
+using namespace std;
 
-//macro-уудаа байралана.
+//macro-уудаа байрлуулна.
 //macro-ууд нь файлын дундуур ч байж болно.
 #define ll long long
 #ifndef _MY_MACRO
@@ -52,7 +53,7 @@ int my_function(int a, bool b){
 }
 
 bool isEmpty(vector<int> a){
-    if(a.size()==0) returt true;
+    if(a.size()==0) return true;
     return false;
 }
 
@@ -105,9 +106,9 @@ int main(void){
     int a = 4;
     int c = 4;
     add2(a);
-    incr2(c);
+    inc2(c);
     cout<<a<<"\n";// 6
-    cout<<c<<"\n;//4
+    cout<<c<<"\n";//4
 }
 ```
 
