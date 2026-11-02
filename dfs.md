@@ -10,34 +10,32 @@ DFS нь очоогүй байгаа элемент олдох л юм бол х
 
 ![Alt](/images/dfs.png)
 
+👉 **Алхам алхмаар анимэйшнээр харах:** [DFS анимэйшн](https://raw.githack.com/khangai11/surgalt/main/html/dfs.html) (stack болон рекурсив хоёр арга, play, prev, next товчтой)
+
 Яаж програм бичих вэ
 1. Stack ашиглах
-   1. Орой болгон дээр очсон эсэхээ visited[N] дээр хадгалах. Дараагын удаа очих оройнуудаа хадгалах stack<int> s бэлдэнэ.
-   2. s дотор эхлэлийн цэгээ нэмнэ.
-   3. s рүү хамгийн сүүлд нэмсэн орой(u-гэе)-г сонгож аваад, тэр оройг s-ээс хасна.
-   4.  u-тэй холбоотой бүх оройн хувьд очоогүй байгаа орой(v-гэе) нуудаа s дотор нэмээд, visited[v]=true болгоно.
-   5.  s дотор элемент байвал iii-ийн үйлдэл рүү буцна.
+   1. Орой бүр дээр очсон эсэхээ visited[N]-д хадгална. Дараа нь очих оройнуудаа stack<int> s-д хадгална.
+   2. s-д эхлэлийн оройгоо нэмнэ.
+   3. s-д хамгийн сүүлд нэмсэн оройг (u гэе) аваад s-ээс хасна.
+   4. u дээр аль хэдийн очсон бол 6-р алхам руу шилжинэ. Очоогүй бол visited[u] = true болгоно.
+   5. u-тэй холбоотой, очоогүй орой (v гэе) бүрийг s-д нэмнэ. (Нэг орой s-д хэд хэд орж болно.)
+   6. s хоосон биш бол 3-р алхам руу буцна.
    ```cpp
-   //n ширхэг оройтой граф өгөгдсөн гэж бодоё.
-   // хөршүүдийн жагсаалт хэлбэрээр e  дотор хадгалсан гэж үзье.
-   vector<vector<int>> e(n);
+   // n ширхэг оройтой граф өгөгдсөн гэж бодъё.
+   vector<vector<int>> e(n);          // хөршүүдийн жагсаалт
+   vector<bool> visited(n, false);    // очсон эсэх
    stack<int> s;
-   vector<bool> visited(n,false);
-   //ehleh oroi
-   int start = 0;
+   int start = 0;                     // эхлэх орой
    s.push(start);
    while(!s.empty()){
-    //daraagiin songoh oroi
-    int u = s.top();
-    s.pop();
-    //holbootoi oroinuudiig stack ruugaa nemne.
-    for(auto v:e[u]){
-        if(!visited[v]){
-            s.push(v);
-            visited[v] = true;
-            cout<<v<<" ";
-        }
-    }
+       int u = s.top();               // хамгийн сүүлд орсон орой
+       s.pop();
+       if(visited[u]) continue;       // очсон бол алгасна
+       visited[u] = true;
+       cout << u << " ";
+       for(auto v : e[u]){
+           if(!visited[v]) s.push(v); // очоогүй хөршүүдийг хийнэ
+       }
    }
    ```
 2. Recursive function ашиглах
@@ -46,11 +44,13 @@ DFS нь очоогүй байгаа элемент олдох л юм бол х
    3. dfs(эхлэлийн цэг) гэхэд бүх орой дээр очиж чадна.
    ```cpp
    void dfs(int u){
-        if(visited[u]) return;
-        visited[u] = true;
-        for(auto v:e[u]){
-            if(visited[v]) continue;
-            dfs(v);
-        }
-   }
+       if(visited[u]) return;
+       visited[u] = true;
+       cout << u << " ";
+       for(auto v : e[u]){
+           if(visited[v]) continue;   // очсон бол алгасна
+           dfs(v);                    // v руу гүнзгийрнэ
+       }
+   }                                  // бүх хөршийг үзсэн -> буцна
+   // main дотор: dfs(0);
    ```

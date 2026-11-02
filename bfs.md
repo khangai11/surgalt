@@ -9,39 +9,33 @@ BFS нь очоогүй байгаа оройнууд дээр олсон дар
 
 ![Alt](/images/bfs_dfs.png)
 
+👉 **Алхам алхмаар анимэйшнээр харах:** [BFS анимэйшн](https://raw.githack.com/khangai11/surgalt/main/html/bfs.html) (play, prev, next товчтой)
+
 ## Яаж програм бичих вэ?
 
 Queue ашиглах
-   1. Орой болгон дээр очсон эсэхээ visited[N] дээр хадгалах. Дараагын удаа очих оройнуудаа хадгалах stack<int> s бэлдэнэ.
-   2. s дотор эхлэлийн цэгээ нэмнэ.
-   3. s рүү хамгийн сүүлд нэмсэн орой(u-гэе)-г сонгож аваад, тэр оройг s-ээс хасна.
-   4.  u-тэй холбоотой бүх оройн хувьд очоогүй байгаа орой(v-гэе) нуудаа s дотор нэмээд, visited[v]=true болгоно.
-   5.  s дотор элемент байвал iii-ийн үйлдэл рүү буцна.
+   1. Орой бүр queue-д орсон эсэхийг visited[N]-д хадгална. Дараа нь очих оройнуудаа queue<int> q-д хадгална.
+   2. q-д эхлэлийн оройгоо нэмээд visited[start] = true болгоно.
+   3. q-ийн хамгийн урд байгаа оройг (u гэе) аваад q-ээс хасна.
+   4. u-тэй холбоотой, queue-д ороогүй орой (v гэе) бүрийн хувьд visited[v] = true болгоод q-д нэмнэ.
+   5. q хоосон биш бол 3-р алхам руу буцна.
    ```cpp
-   //n ширхэг оройтой граф өгөгдсөн гэж бодоё.
-   // хөршүүдийн жагсаалт хэлбэрээр e  дотор хадгалсан гэж үзье.
-   vector<vector<int>> e(n);
+   // n ширхэг оройтой граф өгөгдсөн гэж бодъё.
+   vector<vector<int>> e(n);          // хөршүүдийн жагсаалт
+   vector<bool> visited(n, false);    // queue-д орсон эсэх
    queue<int> q;
-   //queue-d nemsen esehiig temdegleh vector
-   vector<bool> visited(n,false);
-   //ehleh oroi
-   int start = 0;
-   //ehleh oroig queue-d nemne.
+   int start = 0;                     // эхлэх орой
    q.push(start);
    visited[start] = true;
    while(!q.empty()){
-    //daraagiin ochih oroig avna.
-    int u = q.front();
-    //ug oroi deer irsen tul queue-ees ustgana.
-    q.pop();
-    //u-tei holbootoi oroi bolgonii huvid queue-d nemne.
-    for(auto v:e[u]){
-        if(!visited[v]){//omno ni ali hediin nemsen oroi bol algasna.
-            q.push(v);
-            visited[v] = true;
-            cout<<v<<" ";
-        }
-    }
+       int u = q.front();             // хамгийн эхэнд орсон орой
+       q.pop();
+       cout << u << " ";
+       for(auto v : e[u]){
+           if(visited[v]) continue;   // өмнө нь орсон бол алгасна
+           visited[v] = true;
+           q.push(v);
+       }
    }
    ```
 

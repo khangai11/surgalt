@@ -1,0 +1,696 @@
+<!doctype html>
+<html lang="mn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>DFS хайлт</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Nunito:wght@400;600;700;800&family=Rubik:wght@500;700&display=swap">
+<style>
+/* Layout: workbook page — problem header, idea, then a lab bench (animation stage | synced C++ solution) per problem */
+:root{
+  --bg:#F3F5FA; --paper:#FFFFFF; --ink:#151C2E; --muted:#586179; --line:#D9DFEB; --grid:#EEF2F9;
+  --accent:#2D4FD8; --accent-ink:#FFFFFF; --accent-soft:#E7ECFE;
+  --n-f:#E6EEFF; --n-s:#2D4FD8; --w-f:#FFF2BF; --w-s:#B97F00; --t-f:#FFE1DA; --t-s:#CC3B25;
+  --o-f:#ECEFF4; --o-s:#79839A; --r-f:#F0E7FF; --r-s:#7445D6; --k-f:#DBF5E3; --k-s:#1F8549;
+  --i-f:#FFFFFF; --i-s:#C9D1E0; --d-f:#F5F7FA; --d-s:#D3D9E4; --tile-ink:#151C2E;
+  --code-bg:#F7F8FC; --code-on:#FFF2BF; --k-kw:#B5179E; --k-ty:#2D4FD8; --k-num:#B45309; --k-com:#6B7488; --k-pp:#1F8549;
+  --f-disp:"Rubik","Nunito",system-ui,sans-serif;
+  --f-body:"Nunito",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0E1320; --paper:#151C2D; --ink:#E6EBF6; --muted:#9AA3B9; --line:#283149; --grid:#1A2236;
+  --accent:#8199FF; --accent-ink:#0E1320; --accent-soft:#1E2850;
+  --n-f:#1C2A52; --n-s:#8199FF; --w-f:#3A2F0E; --w-s:#F0B93A; --t-f:#44201B; --t-s:#FF7B64;
+  --o-f:#20283A; --o-s:#6E7891; --r-f:#2D2049; --r-s:#B08CFF; --k-f:#133426; --k-s:#4FCB8B;
+  --i-f:#151C2D; --i-s:#36405A; --d-f:#182033; --d-s:#2A3349; --tile-ink:#E6EBF6;
+  --code-bg:#111827; --code-on:#3A2F0E; --k-kw:#F28FE0; --k-ty:#8DA4FF; --k-num:#F2B266; --k-com:#7F89A0; --k-pp:#5FD49A;
+  color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#0E1320; --paper:#151C2D; --ink:#E6EBF6; --muted:#9AA3B9; --line:#283149; --grid:#1A2236;
+  --accent:#8199FF; --accent-ink:#0E1320; --accent-soft:#1E2850;
+  --n-f:#1C2A52; --n-s:#8199FF; --w-f:#3A2F0E; --w-s:#F0B93A; --t-f:#44201B; --t-s:#FF7B64;
+  --o-f:#20283A; --o-s:#6E7891; --r-f:#2D2049; --r-s:#B08CFF; --k-f:#133426; --k-s:#4FCB8B;
+  --i-f:#151C2D; --i-s:#36405A; --d-f:#182033; --d-s:#2A3349; --tile-ink:#E6EBF6;
+  --code-bg:#111827; --code-on:#3A2F0E; --k-kw:#F28FE0; --k-ty:#8DA4FF; --k-num:#F2B266; --k-com:#7F89A0; --k-pp:#5FD49A;
+  color-scheme:dark }
+
+*{box-sizing:border-box}
+body{margin:0; background:var(--bg); color:var(--ink); font:16px/1.6 var(--f-body);
+  padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px)); padding-block:0 48px}
+.wrap{max-width:1240px; margin:0 auto}
+a{color:var(--accent); text-underline-offset:3px}
+code{font-family:var(--f-mono); font-size:.88em; background:var(--accent-soft); padding:.08em .35em; border-radius:6px; white-space:nowrap}
+h1,h2,h3{font-family:var(--f-disp); text-wrap:balance; margin:0; line-height:1.2}
+button{font:inherit; color:inherit}
+:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+
+/* hero */
+.hero{padding-block:40px 28px; display:grid; gap:18px}
+.eyebrow{font:700 13px/1 var(--f-body); letter-spacing:.06em; color:var(--muted)}
+.hero h1{font-size:clamp(30px, 4.6vw, 46px); font-weight:700; letter-spacing:-.01em}
+.hero h1 span{color:var(--accent)}
+.lede{max-width:68ch; color:var(--muted); font-size:17px; margin:0}
+.legend{display:flex; flex-wrap:wrap; gap:8px 16px; font-size:14px; color:var(--muted)}
+.legend span{display:inline-flex; align-items:center; gap:7px}
+.sw{width:18px; height:18px; border-radius:6px; border:2.5px solid; display:inline-block}
+.sw.new{background:var(--w-f); border-color:var(--w-s)} .sw.top{background:var(--t-f); border-color:var(--t-s)}
+.sw.ok{background:var(--k-f); border-color:var(--k-s)} .sw.out{background:var(--o-f); border-color:var(--o-s)}
+.sw.res{background:var(--r-f); border-color:var(--r-s)} .sw.norm{background:var(--n-f); border-color:var(--n-s)}
+.toc{display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:10px; margin-top:6px}
+.toc a{display:grid; grid-template-columns:auto 1fr; gap:2px 12px; align-items:center; padding:12px 14px; border:1px solid var(--line);
+  border-radius:12px; background:var(--paper); text-decoration:none; color:var(--ink)}
+.toc a:hover{border-color:var(--accent)}
+.toc .n{grid-row:span 2; font:700 22px/1 var(--f-disp); color:var(--accent); width:40px; height:40px; border-radius:50%;
+  background:var(--accent-soft); display:grid; place-items:center}
+.toc .t{font-weight:800; line-height:1.25}
+.toc .m{font:500 12px var(--f-mono); color:var(--muted)}
+
+/* problem */
+.prob{padding-block:36px; border-top:2px solid var(--line); display:grid; gap:22px; scroll-margin-top:12px}
+.phead{display:flex; gap:16px; align-items:flex-start}
+.pnum{flex:none; font:700 26px/1 var(--f-disp); width:52px; height:52px; border-radius:16px; background:var(--accent); color:var(--accent-ink);
+  display:grid; place-items:center}
+.phead h2{font-size:clamp(22px, 3vw, 30px); font-weight:700}
+.phead .sub{color:var(--muted); font-size:15px; margin-top:4px; display:flex; flex-wrap:wrap; gap:4px 14px}
+.chip{font:700 12px/1 var(--f-mono); padding:5px 8px; border-radius:999px; background:var(--accent-soft); color:var(--accent)}
+.two{display:grid; grid-template-columns:minmax(0, 1fr) minmax(0, 1.15fr); gap:22px}
+.blk{min-width:0}
+.blk h3{font:800 13px/1 var(--f-body); letter-spacing:.08em; color:var(--muted); margin-bottom:10px}
+.blk p{margin:0 0 10px; max-width:68ch}
+.stmt{background:var(--paper); border:1px solid var(--line); border-radius:14px; padding:16px 18px}
+.io{font:500 13.5px/1.5 var(--f-mono); background:var(--code-bg); border-radius:10px; padding:10px 12px; margin:10px 0 0; white-space:pre; overflow-x:auto}
+.idea ol{margin:0; padding-left:1.3em; display:grid; gap:8px; max-width:68ch}
+.idea li::marker{font-weight:800; color:var(--accent)}
+.key{margin-top:14px; padding:12px 16px; border-radius:12px; background:var(--k-f); border:2px solid var(--k-s); font-weight:700; max-width:68ch}
+.key b{font-family:var(--f-disp); font-weight:700; color:var(--k-s); margin-right:6px}
+
+/* lab bench */
+.lab{display:grid; grid-template-columns:minmax(0, 1.25fr) minmax(0, 1fr); gap:18px; align-items:start}
+.player{background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:14px; display:grid; gap:12px; min-width:0}
+.player:focus-visible{outline:3px solid var(--accent)}
+.stage{overflow-x:auto; border-radius:12px; border:1px solid var(--line);
+  background-color:var(--paper);
+  background-image:linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size:24px 24px}
+.stage svg{display:block; width:100%; min-width:560px; height:auto}
+.cap{min-height:5.2em; font-size:16.5px; line-height:1.55; padding:2px 4px}
+.cap b{color:var(--accent)}
+.vars{display:flex; flex-wrap:wrap; gap:8px}
+.var{display:inline-flex; border:1px solid var(--line); border-radius:8px; overflow:hidden; font:500 13px/1 var(--f-mono)}
+.var .k{padding:6px 8px; background:var(--grid); color:var(--muted)}
+.var .v{padding:6px 9px; font-weight:700}
+.ctl{display:flex; flex-wrap:wrap; align-items:center; gap:8px}
+.ib{width:40px; height:40px; border-radius:10px; border:1px solid var(--line); background:var(--paper); display:grid; place-items:center; cursor:pointer}
+.ib:hover:not(:disabled){border-color:var(--accent); color:var(--accent)}
+.ib:disabled{opacity:.4; cursor:default}
+.ib svg{width:18px; height:18px; fill:currentColor}
+.play{height:40px; padding:0 16px 0 12px; border-radius:10px; border:none; background:var(--accent); color:var(--accent-ink);
+  font-weight:800; display:inline-flex; align-items:center; gap:8px; cursor:pointer; min-width:132px}
+.play svg{width:18px; height:18px; fill:currentColor}
+.scrub{flex:1 1 140px; min-width:120px; accent-color:var(--accent)}
+.count{font:700 13px var(--f-mono); color:var(--muted); min-width:58px; text-align:center; font-variant-numeric:tabular-nums}
+.speed{display:inline-flex; border:1px solid var(--line); border-radius:10px; overflow:hidden}
+.speed button{border:none; background:transparent; padding:0 10px; height:38px; font:700 13px var(--f-mono); color:var(--muted); cursor:pointer}
+.speed button[aria-pressed="true"]{background:var(--accent-soft); color:var(--accent)}
+.hint{font-size:13px; color:var(--muted); margin:0}
+
+.codep{background:var(--code-bg); border:1px solid var(--line); border-radius:16px; min-width:0; overflow:hidden}
+.codeh{display:flex; justify-content:space-between; align-items:center; padding:10px 12px 10px 16px; border-bottom:1px solid var(--line)}
+.codeh h3{font:800 13px/1 var(--f-body); letter-spacing:.08em; color:var(--muted)}
+.copy{border:1px solid var(--line); background:var(--paper); border-radius:8px; padding:5px 10px; font-weight:700; font-size:13px; cursor:pointer}
+.copy:hover{border-color:var(--accent); color:var(--accent)}
+.code{margin:0; padding:10px 0; overflow-x:auto; font:500 13px/1.6 var(--f-mono)}
+.cl{display:block; padding:0 14px 0 0; white-space:pre; border-left:4px solid transparent; transition:background .25s}
+.cl .no{display:inline-block; width:2.6em; text-align:right; padding-right:1em; color:var(--muted); opacity:.55; user-select:none}
+.cl.on{background:var(--code-on); border-left-color:var(--w-s)}
+.cl.on .no{opacity:1; color:var(--w-s); font-weight:700}
+.k-kw{color:var(--k-kw)} .k-ty{color:var(--k-ty)} .k-num{color:var(--k-num)} .k-com{color:var(--k-com); font-style:italic} .k-pp{color:var(--k-pp)} .k-str{color:var(--k-num)}
+.cx{padding:10px 16px 14px; border-top:1px solid var(--line); font-size:14px; color:var(--muted)}
+.cx strong{color:var(--ink)}
+
+/* svg stage */
+.tile{transition:transform var(--dur, .45s) cubic-bezier(.45,.05,.25,1), opacity var(--dur, .45s)}
+.tile .sh{stroke-width:2.5; transition:fill var(--dur, .45s), stroke var(--dur, .45s)}
+.tile.enter, .tile.gone{opacity:0}
+.tv{font:700 18px var(--f-mono); fill:var(--tile-ink); text-anchor:middle; dominant-baseline:central}
+.f-sm .tv{font-size:14px}
+.ts{font:700 12px var(--f-body); fill:var(--muted); text-anchor:middle}
+.ts.save{fill:var(--k-s); font-weight:800}
+.t-norm .sh{fill:var(--n-f); stroke:var(--n-s)} .t-new .sh{fill:var(--w-f); stroke:var(--w-s)}
+.t-top .sh{fill:var(--t-f); stroke:var(--t-s)} .t-out .sh{fill:var(--o-f); stroke:var(--o-s)}
+.t-res .sh{fill:var(--r-f); stroke:var(--r-s)} .t-ok .sh{fill:var(--k-f); stroke:var(--k-s)}
+.t-idle .sh{fill:var(--i-f); stroke:var(--i-s)} .t-dim .sh{fill:var(--d-f); stroke:var(--d-s)}
+.t-dim .tv, .t-out .tv{fill:var(--muted)}
+.t-dup .sh{fill:none; stroke:var(--o-s); stroke-dasharray:5 4} .t-dup .tv{fill:var(--muted); text-decoration:line-through} .t-dup .ts{fill:var(--t-s)}
+.lb{font:700 13.5px var(--f-body); fill:var(--muted)}
+.lb-idx{font:500 12px var(--f-mono); fill:var(--muted)}
+.lb-ptr{font:700 12px var(--f-mono); fill:var(--accent)}
+.lb-top{font:800 12px var(--f-mono); fill:var(--t-s)}
+.lb-warn{font:700 12px var(--f-body); fill:var(--t-s)}
+.lb-note{font:600 12.5px var(--f-body); fill:var(--muted)}
+.lb-big{font:700 21px var(--f-disp); fill:var(--ink)}
+.lb-lblm{font:700 14px var(--f-mono); fill:var(--ink)}
+.slot{fill:none; stroke:var(--line); stroke-width:2; stroke-dasharray:6 5}
+.slot-x{fill:none; stroke:var(--t-s); stroke-width:2; stroke-dasharray:6 5; opacity:.55}
+.slot-c{fill:none; stroke:var(--line); stroke-width:2; stroke-dasharray:6 5}
+.slot-on{fill:var(--accent-soft); stroke:var(--accent); stroke-width:2.5}
+.ln-rule{stroke:var(--line); stroke-width:2}
+.ln-deadline{stroke:var(--t-s); stroke-width:3; stroke-dasharray:6 4}
+
+footer{border-top:2px solid var(--line); padding-top:22px; color:var(--muted); font-size:14px; display:flex; flex-wrap:wrap; gap:8px 22px}
+
+@media (max-width: 980px){ .lab, .two{grid-template-columns:minmax(0, 1fr)} }
+@media (max-width: 520px){ .phead{gap:12px} .pnum{width:42px; height:42px; font-size:21px; border-radius:12px} .play{min-width:0} .count{min-width:0} }
+@media (prefers-reduced-motion: reduce){ .tile, .tile .sh, .cl{transition:none !important} }
+
+.sw.idle{background:var(--i-f); border-color:var(--i-s)}
+.lsw{display:inline-block; width:26px; height:0; border-top:5px solid var(--n-s)}
+.lsw.skip{border-top:4px dashed var(--o-s)} .lsw.check{border-top:5px dashed var(--t-s)}
+.ln-edge{stroke:var(--i-s); stroke-width:3.5}
+.ln-tree{stroke:var(--n-s); stroke-width:6; stroke-linecap:round}
+.ln-check{stroke:var(--t-s); stroke-width:6; stroke-dasharray:9 7; stroke-linecap:round}
+.ln-skip{stroke:var(--o-s); stroke-width:4; stroke-dasharray:3 7; stroke-linecap:round}
+.pnum{font-size:22px}
+</style>
+
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow">NAND СУРГАЛТЫН ТӨВ · ГРАФ · DEPTH-FIRST SEARCH</div>
+    <h1>DFS — <span>гүн рүү нь</span> хайх</h1>
+    <p class="lede">DFS нь очоогүй хөрш олдвол шууд тийшээ орж, аль болох гүн рүү явдаг. Цааш явах газаргүй болохоороо өмнөх орой руугаа буцаж, өөр замаар явна. Доор BFS-тэй ижил граф дээр хоёр аргаар харуулав. Анимэйшн дэлгэцэнд гарч ирэхэд өөрөө тоглоно.</p>
+    <div class="legend" aria-label="Өнгөний тайлбар">
+      <span><i class="sw idle"></i>очоогүй</span>
+      <span><i class="sw new"></i>stack-д байгаа</span>
+      <span><i class="sw norm"></i>одоогийн замд байгаа</span>
+      <span><i class="sw top"></i>одоо ажиллаж буй орой</span>
+      <span><i class="sw ok"></i>очсон / дууссан</span>
+      <span><i class="lsw tree"></i>DFS модны ирмэг</span>
+      <span><i class="lsw check"></i>шалгаж буй ирмэг</span>
+    </div>
+    <div class="blk idea" style="margin-top:4px"><h3>САНАА</h3>
+      <ol>
+        <li>Одоо байгаа оройн очоогүй хөрш байвал шууд тийшээ орно.</li>
+        <li>Очоогүй хөрш үлдээгүй бол өмнөх орой руугаа буцна (backtrack).</li>
+        <li>Эхлэл рүүгээ буцаж ирээд түүнд ч очоогүй хөрш үлдээгүй бол дуусна.</li>
+      </ol>
+      <div class="key"><b>Гол санаа</b>BFS = queue (ойроос нь хол руу), DFS = stack эсвэл рекурсив (гүн рүү нь).</div>
+    </div>
+    <nav class="toc" aria-label="Аргууд">
+      <a href="#stack"><span class="n">1</span><span class="t">Stack ашиглах</span><span class="m">stack&lt;int&gt; s</span></a>
+      <a href="#rec"><span class="n">2</span><span class="t">Рекурсив функц ашиглах</span><span class="m">void dfs(int u)</span></a>
+    </nav>
+  </header>
+
+  <section class="prob" id="stack">
+    <div class="phead"><div class="pnum">1</div><div>
+      <h2>Stack ашиглах</h2>
+      <div class="sub"><span class="chip">stack</span><span class="chip">visited</span><span>Жишээ граф: 8 орой, 10 ирмэг, эхлэл 0</span></div>
+    </div></div>
+    <div class="two">
+      <div class="blk idea"><h3>ХЭРХЭН АЖИЛЛАХ</h3>
+        <ol>
+          <li>Эхлэлийн оройг stack-д хийнэ.</li>
+          <li>Stack-ийн <b>дээд талаас</b> (хамгийн сүүлд орсон) оройг авна. Аль хэдийн очсон бол алгасна.</li>
+          <li>Очоогүй бол <code>visited</code> гэж тэмдэглээд, очоогүй хөршүүдийг нь stack-д хийнэ.</li>
+          <li>Stack хоосон болтол давтана.</li>
+        </ol>
+      </div>
+      <div class="blk idea"><h3>АНХААРАХ ЗҮЙЛ</h3>
+        <ol>
+          <li>Нэг орой stack-д <b>хэд хэд</b> орж болно. Тиймээс stack-ээс гаргах үед <code>visited</code>-ийг шалгаж, очсон бол алгасна.</li>
+          <li>Сүүлд хийсэн хөрш эхэлж гардаг тул хөршүүдийг <b>урвуу дарааллаар</b> үзнэ. Тиймээс рекурсив аргаас өөр дараалал гарна. Хоёулаа зөв DFS.</li>
+        </ol>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="player" data-key="dstack" data-h="556" tabindex="0" aria-label="Stack ашигласан DFS анимэйшн"></div>
+      <div class="codep" data-key="dstack" data-cx="&lt;strong&gt;O(N + M)&lt;/strong&gt; — stack-д нийт хамгийн ихдээ 2M + 1 удаа юм орно."></div>
+    </div>
+  </section>
+
+  <section class="prob" id="rec">
+    <div class="phead"><div class="pnum">2</div><div>
+      <h2>Рекурсив функц ашиглах</h2>
+      <div class="sub"><span class="chip">recursion</span><span class="chip">call stack</span><span>Ижил граф, эхлэл 0</span></div>
+    </div></div>
+    <div class="two">
+      <div class="blk idea"><h3>ХЭРХЭН АЖИЛЛАХ</h3>
+        <ol>
+          <li><code>dfs(u)</code> нь u дээр очиж <code>visited</code> гэж тэмдэглэнэ.</li>
+          <li>u-ийн хөрш бүрийг дарааллаар нь үзэж, очоогүй бол <code>dfs(v)</code>-г дуудна.</li>
+          <li><code>dfs(v)</code> дуусахад u руу буцаж ирээд, дараагийн хөршөөс үргэлжилнэ.</li>
+        </ol>
+      </div>
+      <div class="blk idea"><h3>CALL STACK ГЭЖ ЮУ ВЭ?</h3>
+        <ol>
+          <li>Функц дуудах бүрт компьютер түүнийг <b>call stack</b>-д нэмнэ. Функц дуусахад call stack-ээс гарч, дуудсан газар руугаа буцна.</li>
+          <li>Тэгэхээр рекурсив функц ч бас stack ашиглаж байгаа. Зүгээр л stack-ийг компьютер өөрөө удирддаг.</li>
+          <li>Граф маш гүн (10⁵ орчим орой нэг шугамаар) бол call stack дүүрч програм унаж болно. Тэр үед stack-тэй аргыг хэрэглэнэ.</li>
+        </ol>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="player" data-key="drec" data-h="556" tabindex="0" aria-label="Рекурсив DFS анимэйшн"></div>
+      <div class="codep" data-key="drec" data-cx="&lt;strong&gt;O(N + M)&lt;/strong&gt; — орой бүр дээр dfs нэг л удаа ажиллана."></div>
+    </div>
+  </section>
+
+  <footer>
+    <span><a href="https://github.com/khangai11/surgalt/blob/main/dfs.md" target="_blank" rel="noopener">dfs.md хичээл</a></span>
+    <span>Ижил граф дээрх BFS: <a href="https://github.com/khangai11/surgalt/blob/main/bfs.md" target="_blank" rel="noopener">bfs.md</a></span>
+  </footer>
+</div>
+
+<script>
+/* ---------- BFS / DFS frame generators (pure, no DOM) ---------- */
+const CODE = {
+bfs: `vector<vector<int>> e(n);          // хөршүүдийн жагсаалт
+vector<bool> visited(n, false);    // queue-д орсон эсэх
+queue<int> q;
+int start = 0;                     // эхлэх орой
+q.push(start);
+visited[start] = true;
+while(!q.empty()){
+    int u = q.front();             // хамгийн эхэнд орсон орой
+    q.pop();
+    cout << u << " ";
+    for(auto v : e[u]){
+        if(visited[v]) continue;   // өмнө нь орсон бол алгасна
+        visited[v] = true;
+        q.push(v);
+    }
+}`,
+dstack: `vector<vector<int>> e(n);          // хөршүүдийн жагсаалт
+vector<bool> visited(n, false);    // очсон эсэх
+stack<int> s;
+int start = 0;                     // эхлэх орой
+s.push(start);
+while(!s.empty()){
+    int u = s.top();               // хамгийн сүүлд орсон орой
+    s.pop();
+    if(visited[u]) continue;       // очсон бол алгасна
+    visited[u] = true;
+    cout << u << " ";
+    for(auto v : e[u]){
+        if(!visited[v]) s.push(v); // очоогүй хөршүүдийг хийнэ
+    }
+}`,
+drec: `vector<vector<int>> e;             // хөршүүдийн жагсаалт
+vector<bool> visited;              // очсон эсэх
+void dfs(int u){
+    if(visited[u]) return;
+    visited[u] = true;
+    cout << u << " ";
+    for(auto v : e[u]){
+        if(visited[v]) continue;   // очсон бол алгасна
+        dfs(v);                    // v руу гүнзгийрнэ
+    }
+}                                  // бүх хөршийг үзсэн -> буцна
+// main дотор: dfs(0);`
+};
+
+function lineOf(key, s) {
+  const lines = CODE[key].split("\n");
+  for (let i = 0; i < lines.length; i++) if (lines[i].includes(s)) return i;
+  throw new Error("line not found: " + key + " / " + s);
+}
+const T = (id, v, x, y, s = "norm", o = {}) => Object.assign({ id, v: String(v), x, y, s }, o);
+const Lb = (x, y, t, c = "lbl", a = "start") => ({ x, y, t, c, a });
+const code = (s) => `<code>${s}</code>`;
+
+/* shared example graph: same picture on BFS and DFS pages */
+const G = {
+  n: 8,
+  pos: { 0: [230, 58], 3: [120, 148], 1: [340, 148], 5: [60, 243], 2: [230, 243], 6: [400, 243], 4: [140, 338], 7: [330, 338] },
+  edges: [[0, 3], [0, 1], [3, 5], [3, 2], [1, 2], [1, 6], [5, 4], [2, 4], [6, 7], [4, 7]],
+};
+G.adj = Array.from({ length: G.n }, () => []);
+G.edges.forEach(([u, v]) => { G.adj[u].push(v); G.adj[v].push(u); });
+const ek = (u, v) => (u < v ? u + "-" + v : v + "-" + u);
+const NP = (k) => ({ x: G.pos[k][0], y: G.pos[k][1] });
+const H = 556, YS = 418, YO = 516;
+const SX = (j) => 48 + j * 56;
+
+function drawGraph(st, tiles, labels, lines) {
+  const ec = Object.assign({}, st.ec, st.ecT);
+  G.edges.forEach(([u, v]) => {
+    const [x1, y1] = G.pos[u], [x2, y2] = G.pos[v];
+    lines.push({ x1, y1, x2, y2, c: ec[ek(u, v)] || "edge" });
+  });
+  for (let k = 0; k < G.n; k++) {
+    const [x, y] = G.pos[k];
+    tiles.push(T("n" + k, k, x, y, st.ns[k] || "idle", { shape: "c", w: 46 }));
+    if (st.lab && st.lab[k] !== undefined) labels.push(Lb(x + 27, y - 22, st.lab[k], "ptr"));
+  }
+}
+function drawAdj(st, tiles, labels) {
+  labels.push(Lb(478, 26, "e[u] — хөршүүдийн жагсаалт"));
+  for (let u = 0; u < G.n; u++) {
+    const y = 56 + u * 26, on = u === st.cu;
+    labels.push(Lb(500, y + 5, u + ":", on ? "ptr" : "idx", "end"));
+    G.adj[u].forEach((v, j) => {
+      const s = st.ai[`${u}_${j}`] || (on ? "norm" : "idle");
+      tiles.push(T(`a${u}_${j}`, v, 528 + j * 32, y, s, { w: 28, h: 22, f: "sm" }));
+    });
+  }
+}
+function drawRow(label, items, y, labels, tiles, opts = {}) {
+  labels.push(Lb(20, y - 34, label));
+  items.forEach((it, j) => tiles.push(T(it.id, it.v, (opts.x || SX)(j), y, it.s || opts.s || "norm",
+    Object.assign({ w: opts.w || 44, h: opts.h || 40 }, opts.f ? { f: opts.f } : {}, it.from ? { from: it.from } : {}))));
+}
+
+/* ===== BFS ===== */
+function genBFS() {
+  const L = (s) => lineOf("bfs", s);
+  const F = [];
+  let ns = {}, ec = {}, ecT = {}, lab = {}, ai = {}, q = [], out = [], cu = -1;
+  const vis = new Set(), dist = {};
+  function snap(cap, line, hold) {
+    const tiles = [], labels = [], lines = [];
+    drawGraph({ ns, ec, ecT, lab }, tiles, labels, lines);
+    drawAdj({ cu, ai }, tiles, labels);
+    drawRow("queue — урд талаас нь гарна ←", q, YS, labels, tiles, { s: "new" });
+    if (q.length) {
+      labels.push(Lb(SX(0), YS + 36, "front", "top", "middle"));
+      if (q.length > 1) labels.push(Lb(SX(q.length - 1), YS + 36, "back", "idx", "middle"));
+    }
+    drawRow("Очсон дараалал (cout)", out, YO, labels, tiles, { s: "ok" });
+    F.push({ cap, line, hold, tiles, labels, lines, vars: { u: cu >= 0 ? cu : "–", "q.size()": q.length } });
+    q.forEach((i) => delete i.from); out.forEach((i) => delete i.from);
+    ecT = {}; ai = {};
+  }
+  snap(`BFS нь <b>queue</b> ашиглана: эхэлж орсон нь эхэлж гарна. Тиймээс 0-ээс <b>ойрхон</b> оройнууд эхэлж, хол нь сүүлд очигдоно.`, L("queue<int> q"), 2600);
+  q.push({ id: "q0", v: 0, from: NP(0) }); vis.add(0); dist[0] = 0; ns[0] = "new"; lab[0] = "d=0";
+  snap(`Эхлэх орой 0-г queue-д хийж, ${code("visited[0] = true")} болгоно.`, L("q.push(start)"), 1700);
+  let prev = -1;
+  while (q.length) {
+    const it = q.shift(), u = it.v;
+    if (prev >= 0) ns[prev] = "ok";
+    cu = u; ns[u] = "top";
+    out.push({ id: "o" + u, v: u, from: { x: SX(0), y: YS } });
+    snap(`${code("q.front() = " + u)} → ${code("q.pop()")}, ${u}-г хэвлэнэ. Одоо ${u}-ийн хөршүүд ${code("e[" + u + "] = {" + G.adj[u].join(", ") + "}")}-г үзнэ.`, L("int u = q.front()"), 1900);
+    G.adj[u].forEach((v, j) => {
+      if (vis.has(v)) {
+        ai[`${u}_${j}`] = "dim"; ecT[ek(u, v)] = "skip";
+        snap(`${v} аль хэдийн queue-д орсон (${code("visited[" + v + "] = true")}) → алгасна.`, L("if(visited[v]) continue"), 1200);
+      } else {
+        vis.add(v); dist[v] = dist[u] + 1;
+        ai[`${u}_${j}`] = "new"; ec[ek(u, v)] = "tree"; ns[v] = "new"; lab[v] = "d=" + dist[v];
+        q.push({ id: "q" + v, v, from: NP(v) });
+        snap(`${v} очоогүй → ${code("visited[" + v + "] = true; q.push(" + v + ")")}. 0-ээс ${dist[v]} алхам зайтай.`, L("q.push(v)"), 1500);
+      }
+    });
+    prev = u;
+  }
+  ns[prev] = "ok"; cu = -1;
+  snap(`queue хоосон боллоо — дууслаа. Дараалал: ${code(out.map((o) => o.v).join(" "))}. Анзаар: d=0, дараа нь бүх d=1, дараа нь d=2 … давалгаа шиг тархсан. Цэнхэр ирмэгүүд нь <b>BFS мод</b>.`, L("cout << u"), 4200);
+  return F;
+}
+
+/* ===== DFS with stack ===== */
+function genDStack() {
+  const L = (s) => lineOf("dstack", s);
+  const F = [];
+  let ns = {}, ec = {}, ecT = {}, ai = {}, st = [], out = [], cu = -1, nid = 0;
+  const vis = new Set();
+  function snap(cap, line, hold) {
+    const tiles = [], labels = [], lines = [];
+    drawGraph({ ns, ec, ecT }, tiles, labels, lines);
+    drawAdj({ cu, ai }, tiles, labels);
+    drawRow("stack — сүүлд орсон нь (top) эхэлж гарна →", st, YS, labels, tiles, { s: "new" });
+    if (st.length) labels.push(Lb(SX(st.length - 1), YS + 36, "top", "top", "middle"));
+    drawRow("Очсон дараалал (cout)", out, YO, labels, tiles, { s: "ok" });
+    F.push({ cap, line, hold, tiles, labels, lines, vars: { u: cu >= 0 ? cu : "–", "s.size()": st.length } });
+    st.forEach((i) => delete i.from); out.forEach((i) => delete i.from);
+    ecT = {}; ai = {};
+  }
+  snap(`DFS-ийг <b>stack</b>-ээр хийе: сүүлд орсон нь эхэлж гарна. Тиймээс шинээр олсон хөрш рүүгээ шууд орж, <b>гүн рүү</b> явна.`, L("stack<int> s"), 2600);
+  st.push({ id: "s" + nid++, v: 0, from: NP(0) }); ns[0] = "new";
+  snap(`Эхлэх орой 0-г stack-д хийнэ.`, L("s.push(start)"), 1500);
+  let prev = -1;
+  while (st.length) {
+    const it = st.pop(), u = it.v;
+    if (vis.has(u)) {
+      snap(`${code("s.top() = " + u)} → pop. ${u} дээр аль хэдийн очсон тул алгасна. (Stack-д нэг орой хэд хэд орж болно.)`, L("if(visited[u]) continue"), 1600);
+      continue;
+    }
+    if (prev >= 0) ns[prev] = "ok";
+    vis.add(u); cu = u; ns[u] = "top";
+    out.push({ id: "o" + u, v: u, from: { x: SX(st.length), y: YS } });
+    snap(`${code("s.top() = " + u)} → pop. Очоогүй тул ${code("visited[" + u + "] = true")}, хэвлэнэ. Хөршүүд: ${code("{" + G.adj[u].join(", ") + "}")}.`, L("cout << u"), 1900);
+    G.adj[u].forEach((v, j) => {
+      if (vis.has(v)) {
+        ai[`${u}_${j}`] = "dim"; ecT[ek(u, v)] = "skip";
+        snap(`${v} дээр очсон → хийхгүй.`, L("if(!visited[v]) s.push(v)"), 1000);
+      } else {
+        ai[`${u}_${j}`] = "new"; ecT[ek(u, v)] = "check";
+        if (ns[v] !== "ok") ns[v] = "new";
+        st.push({ id: "s" + nid++, v, from: NP(v) });
+        snap(`${v} дээр очоогүй → ${code("s.push(" + v + ")")}.`, L("if(!visited[v]) s.push(v)"), 1300);
+      }
+    });
+    prev = u;
+  }
+  ns[prev] = "ok"; cu = -1;
+  snap(`Stack хоосон боллоо — дууслаа. Дараалал: ${code(out.map((o) => o.v).join(" "))}. Сүүлд хийсэн хөрш эхэлж гардаг тул 0-ийн хөршүүдээс эхлээд 1 рүү орсон.`, L("cout << u"), 4200);
+  return F;
+}
+
+/* ===== DFS recursive ===== */
+function genDRec() {
+  const L = (s) => lineOf("drec", s);
+  const F = [];
+  let ns = {}, ec = {}, ecT = {}, ai = {}, calls = [], out = [], cu = -1;
+  const vis = new Set();
+  const CX = (j) => 58 + j * 86;
+  function snap(cap, line, hold) {
+    const tiles = [], labels = [], lines = [];
+    drawGraph({ ns, ec, ecT }, tiles, labels, lines);
+    drawAdj({ cu, ai }, tiles, labels);
+    const items = calls.map((c, j) => ({ id: c.id, v: "dfs(" + c.v + ")", s: j === calls.length - 1 ? "top" : "norm", from: c.from }));
+    drawRow("call stack — дуудагдаж буй функцүүд (баруун тал нь одоогийнх)", items, YS, labels, tiles, { x: CX, w: 80, h: 38, f: "sm" });
+    drawRow("Очсон дараалал (cout)", out, YO, labels, tiles, { s: "ok" });
+    F.push({ cap, line, hold, tiles, labels, lines, vars: { u: cu >= 0 ? cu : "–", "гүн": calls.length } });
+    calls.forEach((i) => delete i.from); out.forEach((i) => delete i.from);
+    ecT = {}; ai = {};
+  }
+  snap(`Рекурсив DFS: ${code("dfs(u)")} нь u дээр очоод, очоогүй хөрш бүрийн хувьд ${code("dfs(v)")}-г дуудна. Функц дуусахад өмнөх орой руугаа <b>буцна</b>.`, L("dfs(0)"), 2600);
+  function dfs(u, p) {
+    if (calls.length) ns[calls[calls.length - 1].v] = "norm";
+    if (p >= 0) ec[ek(p, u)] = "tree";
+    calls.push({ id: "c" + u, v: u, from: NP(u) });
+    vis.add(u); cu = u; ns[u] = "top";
+    out.push({ id: "o" + u, v: u, from: NP(u) });
+    snap(`${code("dfs(" + u + ")")} дуудагдлаа → ${code("visited[" + u + "] = true")}, хэвлэнэ. Хөршүүд: ${code("{" + G.adj[u].join(", ") + "}")}.`, L("cout << u"), 1800);
+    G.adj[u].forEach((v, j) => {
+      if (vis.has(v)) {
+        ai[`${u}_${j}`] = "dim"; ecT[ek(u, v)] = "skip";
+        snap(`${v} дээр очсон → ${code("continue")}.`, L("if(visited[v]) continue"), 1000);
+      } else {
+        ai[`${u}_${j}`] = "new"; ecT[ek(u, v)] = "check";
+        snap(`${v} дээр очоогүй → ${code("dfs(" + v + ")")} дуудаж гүнзгийрнэ.`, L("dfs(v);"), 1300);
+        dfs(v, u);
+        cu = u;
+      }
+    });
+    calls.pop(); ns[u] = "ok";
+    const par = calls.length ? calls[calls.length - 1].v : -1;
+    if (par >= 0) { ns[par] = "top"; cu = par; } else cu = -1;
+    snap(`${code("dfs(" + u + ")")}: бүх хөршийг үзлээ → буцна.` + (par >= 0 ? ` ${code("dfs(" + par + ")")} зогссон газраасаа үргэлжилнэ.` : ""), L("бүх хөршийг үзсэн"), 1500);
+  }
+  dfs(0, -1);
+  snap(`Дууслаа. Дараалал: ${code(out.map((o) => o.v).join(" "))}. Цэнхэр ирмэгүүд нь <b>DFS мод</b>: 0 → 3 → 5 → 4 → 2 → 1 → 6 → 7 гэж нэг гүн замаар явж, дараа нь буцсан.`, L("dfs(0)"), 4200);
+  return F;
+}
+
+const GENS = { bfs: genBFS, dstack: genDStack, drec: genDRec };
+if (typeof module !== "undefined") module.exports = { GENS, CODE, G, H };
+
+
+(function () {
+  const NS = "http://www.w3.org/2000/svg";
+  const reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const el = (tag, attrs = {}, cls) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (cls) e.setAttribute("class", cls); return e; };
+  const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  const ICON = {
+    restart: '<svg viewBox="0 0 24 24"><path d="M12 5V2L7 6l5 4V7a5 5 0 1 1-5 5H5a7 7 0 1 0 7-7z"/></svg>',
+    prev: '<svg viewBox="0 0 24 24"><path d="M15.4 5.4 14 4l-8 8 8 8 1.4-1.4L8.8 12z"/></svg>',
+    next: '<svg viewBox="0 0 24 24"><path d="M8.6 5.4 10 4l8 8-8 8-1.4-1.4 6.6-6.6z"/></svg>',
+    play: '<svg viewBox="0 0 24 24"><path d="M7 4.5v15l12.5-7.5z"/></svg>',
+    pause: '<svg viewBox="0 0 24 24"><path d="M6 4.5h4.2v15H6zm7.8 0H18v15h-4.2z"/></svg>',
+  };
+
+  function highlight(line) {
+    let src = line, com = "";
+    const ci = line.indexOf("//");
+    if (ci >= 0) { src = line.slice(0, ci); com = line.slice(ci); }
+    let h = esc(src).replace(/(#include|#define)|("(?:[^"\\]|\\.)*")|\b(int|long|return|for|while|if|else|auto|using|namespace|void|bool|continue|false|true)\b|\b(queue|stack|vector|cin|cout|main)\b|\b(\d+)\b/g,
+      (m, pp, str, kw, ty, num) => pp ? `<span class="k-pp">${m}</span>` : str ? `<span class="k-str">${m}</span>` : kw ? `<span class="k-kw">${m}</span>` : ty ? `<span class="k-ty">${m}</span>` : `<span class="k-num">${m}</span>`);
+    if (com) h += `<span class="k-com">${esc(com)}</span>`;
+    return h;
+  }
+
+  function buildCode(box) {
+    const key = box.dataset.key;
+    const lines = CODE[key].split("\n");
+    box.innerHTML = `<div class="codeh"><h3>БОДОЛТ · C++</h3><button class="copy" type="button" id="copy-${key}">Хуулах</button></div>
+      <pre class="code" id="code-${key}">${lines.map((l, i) => `<span class="cl" data-n="${i}"><span class="no">${i + 1}</span>${highlight(l)}</span>`).join("")}</pre>
+      <div class="cx">${box.dataset.cx}</div>`;
+    const btn = box.querySelector(".copy");
+    btn.addEventListener("click", () => {
+      const done = () => { btn.textContent = "Хуулсан ✓"; setTimeout(() => (btn.textContent = "Хуулах"), 1600); };
+      const fallback = () => { const r = document.createRange(); r.selectNodeContents(box.querySelector("pre")); const s = getSelection(); s.removeAllRanges(); s.addRange(r); btn.textContent = "Сонгогдлоо — Ctrl+C"; };
+      try { navigator.clipboard.writeText(CODE[key]).then(done, fallback); } catch (e) { fallback(); }
+    });
+    return [...box.querySelectorAll(".cl")];
+  }
+
+  class Player {
+    constructor(root) {
+      this.root = root; this.key = root.dataset.key; this.H = +root.dataset.h;
+      this.F = GENS[this.key](); this.i = -1; this.playing = false; this.speed = 1; this.els = new Map(); this.tm = 0; this.auto = false;
+      const k = this.key;
+      root.innerHTML = `<div class="stage"><svg viewBox="0 0 720 ${this.H}" role="img" aria-label="Алхам алхмын зураг"></svg></div>
+        <div class="cap" aria-live="polite"></div>
+        <div class="vars"></div>
+        <div class="ctl">
+          <button class="ib" type="button" data-a="restart" aria-label="Эхнээс нь" title="Эхнээс нь (Home)">${ICON.restart}</button>
+          <button class="ib" type="button" data-a="prev" aria-label="Өмнөх алхам" title="Өмнөх алхам (←)">${ICON.prev}</button>
+          <button class="play" type="button" data-a="play"></button>
+          <button class="ib" type="button" data-a="next" aria-label="Дараах алхам" title="Дараах алхам (→)">${ICON.next}</button>
+          <input class="scrub" type="range" min="0" max="${this.F.length - 1}" value="0" id="scrub-${k}" aria-label="Алхам сонгох">
+          <span class="count"></span>
+          <div class="speed" role="group" aria-label="Хурд">
+            <button type="button" data-s="0.5" aria-pressed="false">0.5×</button><button type="button" data-s="1" aria-pressed="true">1×</button><button type="button" data-s="2" aria-pressed="false">2×</button>
+          </div>
+        </div>`;
+      this.svg = root.querySelector("svg");
+      this.L = { slots: el("g"), lines: el("g"), labels: el("g"), tiles: el("g") };
+      Object.values(this.L).forEach((g) => this.svg.appendChild(g));
+      this.cap = root.querySelector(".cap"); this.vars = root.querySelector(".vars");
+      this.count = root.querySelector(".count"); this.scrub = root.querySelector(".scrub");
+      this.btn = {}; root.querySelectorAll("[data-a]").forEach((b) => (this.btn[b.dataset.a] = b));
+      this.codeLines = buildCode(document.querySelector(`.codep[data-key="${k}"]`));
+      this.btn.restart.onclick = () => { this.pause(); this.show(0); };
+      this.btn.prev.onclick = () => { this.pause(); this.show(this.i - 1); };
+      this.btn.next.onclick = () => { this.pause(); this.show(this.i + 1); };
+      this.btn.play.onclick = () => (this.playing ? this.pause() : this.play());
+      this.scrub.oninput = () => { this.pause(); this.show(+this.scrub.value); };
+      root.querySelectorAll(".speed button").forEach((b) => (b.onclick = () => {
+        this.speed = +b.dataset.s;
+        root.querySelectorAll(".speed button").forEach((x) => x.setAttribute("aria-pressed", x === b));
+        if (this.playing) this.tick();
+      }));
+      root.addEventListener("keydown", (e) => {
+        if (e.target.closest("button, input")) { if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return; if (e.target.matches("input")) return; }
+        if (e.key === "ArrowRight") { e.preventDefault(); this.btn.next.click(); }
+        else if (e.key === "ArrowLeft") { e.preventDefault(); this.btn.prev.click(); }
+        else if (e.key === " ") { e.preventDefault(); this.btn.play.click(); }
+        else if (e.key === "Home") { e.preventDefault(); this.btn.restart.click(); }
+      });
+      this.show(0);
+      this.updPlay();
+    }
+    dur() { return reduce ? 0 : Math.round(Math.min(650, Math.max(360, (this.F[this.i].hold || 1500) * 0.32)) / this.speed); }
+    tr(x, y) { return `translate(${x}px, ${y}px)`; }
+    show(i) {
+      if (i < 0 || i >= this.F.length || i === this.i) return;
+      const step = i === this.i + 1;
+      this.i = i;
+      const f = this.F[i], d = this.dur();
+      this.svg.style.setProperty("--dur", d + "ms");
+      // slots, lines, labels: redraw
+      this.L.slots.replaceChildren(...(f.slots || []).map((s) => el("rect", { x: s.x - s.w / 2, y: s.y - s.h / 2, width: s.w, height: s.h, rx: s.c === "slot-c" ? s.h / 2 : 12 }, s.c)));
+      this.L.lines.replaceChildren(...(f.lines || []).map((l) => el("line", { x1: l.x1, y1: l.y1, x2: l.x2, y2: l.y2 }, "ln-" + l.c)));
+      this.L.labels.replaceChildren(...f.labels.map((l) => { const t = el("text", { x: l.x, y: l.y, "text-anchor": l.a }, l.c === "lbl" ? "lb" : "lb-" + l.c); t.textContent = l.t; return t; }));
+      // tiles: keyed diff
+      const seen = new Set();
+      for (const t of f.tiles) {
+        seen.add(t.id);
+        let g = this.els.get(t.id);
+        const fresh = !g;
+        if (fresh) { g = this.mkTile(); this.L.tiles.appendChild(g); this.els.set(t.id, g); }
+        if (g._gone) { clearTimeout(g._gone); g._gone = 0; g.classList.remove("gone"); }
+        this.paint(g, t);
+        if (fresh) {
+          if (step && t.from && d) {
+            g.style.transition = "none"; g.style.transform = this.tr(t.from.x, t.from.y); g.getBoundingClientRect(); g.style.transition = "";
+          } else if (step && d) {
+            g.style.transition = "none"; g.style.transform = this.tr(t.x, t.y); g.classList.add("enter"); g.getBoundingClientRect(); g.style.transition = ""; g.classList.remove("enter");
+          }
+        }
+        g.style.transform = this.tr(t.x, t.y);
+      }
+      for (const [id, g] of this.els) {
+        if (seen.has(id) || g._gone) continue;
+        if (d && step) { g.classList.add("gone"); g._gone = setTimeout(() => { g.remove(); this.els.delete(id); }, d + 60); }
+        else { g.remove(); this.els.delete(id); }
+      }
+      if (!step) for (const [id, g] of this.els) if (g._gone) { clearTimeout(g._gone); g.remove(); this.els.delete(id); }
+      // text
+      this.cap.innerHTML = f.cap;
+      this.vars.innerHTML = Object.entries(f.vars || {}).map(([k, v]) => `<span class="var"><span class="k">${esc(k)}</span><span class="v">${esc(String(v))}</span></span>`).join("");
+      this.codeLines.forEach((c, n) => c.classList.toggle("on", n === f.line));
+      this.count.textContent = `${i + 1} / ${this.F.length}`;
+      this.scrub.value = i;
+      this.btn.prev.disabled = i === 0; this.btn.restart.disabled = i === 0; this.btn.next.disabled = i === this.F.length - 1;
+      if (!this.playing) this.updPlay();
+    }
+    mkTile() {
+      const g = el("g", {}, "tile");
+      g.appendChild(el("rect", {}, "sh"));
+      g.appendChild(el("text", {}, "tv"));
+      g.appendChild(el("text", {}, "ts"));
+      return g;
+    }
+    paint(g, t) {
+      const w = t.w || 50, h = t.h || 44;
+      g.setAttribute("class", `tile t-${t.s}${t.f ? " f-" + t.f : ""}${g.classList.contains("gone") ? " gone" : ""}`);
+      let sh = g.firstChild;
+      const want = t.shape === "c" ? "circle" : "rect";
+      if (sh.tagName !== want) { const n = el(want, {}, "sh"); g.replaceChild(n, sh); sh = n; }
+      if (want === "circle") { sh.setAttribute("r", w / 2); }
+      else { sh.setAttribute("x", -w / 2); sh.setAttribute("y", -h / 2); sh.setAttribute("width", w); sh.setAttribute("height", h); sh.setAttribute("rx", Math.min(10, h / 3)); }
+      const tv = g.children[1], ts = g.children[2];
+      if (tv.textContent !== t.v) tv.textContent = t.v;
+      ts.textContent = t.sub || "";
+      ts.setAttribute("y", (want === "circle" ? w / 2 : h / 2) + 17);
+      ts.setAttribute("class", "ts" + (t.subc ? " " + t.subc : ""));
+    }
+    updPlay() {
+      const end = this.i >= this.F.length - 1;
+      this.btn.play.innerHTML = this.playing ? `${ICON.pause}<span>Зогсоох</span>` : end ? `${ICON.restart}<span>Дахин</span>` : `${ICON.play}<span>Тоглуулах</span>`;
+      this.btn.play.setAttribute("aria-label", this.playing ? "Зогсоох" : "Тоглуулах");
+    }
+    play() { if (this.i >= this.F.length - 1) this.show(0); this.playing = true; this.updPlay(); this.tick(true); }
+    pause() { this.playing = false; clearTimeout(this.tm); this.updPlay(); }
+    tick(first) {
+      clearTimeout(this.tm);
+      if (!this.playing) return;
+      const hold = first ? 700 : (this.F[this.i].hold || 1500) / this.speed;
+      this.tm = setTimeout(() => {
+        if (!this.playing) return;
+        if (this.i < this.F.length - 1) { this.show(this.i + 1); this.tick(); }
+        else this.pause();
+      }, hold);
+    }
+  }
+
+  const players = [...document.querySelectorAll(".player")].map((r) => new Player(r));
+  if (!reduce && "IntersectionObserver" in window) {
+    const io = new IntersectionObserver((ents) => ents.forEach((e) => {
+      const p = players.find((x) => x.root === e.target);
+      if (!p) return;
+      if (e.isIntersecting && e.intersectionRatio >= 0.55 && !p.auto) { p.auto = true; p.play(); }
+      else if (!e.isIntersecting && p.playing) p.pause();
+    }), { threshold: [0, 0.55] });
+    players.forEach((p) => io.observe(p.root));
+  }
+})();
+</script>
+</html>
