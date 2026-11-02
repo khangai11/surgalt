@@ -8,14 +8,14 @@ Set-тэй адилхан Balanced binary search tree ашиглаж хийсэ�
 | a[5] = 5; | a[5]=5; |
 | a[1e9]=6; | a[4]=1; |
 | a["abc"]=5; | a[0] = 5; |
-| a[make_pair(4,5)=4;] | a[1]=4; |
+| a[make_pair(4,5)]=4; | a[1]=4; |
 <br>
 
 | код | O(?) |тайлбар |
 |---|---|---|
 | map\<int,int\> a;<br>map\<string,double\> b; | O(1) |map<хаягын төрөл, датаны төрөл> гэж зарлана. |
 | int v = a[x]; | O(log(n)) | a-ийн x гэсэн хаягт байгаа датаг унших, x гэсэн хаягт дата байхгүй бол датаны төрлийн default утгыг нь буцаана. |
-| a.clear() | O(1) | a-г хоосон болгоно. |
+| a.clear() | O(n) | a-г хоосон болгоно. |
 | a[5] = 100;<br>b["hello"] = 0.123f;| O(log(n)) | дата оруулахдаа vector-той адилхан хандана. |
 | a.find(x); | O(log(n)) | a дотор х гэсэн хаяг дээр дата байвал тухайн элементийг заасан iterator буцаана. байхгүй бол a.end()-ийг заасан iterator буцаана. |
 | a.count(x); | O(log(n)) | a дотор х гэсэн хаяг дээр дата байвал 1, байхгүй бол 0-ийг буцаана.|
@@ -41,7 +41,7 @@ cout<<a[99];    //0(99 gesen hayagt data baihgui uchir default utga)
 cout<<b[4];     //"hi"
 cout<<b[8];     //""(8 gesen hayagt data baihgui uchir hooson string)
 cout<<c["khan"];//11111
-cout<<"c["kk"]; //0("kk" gesen hayagt data baihgui uchir hooson string)
+cout<<c["kk"]; //0("kk" gesen hayagt data baihgui uchir int-iin default utga 0)
 
 for(auto v:c){
     cout<<v.first<<" "<<v.second<<"\n";
