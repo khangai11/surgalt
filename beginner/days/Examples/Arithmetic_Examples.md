@@ -30,7 +30,7 @@ int main() {
     printf("a-b = %d\n",hasah); //8 гарна
     printf("a*b = %d\n",urjih); //180 гарна
     printf("a/b = %d\n",huvaah_buhel); //1 гарна
-    printf("a%b = %d\n",huvaah_uldeg); //8 гарна
+    printf("a%%b = %d\n",huvaah_uldeg); //8 гарна
 
     return 0;
 }
@@ -59,7 +59,7 @@ int main() {
     printf("a-b = %d\n",hasah); //25 гарна
     printf("a*b = %d\n",urjih); //150 гарна
     printf("a/b = %d\n",huvaah_buhel); //6 гарна
-    printf("a%b = %d\n",huvaah_uldeg); //0 гарна
+    printf("a%%b = %d\n",huvaah_uldeg); //0 гарна
 
     return 0;
 }

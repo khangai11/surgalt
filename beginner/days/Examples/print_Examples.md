@@ -3,7 +3,7 @@
 ```c
 int main() {
     //Ene bol comment
-    pritnf("One Two Three Four");  
+    printf("One Two Three Four");  
      return 0; //Ene bol comment
      //Ene bol comment
 }
@@ -19,7 +19,7 @@ int main() {
     /* Ene bol 
     olon murtei 
     comment*/
-    pritnf("One\nTwo\nThree\nFour");  
+    printf("One\nTwo\nThree\nFour");  
     return 0;
 }
 ```
@@ -33,7 +33,7 @@ Four<br>
 ```c
 int main() {
     int var = 100;
-    pritnf("var huvisagchiin anhnii utga ni = %d",var);
+    printf("var huvisagchiin anhnii utga ni = %d",var);
 
     return 0;
 }
@@ -47,7 +47,7 @@ int main() {
     printf("Ta garaas buhel too oruulna uu : ");
     scanf("%d",&var);
 
-    pritnf("Tanii oruulsan too = %d\n",var);
+    printf("Tanii oruulsan too = %d\n",var);
 
     return 0;
 }
@@ -64,7 +64,7 @@ int main() {
 
     int ih_utga = max(var1, var2);
 
-    pritnf("Ih utga ni = %d\n",ih_utga);
+    printf("Ih utga ni = %d\n",ih_utga);
 
     return 0;
 }
@@ -80,7 +80,7 @@ int main() {
 
     int baga_utga = min(var1, var2);
 
-    pritnf("Baga utga ni = %d\n",baga_utga);
+    printf("Baga utga ni = %d\n",baga_utga);
 
     return 0;
 }
@@ -96,7 +96,7 @@ int main() {
     scanf("%d",&var2);
 
     int niilber = var1 + var2;
-    pritnf("Niilber ni = %d\n",niilber);
+    printf("Niilber ni = %d\n",niilber);
 
     return 0;
 }
@@ -110,7 +110,7 @@ int main() {
     printf("Ta garaas buhel too oruulna uu : ");
     scanf("%d",&var);
     int inc = var + 1;
-    pritnf("Niilber ni = %d\n",inc);
+    printf("Nemsen too = %d\n",inc);
 
     return 0;
 }
