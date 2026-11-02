@@ -27,7 +27,8 @@ a[1] = 50;//[5,50,3]
 
 vector<int> b(4);   //[0,0,0,0]
 cin>>b[3];//OK
-cin>>b[4];//error
+cin>>b[4];//АЛДАА: хязгаараас гарсан (undefined behaviour). Програм унаж ч болно, буруу ажиллаж ч болно
+cin>>b.at(4);//.at() нь хязгаарыг шалгаж, гарсан бол exception шиднэ
 
 vector<int> c = {1,2,5,7,9};
 
@@ -37,13 +38,16 @@ vector<int> d(6,4); //[4,4,4,4,4,4]
 for(auto v: c){
     cout<<v<<" ";   //1 2 5 7 9
 }
+```
 
+vector харьцуулах
+```cpp
 vector<int> a={1,2,4,5};
 vector<int> b = {1,3,5,6};
 //хамгийн эхний ялгаатай элементийн аль нь бага байна тэр нь бага гэсэн үг.
-//эсвэл богинохон урттай нь бага байна.
+//ялгаатай элемент олдоогүй бол (нэг нь нөгөөгийн эхлэл бол) богино нь бага.
 //a[0]==b[0] харин a[1]<b[1] учраас a нь бага гэсэн үг
-//time complexity: O(a.size()+b.size())
+//time complexity: O(min(a.size(), b.size()))
 if(a<b){
     cout<<"a ni baga";//энэ хэвлэгдэнэ.
 } else {
@@ -81,8 +85,10 @@ auto itr = a.begin();
 *itr = 6;   //[6,5,4]
 itr++;  //дараагын элемент рүү заана.
 cout<<*itr;//5
+```
 
-//random access хийж болдог data structure-ийн хувьд
+random access хийж болдог data structure-ийн хувьд
+```cpp
 vector<int> a = {1,2,3,4,5,6,7};
 auto itr = lower_bound(a.begin(),a.end(),5);
 //itr нь 5-ийн байрлалыг зааж байгаа
