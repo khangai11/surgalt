@@ -1,10 +1,10 @@
 # priority_queue — AtCoder бодлогууд
 
+> 🎬 **Санаа ба бодолт анимэйшнтэй:** [khangai11.github.io/surgalt/html/priority_queue_atcoder.html](https://khangai11.github.io/surgalt/html/priority_queue_atcoder.html)
+
 [← priority_queue хичээл рүү буцах](priority_queue.md)
 
 Эдгээр 5 бодлогыг бүгдийг нь `priority_queue` ашиглаж бодно. Эхлээд өөрөө бодож үзээрэй.
-
-👉 **Санаа ба бодолтыг анимэйшнтэй нь энд үзнэ:** [priority_queue_atcoder.html](https://raw.githack.com/khangai11/surgalt/main/html/priority_queue_atcoder.html)
 
 | # | Бодлого | Оноо | Ашиглах зүйл |
 |---|---|---|---|

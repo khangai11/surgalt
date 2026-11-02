@@ -1,5 +1,7 @@
 # stl::priority_queue
 
+> 🎬 **AtCoder бодлогуудын анимэйшнтэй бодолт:** [khangai11.github.io/surgalt/html/priority_queue_atcoder.html](https://khangai11.github.io/surgalt/html/priority_queue_atcoder.html)
+
 ## 1. Priority queue гэж юу вэ?
 
 Энгийн `queue`-д элементүүд **ирсэн дарааллаараа** гардаг (FIFO — эхэлж орсон нь эхэлж гарна).
@@ -156,4 +158,4 @@ N ширхэг олс байна, `i`-р олсны урт `a[i]`. Хоёр ол
 
 5 бодлогын монгол орчуулга: [priority_queue_atcoder.md](priority_queue_atcoder.md)
 
-Санаа ба бодолт (анимэйшнтэй): [priority_queue_atcoder.html](https://raw.githack.com/khangai11/surgalt/main/html/priority_queue_atcoder.html)
+Санаа ба бодолт (анимэйшнтэй): [khangai11.github.io/surgalt/html/priority_queue_atcoder.html](https://khangai11.github.io/surgalt/html/priority_queue_atcoder.html)

@@ -1,4 +1,7 @@
 # Breadth-first search(BFS)
+
+> 🎬 **Анимэйшнтэй тайлбар (play, prev, next):** [khangai11.github.io/surgalt/html/bfs.html](https://khangai11.github.io/surgalt/html/bfs.html)
+
 Граф дээр хайлт хийх, алхах хамгийн энгийн бөгөөд түгээмэл ашиглагддаг алгоритм.
 BFS нь очоогүй байгаа оройнууд дээр олсон дарааллаараа очдог алгоритм.
 
@@ -8,8 +11,6 @@ BFS нь очоогүй байгаа оройнууд дээр олсон дар
 3. queue-г хоосон болтол нь 2дох үйлдлийг давтана. 
 
 ![Alt](/images/bfs_dfs.png)
-
-👉 **Алхам алхмаар анимэйшнээр харах:** [BFS анимэйшн](https://raw.githack.com/khangai11/surgalt/main/html/bfs.html) (play, prev, next товчтой)
 
 ## Яаж програм бичих вэ?
 

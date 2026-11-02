@@ -1,4 +1,7 @@
 # Depth-first search(DFS)
+
+> 🎬 **Анимэйшнтэй тайлбар — stack ба рекурсив (play, prev, next):** [khangai11.github.io/surgalt/html/dfs.html](https://khangai11.github.io/surgalt/html/dfs.html)
+
 Граф дээр хайлт хийх, алхах хамгийн энгийн бөгөөд түгээмэл ашиглагддаг алгоритм.
 DFS нь очоогүй байгаа элемент олдох л юм бол хамгийн түрүүнд тэр орой дээрээ очдог алгоритм.
 
@@ -9,8 +12,6 @@ DFS нь очоогүй байгаа элемент олдох л юм бол х
 4. Эхлэлийн цэгтэй холбоотой бүх орой дээр очсон бол дуусгана.
 
 ![Alt](/images/dfs.png)
-
-👉 **Алхам алхмаар анимэйшнээр харах:** [DFS анимэйшн](https://raw.githack.com/khangai11/surgalt/main/html/dfs.html) (stack болон рекурсив хоёр арга, play, prev, next товчтой)
 
 Яаж програм бичих вэ
 1. Stack ашиглах
