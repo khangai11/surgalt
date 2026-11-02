@@ -36,11 +36,11 @@
 |s.clear()| string-н тэмдэгтүүдийг устгаж цэвэрлэнэ|
 |s.erase(i,len)| i индексээс хойш len урт хэсэгт байгаа тэмдэгтүүдийг устгана |
 |s.substr(i,len)| i индексээс хойш len урттай дэд string-г буцаана |
-|s.find(c)| string -ээс с тэмдэгтийг хайна. Олдсон эхний индексийг нь буцаана. Олдохгүй бол -1 буцаана. |
+|s.find(c)| string -ээс с тэмдэгтийг хайна. Олдсон эхний индексийг нь буцаана. Олдохгүй бол `string::npos` буцаана (`if(s.find(c) == string::npos)` гэж шалгана). |
 
 
 <br/>
-**2 string хоорондын үйлдлүүд **
+**2 string хоорондын үйлдлүүд**
 
 | Функцүүд |Тайлбар|
 |-----|-----|
@@ -125,9 +125,11 @@ int main() {
 
     return 0;
   }
+```
 
 **Output:**
 
+```
 Enter a line of text: Hello from Mongolia
 Your line : Hello from Mongolia
 Enter a string: World
@@ -153,7 +155,7 @@ s.substr(1,3) = ond
 <br/> hadgalagdah
 <br/> 11
 
-<br>2. Гараас тэмдэгтийн цуваа өгөгдөнө. Түүнийг эргүүлэн хэвлэ.
+<br>2. Гараас тэмдэгтийн цуваа өгөгдөнө. Түүнийг тэр чигээр нь буцааж хэвлэ.
 <br/> hadgalagdah
 <br/> hadgalagdah
 
