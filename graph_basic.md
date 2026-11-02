@@ -2,12 +2,15 @@
 
 Граф нь G = {V,E}-ээр тодорхойлогдоно. V нь граф дотор байгаа оройн олонлог, E нь тэдгээл оройг холбосон ирмэгүүдийн олонлог.
 
-![Alt](/images/graph.png)
+![граф](images/graph.png)
 Дээрхи графын хувьд 
 V = {0,1,2,3,4}
 E = \{\{0,1\},\{0,3\},\{0,4\},\{2,3\},\{3,4\},\{2,2\}\}
 
 Графийг програм дээр дүрслэх, сануулахдаа ихэвчлэн 2 төрлийн аргаар сануулдаг.
+
+![Хөршүүдийн жагсаалт ба холболтын матриц](images/graph_representation.png)
+
 1. Хөршүүдийн жагсаалт(Adjacency-list representation)
 u оройн хувьд u-тай холбоотой бүх оройг E[u] дотор хадгалах.Өөрөөр хэлбэл E[u] вектор(set,map,vector-ч байж болно.) дотор u-тай хөрш бүх оройнуудыг хадгална. E нь 2 хэмжээст вектор гэсэн үг.
 Жишээ нь дээрхи граф нь доорхи хэлбэртэй болно.
@@ -41,10 +44,10 @@ vector<vector<int>> e = {
 * чиглэлтэй эсэх
   * чиглэлгүй(undirected graph,дээрхи граф нь энэ төрөл)
   * чиглэлтэй ирмэг(directed graph)
-![Alt](https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Directed_graph_no_background.svg/1024px-Directed_graph_no_background.svg.png)
+![чиглэлтэй граф](images/directed_graph.png)
 * жинтэй эсэх
   * жинтэй (weighted graphs)
-![Alt](https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Weighted_network.svg/1024px-Weighted_network.svg.png)
+![жинтэй граф](images/weighted_graph_small.png)
   * өөртэйгөө холбогдсон(self loop, хамгийн эхний жишээн дээр {2,2} ирмэг)
 
 ```
@@ -138,8 +141,8 @@ u[M] v[M]
 Дасгал3:
 Доорхи графыг хөршүүдийн жагсаалт аргаар илэрхийл.
 
-![Alt](https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Directed_graph_no_background.svg/1024px-Directed_graph_no_background.svg.png)
+![Дасгал 3-ын граф](images/directed_graph_ex3.png)
 
 Дасгал4:
 Доорхи графыг хөршүүдийн жагсаалт аргаар илэрхийл.
-![Alt](images/weighted_graph.png)
+![Дасгал 4-ийн граф](images/weighted_graph.png)
