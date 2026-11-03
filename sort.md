@@ -68,6 +68,7 @@ sort(s.begin(),s.end(),comp);
 //s = {for,some,text,sorting,aaaaaaaaa};
 ```
 
+<!-- {% raw %} -->
 vector-ийн compare хийх нь string-тэй адилхан.
 vector-ийн эхний элементээс нь эхлээд шалгахад ялгаатай элемент таарвал аль бага утгатай нь бага гэсэн үг.
 ```cpp
@@ -85,6 +86,7 @@ sort(b.begin(),b.end(),[&](vector<int> a, vector<int> b){
 });
 //b = {{3,4},{1,20},{1,20,30}} болно.
 ```
+<!-- {% endraw %} -->
 
 Бодлого1( 800): https://codeforces.com/problemset/problem/1742/B
 
