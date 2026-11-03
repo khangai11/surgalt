@@ -31,7 +31,7 @@ for(int i = l; i <= r; i++) ans = max(ans, arr[i]);
 cout << ans << "\n";
 ```
 
-Бодлого5(1100): https://codeforces.com/problemset/problem/1288/A
+Бодлого1(1100): https://codeforces.com/problemset/problem/1288/A
 
-Бодлого6(1600): https://codeforces.com/problemset/problem/1730/B
+Бодлого2(1600): https://codeforces.com/problemset/problem/1730/B
 
