@@ -58,5 +58,4 @@ int main(){
 <br>14. https://www.spoj.com/HOME/problems/HO1042/
 <br>15. https://www.spoj.com/HOME/problems/HO1043/
 <br>16. https://www.spoj.com/HOME/problems/HO1044/
-<br>17. https://www.spoj.com/HOME/problems/CP006/
 
