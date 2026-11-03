@@ -12,10 +12,12 @@
 | count(a,a+n,x);<br>count(a.begin(),a.end(),x); | a дотор x тоо хэд байгааг олно. |
 | find(a,a+n,x)<br>find(a.begin(),a.end(),x) | a дотроос хамгийн эхэнд байгаа x-ийн pointer-ийг нь буцаана. байхгүй бол &a[n]-ийг буцаана. |
 | next_permutation(a,a+n);<br>next_permutation(a.begin(),a.end()); | a-ийн сэлгэмлүүд дундаас а-аас их хамгийн бага сэлгэмлийг а-д байрлуулна. хэрвээ тийм сэлгэмэл олдохгүй бол false, олдвол true буцаана. |
-| __builtin_popcount(x) | x-тоог 2тын тооллоор бичихэд хэдэн ширхэг 1 байгааг буцаана. stl функц биш, GCC compiler-Т байдаг функц|
+| __builtin_popcount(x) | x-тоог 2тын тооллоор бичихэд хэдэн ширхэг 1 байгааг буцаана. stl функц биш, GCC compiler-Т байдаг функц. long long бол `__builtin_popcountll(x)` ашиглана.|
 | sort(a,a+n);<br>sort(a.begin(),a.end()); | өгөгдсөн дарааллыг үл буурах байдлаар эрэмбэлнэ. |
 
 # C++ version өөрчлөх
 "dev c++" тохируулга хийгээгүй бол c++ 98 version ашигладаг.
-dev c++ дээр c++ 11-г ашиглахын тулд тохируулга хийх хэрэгтэй.
-Tools->Compiler Options -> Settings tab -> Code generation tab -> Language standard(-std): GNU C++11 болгож өөрчлөнө.
+dev c++ дээр c++17-г ашиглахын тулд:
+Tools -> Compiler Options -> General tab -> "Add the following commands when calling the compiler"
+чагтлаад -std=c++17 гэж бичнэ.
+(Хуучин Dev-C++ 5.11-ийн GCC 4.9 нь C++17-г дэмждэггүй. Embarcadero Dev-C++ 6.x хувилбарыг суулгана.)
