@@ -7,7 +7,7 @@
 1. Visual studio code(VSCode) суулгах
   * [Visual Studio Code](https://code.visualstudio.com/download)
 2. VSCode дээр "C/C++ extension for VS Code" суулгах
-  * Ctrl+Shift+X дараад гарч ирсэн цонхноос "C/C++ extension for VS Code" гэж хайгаад гарч ирсэнийг нь сонгоод "Install" дарахад суугдана. ![Alt](images/cpp-extension.png)
+  * Ctrl+Shift+X дараад гарч ирсэн цонхноос "C/C++ extension for VS Code" гэж хайгаад гарч ирснийг нь сонгоод "Install" дарахад суугдана. ![Alt](images/cpp-extension.png)
 3. MinGW-w64 toolchain суулгана.
   * [MinGW-w64](https://github.com/msys2/msys2-installer/releases/download/2023-07-18/msys2-x86_64-20230718.exe)-ийг татаж аваад суулгана.
   * суулгахад гарч ирэх цонхнуудын утгыг нь өөрчлөлгүй next,install товчуудыг дарна.
@@ -51,5 +51,5 @@ int main()
     cout << endl;
 }
 ```
-* доорхи зургын дагуу play товчыг дараад, гарч ирсэн сонголтоос g++ гэснийг нь сонгоно.![Alt](images/run-play-button.png)![Alt](images/select-gcc-compiler.png)
+* доорхи зургийн дагуу play товчыг дараад, гарч ирсэн сонголтоос g++ гэснийг нь сонгоно.![Alt](images/run-play-button.png)![Alt](images/select-gcc-compiler.png)
 * Terminal tab дээр доорхи зурагтай адил харагдаж байвал бүх юм ОК гэсэн үг.![Alt](images/helloworld-terminal-output.png)

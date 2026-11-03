@@ -46,7 +46,7 @@ cout<<c["kk"]; //0("kk" gesen hayagt data baihgui uchir int-iin default utga 0)
 for(auto v:c){
     cout<<v.first<<" "<<v.second<<"\n";
 }
-//map дотор элементүүд нь pair хэлбэрээр хадгалаастай байдаг.
+//map дотор элементүүд нь pair хэлбэрээр хадгалагдсан байдаг.
 //Output:
 //hi 123
 //khan 11111

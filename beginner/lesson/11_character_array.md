@@ -82,7 +82,7 @@ int main(){
 <br><img src="pic/char2arr.png" width="480" height="150" />
 
 # string
-string нь char-ийн array(нарийн хэлбэл vector) л гэсэн үг. vector-ийн фунцуудыг бүгдийг нь ашиглаж болно.
+string нь char-ийн array(нарийн хэлбэл vector) л гэсэн үг. vector-ийн функцуудыг бүгдийг нь ашиглаж болно.
 
 ```cpp
 string s,t="amarhan baigaa biz dee";

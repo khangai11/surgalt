@@ -67,7 +67,7 @@ while(ng-ok>1){
 
 ## C++ lower_bound(), upper_bound()
 
-stl дотор lower_bound(), upper_bound() гэсэн 2 binary search хйидэг функц бий.
+stl дотор lower_bound(), upper_bound() гэсэн 2 binary search хийдэг функц бий.
 
 | function | explanation |
 |---|---|

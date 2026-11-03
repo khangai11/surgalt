@@ -1,6 +1,6 @@
-# C++ эрэмблэх функц
+# C++ эрэмбэлэх функц
 
-## Vector, Massive, String эрэмблэх жишээ
+## Vector, Massive, String эрэмбэлэх жишээ
 ```c++
 int main()
 {
