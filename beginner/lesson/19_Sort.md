@@ -37,9 +37,9 @@ sort(s.begin(),s.end(),comp);
 //s = {for,some,text,sorting,aaaaaaaaa};
 
 ```
-```c++
 ## pair өгөгдлийн бүтэц
 
+```c++
 //Хоёр өгөгдлийн төрлийн хослолыг pair -т хадгалдаг. Жишээ нь:
 pair<int,int> a;
 pair<int,string> b;
